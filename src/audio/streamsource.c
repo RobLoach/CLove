@@ -78,10 +78,10 @@ void audio_updateStreams() {
         alGetSourcei(src, AL_BUFFERS_PROCESSED, &count);
         alGetSourcei(src, AL_BUFFERS_QUEUED, &queued);
         alGetSourcei(src, AL_SOURCE_STATE, &state);
+    
 
+        int loaded = audio_vorbis_preloadStreamSamples(source->decoderData, 8000);
         if (count > 0 && source->state == audio_SourceState_playing) {
-
-            int loaded = audio_vorbis_preloadStreamSamples(source->decoderData, 8000);
 
             if (source->state == audio_SourceState_stopped) {
                 count = 0;
