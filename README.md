@@ -2,7 +2,7 @@
 
 CLove
 =====
-CLove is a simple, easy to learn and use 2D/3D game framework tested on
+CLove is a simple, easy to learn and use 2D game framework tested on
 Mac/Linux/PC, made in C with OpenGLES 2 which uses Lua as scripting langauge.
 
 How to build
@@ -35,7 +35,7 @@ libaudio-dev libesd0-dev libpulse-dev libroar-dev
 Features
 ========
 - Lua scripting language
-- 3D
+- 3D camera functions
 - Easy to learn and use api 
 - Cross Platform (Desktop & Web)
 - Possibility of hiding the code inside .zip files and load the data from there
@@ -54,7 +54,7 @@ Features
 Contributing
 ========
 If you want to contribute to the project, feel free to work on what you please. I want to do a lot of the other stuff myself too.
-Please try to replicate the code style of the existing code by using QT Community, I might refuse to pull your changes otherwise.
+Please try to replicate the code style of the existing code by using tab width of 4 spaces and ident of also 4 spaces and expand tabs to spaces, I might refuse to pull your changes otherwise.
 
 Examples (see examples folder)
 --------
