@@ -1,7 +1,7 @@
 #
 #   clove
 #
-#   Copyright (C) 2016 Muresan Vlad
+#   Copyright (C) 2016-2017 Muresan Vlad
 #
 #   This project is free software; you can redistribute it and/or modify it
 #   under the terms of the MIT license. See LICENSE.md for details.
@@ -41,32 +41,15 @@ IF(UNIX AND NOT APPLE)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
     SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
     SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,--as-needed,--allow-multiple-definition,--build-id")
+    # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
+    SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
     SET(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
 ENDIF(UNIX AND NOT APPLE)
 
 if (APPLE)
-    SET(MACOSX_RPATH 1)
-    # use, i.e. don't skip the full RPATH for the build tree
-    SET(CMAKE_SKIP_BUILD_RPATH  FALSE)
-
-    # when building, don't use the install RPATH already
-    # (but later on when installing)
-    SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
-
-    SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
-
-    # add the automatically determined parts of the RPATH
-    # which point to directories outside the build tree to the install RPATH
-    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-
-
-    # the RPATH to be used when installing, but only if it's not a system directory
     LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
     IF("${isSystemDir}" STREQUAL "-1")
-    SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
     ENDIF("${isSystemDir}" STREQUAL "-1")
-
     FIND_PACKAGE(OpenGL REQUIRED)
     FIND_LIBRARY(COCOA_LIB Cocoa)
     FIND_LIBRARY(CORE_SERVICES_LIB CoreServices)
@@ -152,13 +135,22 @@ set(GLEW_INCLUDE_DIR src/3rdparty/glew/include/GL/)
 
 #sdl2
 add_subdirectory(src/3rdparty/SDL2/)
-include_directories(src/3rdparty/SDL2/include/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
-set(SDL_LIBRARIES SDL2)
+set(SDL_LIBRARIES SDL2-static SDL2main)
+
+
+if(MINGW)
+    SET(OPENAL_LIBRARIES "OpenAL32")
+    set(PHYSFS_LIBRARIES physfs)
+endif()
+if(UNIX OR APPLE)
+    SET(OPENAL_LIBRARIES openal)
+endif()
 
 add_definitions(-DAL_LIBTYPE_STATIC)
 add_definitions(-DGLEW_STATIC)
 add_definitions(-DFT2_BUILD_LIBRARY)
+add_definitions(-DSDL2_STATIC)
 
 #freetype
 set(FREETYPE_LIBRARIES freetype)
@@ -171,14 +163,6 @@ if(UNIX AND NOT APPLE)
 endif()
 if (APPLE)
     set(PHYSFS_LIBRARIES physfs-static)
-endif()
-
-if(MINGW)
-    SET(OPENAL_LIBRARIES "OpenAL32")
-    set(PHYSFS_LIBRARIES physfs)
-endif()
-if(UNIX)
-    SET(OPENAL_LIBRARIES openal)
 endif()
 
 if(MINGW)
