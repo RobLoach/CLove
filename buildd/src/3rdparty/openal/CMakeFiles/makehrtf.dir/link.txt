@@ -1,1 +1,0 @@
-/usr/bin/cc  -std=c99   -fPIC -DLINUX -ldl -g -O2 -D_DEBUG   CMakeFiles/makehrtf.dir/utils/makehrtf.c.o  -o makehrtf -rdynamic -lm -Wl,-rpath,::::::: 
