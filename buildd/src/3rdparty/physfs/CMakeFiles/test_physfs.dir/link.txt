@@ -1,0 +1,1 @@
+/usr/bin/cc    -fPIC -DLINUX -ldl -g -O2 -D_DEBUG   CMakeFiles/test_physfs.dir/test/test_physfs.o  -o test_physfs -rdynamic libphysfs.so.2.0.3 -lz -Wl,-rpath,/home/murii/Desktop/Programming/CLove/build/src/3rdparty/physfs: 

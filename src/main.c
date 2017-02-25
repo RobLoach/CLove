@@ -76,10 +76,6 @@ void main_clean(lua_State* state) {
        causes lua_close to give a segment fault. */
     lua_close(state);
     audio_close();
-
-    if(PHYSFS_isInit() == 1)
-        PHYSFS_deinit();
-
 }
 
 void main_loop(void *data) {
@@ -233,24 +229,12 @@ int main(int argc, char* argv[]) {
 
     l_running = 1;
 
-    /*
-     * Since 24.09.16 boot from zip was introduced which means .zip files
-     * are being used for executing games, just like Love2d does.
-     * It took me several days to make this feature to work, so
-     * appreciate it ^_^!
-     */ 
-    if (filesystem_exists("boot.lua")){
-        if(luaL_dofile(lua,"boot.lua")){
-            luaL_error(lua, "%s \n", lua_tostring(lua, -1));
-        }
-    } else {
-        int err = luaL_dofile(lua,"main.lua");
-        if (err == 1){
-            l_no_game(lua, &config);
-            printf("%s \n", lua_tostring(lua, -1));
-        } else if (err == 0)
-            luaL_dofile(lua,"main.lua");
-    }
+    int err = luaL_dofile(lua,"main.lua");
+    if (err == 1){
+        l_no_game(lua, &config);
+        printf("%s \n", lua_tostring(lua, -1));
+    } else if (err == 0)
+        luaL_dofile(lua,"main.lua");
 
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)

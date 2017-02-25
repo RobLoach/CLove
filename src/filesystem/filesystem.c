@@ -20,13 +20,10 @@ static struct {
 void filesystem_init(char* argv0, int stats) {
 #ifdef CLOVE_MACOSX
     moduleData.os = "osx";
-    PHYSFS_init(argv0);
 #elif CLOVE_LINUX
     moduleData.os = "linux";
-    PHYSFS_init(argv0);
 #elif CLOVE_WINDOWS
     moduleData.os = "windows";
-    PHYSFS_init(NULL);
 #else
     moduleData.os = "This OS is not supported";
 #endif
@@ -114,11 +111,11 @@ int filesystem_read(char const* filename, char** output) {
     return size;
 }
 
-/*
-   const char* filesystem_getSource() {
-   return SDL_GetBasePath();
-   }
-   */
+
+const char* filesystem_getSource() {
+    return SDL_GetBasePath();
+}
+
 
 int filesystem_remove(const char* name) {
     remove(name);
