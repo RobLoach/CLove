@@ -44,6 +44,7 @@ IF(UNIX AND NOT APPLE)
     # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
     SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
     SET(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
+    SET(CMAKE_INSTALL_RPATH "install")
 ENDIF(UNIX AND NOT APPLE)
 
 if (APPLE)
@@ -62,6 +63,7 @@ if (APPLE)
     SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
     SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
     SET(OS_SPECIFIC_LIBRARIES ${COCOA_LIB} ${CORE_SERVICES_LIB} ${FOUNDATION_LIB} ${IOKIT_LIB})
+    SET(CMAKE_INSTALL_RPATH "install")
 endif()
 
 FILE(

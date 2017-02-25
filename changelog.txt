@@ -1,6 +1,8 @@
 version 0.7.0 not released yet: 
 planned: love.graphics.newMesh submodule
 
+fixed: static linking for SDL. You got to use make install just to be sure clove can
+be run. @Temporal fix, use rpath or something similar
 fixed?: fixed stream support with vorbis files
 fixed: rectangles and circles alpha when using love.graphics.setColor
 fixed: Windows support should be totally functional 
