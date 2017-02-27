@@ -105,8 +105,39 @@ static int l_filesystem_compare(lua_State* state)  {
   return 1;
 }
 
+static int l_filesystem_getCurrentDirectory(lua_State* state) {
+    lua_pushstring(state, filesystem_getCurrentDirectory());
+    return 1;
+}
+
+static int l_filesystem_isFile(lua_State* state) {
+    const char* file = l_tools_toStringOrError(state, 1);
+    const char* string_mode = luaL_optstring(state, 2, "e"); //default check only for existence
+    int mode = 0;
+    
+    if (strncmp(string_mode,"e", 1) == 0)
+        mode = 0;
+    else if (strncmp(string_mode,"w", 1) == 0)
+        mode = 2;
+    else if (strncmp(string_mode,"r", 1) == 0)
+        mode = 4;
+    else if (strncmp(string_mode,"wr", 2) == 0)
+        mode = 6;
+
+    int isFile = filesystem_isFile(file, mode); 
+
+    if (isFile == 0)
+        lua_pushboolean(state, 1);
+    else 
+        lua_pushboolean(state, 0);
+
+    return 1;
+}
+
 static luaL_Reg const regFuncs[] = {
   {"load", l_filesystem_load},
+  {"isFile", l_filesystem_isFile},
+  {"getCurrentDirectory", l_filesystem_getCurrentDirectory},
   {"getSaveDirectory", l_filesystem_getSaveDirectory},
   {"getSource", l_filesystem_getSource},
   {"remove", l_filesystem_remove},

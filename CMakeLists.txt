@@ -44,6 +44,7 @@ IF(UNIX AND NOT APPLE)
     # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
     SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
     SET(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
+    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     SET(CMAKE_INSTALL_RPATH "install")
 ENDIF(UNIX AND NOT APPLE)
 
@@ -63,6 +64,7 @@ if (APPLE)
     SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
     SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
     SET(OS_SPECIFIC_LIBRARIES ${COCOA_LIB} ${CORE_SERVICES_LIB} ${FOUNDATION_LIB} ${IOKIT_LIB})
+    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     SET(CMAKE_INSTALL_RPATH "install")
 endif()
 
@@ -131,7 +133,6 @@ set(GLEW_INCLUDE_DIR src/3rdparty/glew/include/GL/)
 add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
-
 
 if(MINGW)
     SET(OPENAL_LIBRARIES "OpenAL32")
