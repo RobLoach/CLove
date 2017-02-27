@@ -130,7 +130,7 @@ static int l_filesystem_isFile(lua_State* state) {
         lua_pushboolean(state, 1);
     else 
         lua_pushboolean(state, 0);
-
+    
     return 1;
 }
 
