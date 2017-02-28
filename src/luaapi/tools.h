@@ -22,6 +22,11 @@ int l_tools_makeTypeMetatable(lua_State* state, luaL_Reg const* funcs);
 
 #ifndef LOVE_SKIP_SAFETY_CHECKS
 
+inline void l_tools_trowError(lua_State* state, const char* msg) {
+    lua_pushstring(state, msg);
+    lua_error(state);
+}
+
 inline float l_tools_toNumberOrError(lua_State* state, int index) {
   if(lua_type(state, index) != LUA_TNUMBER) {
       luaL_argerror(state,index-1,"expected number");

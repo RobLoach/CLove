@@ -8,7 +8,7 @@
 */
 #include "mesh.h"
 
-void graphics_Mesh_new(graphics_Mesh* mesh, size_t vertexCount, graphics_Vertex* vertices, int indexCount,uint16_t* indices, graphics_Image* image, graphics_MeshDrawMode* drawMode) {
+void graphics_Mesh_new(graphics_Mesh* mesh, size_t vertexCount, graphics_Vertex* vertices, size_t indexCount,uint16_t* indices, graphics_Image* image, graphics_MeshDrawMode drawMode) {
 
     mesh->vertices = vertices;
     mesh->indices = indices;
@@ -26,9 +26,9 @@ void graphics_Mesh_new(graphics_Mesh* mesh, size_t vertexCount, graphics_Vertex*
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(2*sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(2*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(4*sizeof(GLfloat)));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(4*sizeof(float)));
 
 }
 
@@ -53,7 +53,7 @@ void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, s
     memcpy(mesh->vertices, vertices, vertexCount * sizeof(graphics_Vertex));
 }
 
-void graphics_Mesh_setIndices(graphics_Mesh* mesh, uint16_t* indices, int indexCount) {
+void graphics_Mesh_setIndices(graphics_Mesh* mesh, uint16_t* indices, size_t indexCount) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ibo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(indices), indices, GL_DYNAMIC_DRAW);
 
@@ -76,8 +76,7 @@ void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx
     glBufferData(GL_ARRAY_BUFFER, sizeof(mesh->vertices) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
     
     m4x4_newTransform2d(&mesh->tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
-    
-    graphics_drawArray(&quad, &mesh->tr2d, mesh->indices, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
+    graphics_drawArray(&quad, &mesh->tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_BYTE, graphics_getColor(), 1.0f, 1.0f);
 }
 
 
