@@ -11,8 +11,8 @@
 static struct {
     int meshMT;
     void* vertices;
-    size_t verticesSize;
-    uint16_t* indices;
+    int verticesSize;
+    unsigned int* indices;
     int indicesSize;
 }moduleData;
 
@@ -24,10 +24,9 @@ static const l_tools_Enum l_graphics_MeshDrawMode[] = {
     {NULL, 0}
 };
 
-static void feedVertices(size_t size) {
+static void feedVertices(int size) {
     if (moduleData.verticesSize <  size) {
-        if (moduleData.vertices != NULL)
-            free(moduleData.vertices);
+        free(moduleData.vertices);
         moduleData.vertices = malloc(size);
         moduleData.verticesSize = size;
     }
@@ -35,20 +34,16 @@ static void feedVertices(size_t size) {
 
 static void feedIndices(int size) {
     if (moduleData.indicesSize <  size) {
-        if (moduleData.indices != NULL)
-            free(moduleData.indices);
+        free(moduleData.indices);
         moduleData.indices= malloc(size);
         moduleData.indicesSize = size;
     }
 }
 
 static void readVertex(lua_State* state, graphics_Vertex* vertices) {
-    if (lua_objlen(state, -1) < 4) {
-        lua_pushstring(state, "Table entry is not a valid vertex");
-        lua_error(state);
-        return;
-    }
-
+    if (lua_objlen(state, -1) < 4) 
+       l_tools_trowError(state, "Table entry is not a valid vertex"); 
+    
     float* t = (float*)vertices;
 
     for (int i = 0; i < 4; i++) {
@@ -65,16 +60,14 @@ static void readVertex(lua_State* state, graphics_Vertex* vertices) {
         printf("%f %s \n", t[i], " valoare vertex cu culoare");
         lua_pop(state, 1);
     }
-
 }
 
-static void readIndice(lua_State* state, uint16_t* indices, int count) {
-    if (!lua_objlen(state, -1) > 0) {
+static void readIndice(lua_State* state, int* indices, int count) {
+    if (lua_objlen(state, -1) == 0) 
         l_tools_trowError(state, "Invalid indices table");
-        return;
-    }
     
-    uint16_t* t = indices;
+    
+    int* t = indices;
 
     for (int i = 0; i < 4; i++) {
         lua_rawgeti(state, -1, i+1);
@@ -92,7 +85,7 @@ static int readIndices(lua_State* state, int indx) {
     }
 
     int count = lua_objlen(state, indx);
-    feedIndices(count * sizeof(int));
+    feedIndices(count * sizeof(unsigned int));
     
     for (int i = 0; i < count; i++) {
         lua_rawgeti(state, indx, i+1);
@@ -125,7 +118,7 @@ static size_t readVertices(lua_State* state, int indx) {
 
 int l_graphics_newMesh(lua_State* state) {
 
-    size_t vertexCount = readVertices(state, 1); 
+    int vertexCount = readVertices(state, 1); 
     int indexCount = readIndices(state, 2);
     l_graphics_Image* image = l_graphics_toImage(state, 3);
     graphics_MeshDrawMode mode = graphics_MeshDrawMode_strip;//l_tools_toEnumOrError(state, 4, l_graphics_MeshDrawMode);
@@ -147,7 +140,7 @@ static int l_graphics_gcMesh(lua_State* state) {
 
     graphics_Mesh_free(&mesh->mesh);
 
-    luaL_unref(state, LUA_REGISTRYINDEX, mesh->meshDataRef);
+    luaL_unref(state, LUA_REGISTRYINDEX, mesh->textureRef);
 
     return 0;
 }

@@ -40,17 +40,17 @@ typedef struct {
     graphics_Image* image;
     graphics_MeshDrawMode drawMode;
     graphics_Vertex* vertices;
-    size_t vertexCount;
-    uint16_t* indices;
-    size_t indexCount;
+    int vertexCount;
+    int* indices;
+    int indexCount;
     mat4x4 tr2d;
 } graphics_Mesh;
 
-void graphics_Mesh_new(graphics_Mesh* mesh, size_t vertexCount, graphics_Vertex* vertices, size_t indexCount,uint16_t* indices, graphics_Image* image, graphics_MeshDrawMode drawMode);
+void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_Image* image, graphics_MeshDrawMode drawMode);
 void graphics_Mesh_free(graphics_Mesh* mesh);
 
-void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, size_t vertexCount);
-void graphics_Mesh_setIndices(graphics_Mesh* mesh, uint16_t* indices, size_t indexCount);
+void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, int vertexCount);
+void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int indexCount);
 
 void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx, float sy, float ox, float oy, float kx, float ky);
 

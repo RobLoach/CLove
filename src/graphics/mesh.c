@@ -8,19 +8,21 @@
 */
 #include "mesh.h"
 
-void graphics_Mesh_new(graphics_Mesh* mesh, size_t vertexCount, graphics_Vertex* vertices, size_t indexCount,uint16_t* indices, graphics_Image* image, graphics_MeshDrawMode drawMode) {
+void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_Image* image, graphics_MeshDrawMode drawMode) {
 
-    mesh->vertices = vertices;
-    mesh->indices = indices;
+    mesh->vertices = 0;
+    mesh->indices = 0;
+
     mesh->image = image;
     mesh->drawMode = drawMode;
-    mesh->vertexCount = vertexCount;
-    mesh->indexCount = indexCount;
+   
+    mesh->vertexCount = 0;
+    mesh->indexCount = 0;
 
     glGenBuffers(1, &mesh->vbo);
-    graphics_Mesh_setVertices(mesh, vertices, vertexCount);
-
     glGenBuffers(1, &mesh->ibo);
+
+    graphics_Mesh_setVertices(mesh, vertices, vertexCount);
     graphics_Mesh_setIndices(mesh, indices, indexCount);    
 
     glEnableVertexAttribArray(0);
@@ -40,10 +42,10 @@ void graphics_Mesh_free(graphics_Mesh* mesh) {
     free(mesh->vertices);
 }
 
-void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, size_t vertexCount) {
+void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, int vertexCount) {
     glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
-    glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
-
+    glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(graphics_Vertex), vertices, GL_DYNAMIC_DRAW);
+    
     if (vertexCount != mesh->vertexCount) {
         free(mesh->vertices);
         mesh->vertices = malloc(sizeof(graphics_Vertex) * vertexCount);
@@ -53,13 +55,13 @@ void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, s
     memcpy(mesh->vertices, vertices, vertexCount * sizeof(graphics_Vertex));
 }
 
-void graphics_Mesh_setIndices(graphics_Mesh* mesh, uint16_t* indices, size_t indexCount) {
+void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int indexCount) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(indices), indices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indices, GL_DYNAMIC_DRAW);
 
     if (indexCount != mesh->indexCount) {
         free(mesh->indices);
-        mesh->indices = malloc(sizeof(indices) * indexCount);
+        mesh->indices = malloc(sizeof(int) * indexCount);
         mesh->indexCount = indexCount;
     }
     
@@ -73,10 +75,12 @@ void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx
     glActiveTexture(GL_TEXTURE0); 
     glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
         
-    glBufferData(GL_ARRAY_BUFFER, sizeof(mesh->vertices) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
-    
-    m4x4_newTransform2d(&mesh->tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
-    graphics_drawArray(&quad, &mesh->tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_BYTE, graphics_getColor(), 1.0f, 1.0f);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
+   // glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices);
+
+    mat4x4 tr2d;
+    m4x4_newTransform2d(&tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
+    graphics_drawArray(&quad, &mesh->tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
 }
 
 

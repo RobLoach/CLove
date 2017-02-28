@@ -20,7 +20,6 @@
 
 typedef struct {
     graphics_Mesh mesh;
-    int meshDataRef;
     int textureRef;
 }   l_graphics_Mesh;
 
