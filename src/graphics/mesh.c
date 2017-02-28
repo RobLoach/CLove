@@ -11,7 +11,7 @@
 void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_Image* image, graphics_MeshDrawMode drawMode) {
 
     mesh->vertices = 0;
-    mesh->indices = 0;
+    printf("%s %d", "Index count e: ", indexCount);
 
     mesh->image = image;
     mesh->drawMode = drawMode;
@@ -61,11 +61,11 @@ void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int in
 
     if (indexCount != mesh->indexCount) {
         free(mesh->indices);
-        mesh->indices = malloc(sizeof(int) * indexCount);
+        mesh->indices = malloc(sizeof(unsigned int) * indexCount);
         mesh->indexCount = indexCount;
     }
     
-    memcpy(mesh->indices, indices, sizeof(indices) * indexCount);
+    memcpy(mesh->indices, indices, sizeof(unsigned int) * indexCount);
 }
 
 static const graphics_Quad quad = {0.0f, 0.0f, 1.0f, 1.0f};
@@ -75,12 +75,12 @@ void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx
     glActiveTexture(GL_TEXTURE0); 
     glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
         
-    glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
    // glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices);
 
     mat4x4 tr2d;
     m4x4_newTransform2d(&tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
-    graphics_drawArray(&quad, &mesh->tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
+    graphics_drawArray(&quad, &tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
 }
 
 

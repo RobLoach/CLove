@@ -68,7 +68,8 @@ static void readIndice(lua_State* state, int* indices, int count) {
     
     
     int* t = indices;
-
+    
+    //TODO remove hardcoded value
     for (int i = 0; i < 4; i++) {
         lua_rawgeti(state, -1, i+1);
         t[i] = lua_tonumber(state, -1);
@@ -85,8 +86,6 @@ static int readIndices(lua_State* state, int indx) {
     }
 
     int count = lua_objlen(state, indx);
-    feedIndices(count * sizeof(unsigned int));
-    
     for (int i = 0; i < count; i++) {
         lua_rawgeti(state, indx, i+1);
         readIndice(state, moduleData.indices + i, count);
@@ -118,13 +117,17 @@ static size_t readVertices(lua_State* state, int indx) {
 
 int l_graphics_newMesh(lua_State* state) {
 
-    int vertexCount = readVertices(state, 1); 
-    int indexCount = readIndices(state, 2);
-    l_graphics_Image* image = l_graphics_toImage(state, 3);
+    int vertexCount = readVertices(state, 1);
+    int numberOfIndex = l_tools_toNumberOrError(state, 2);
+    
+    feedIndices(numberOfIndex * sizeof(unsigned int));
+    readIndices(state, 3);
+    
+    l_graphics_Image* image = l_graphics_toImage(state, 4);
     graphics_MeshDrawMode mode = graphics_MeshDrawMode_strip;//l_tools_toEnumOrError(state, 4, l_graphics_MeshDrawMode);
 
     l_graphics_Mesh* mesh = lua_newuserdata(state, sizeof(l_graphics_Mesh));
-    graphics_Mesh_new(&mesh->mesh, vertexCount, (graphics_Vertex*)moduleData.vertices, indexCount, moduleData.indices, &image->image, mode);
+    graphics_Mesh_new(&mesh->mesh, vertexCount, (graphics_Vertex*)moduleData.vertices, numberOfIndex, moduleData.indices, &image->image, mode);
 
     lua_pushvalue(state, 3);
     mesh->textureRef = luaL_ref(state, LUA_REGISTRYINDEX);
