@@ -1,1 +1,0 @@
-just call ./clove from the terminal or create a shell scrip to run your games ;)

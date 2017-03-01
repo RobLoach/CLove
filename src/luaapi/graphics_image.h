@@ -8,14 +8,22 @@
 */
 #pragma once
 
+#include "../3rdparty/lua/lauxlib.h"
+#include "../3rdparty/lua/lualib.h"
 #include "../3rdparty/lua/lua.h"
+
 #include "image.h"
+#include "tools.h"
+#include "graphics.h"
+#include "graphics_image.h"
+
 #include "../graphics/image.h"
+#include "../graphics/gltools.h"
 
 typedef struct {
-  graphics_Image image;
-  int imageDataRef;
-  const char* path;
+    graphics_Image image;
+    int imageDataRef;
+    const char* path;
 } l_graphics_Image;
 
 void l_graphics_image_register(lua_State* state);
