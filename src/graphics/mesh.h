@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "shader.h"
 #include "image.h"
 #include "quad.h"
 #include "vertex.h"
@@ -41,13 +42,17 @@ typedef struct {
     graphics_MeshDrawMode drawMode;
     graphics_Vertex* vertices;
     int vertexCount;
-    int* indices;
+    unsigned int* indices;
     int indexCount;
     mat4x4 tr2d;
+    bool hasTexture;
+    graphics_Shader plainColorShader;
 } graphics_Mesh;
 
-void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_Image* image, graphics_MeshDrawMode drawMode);
+void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_MeshDrawMode drawMode);
 void graphics_Mesh_free(graphics_Mesh* mesh);
+
+void graphics_Mesh_setTexture(graphics_Mesh* mesh, graphics_Image* image);
 
 void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, int vertexCount);
 void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int indexCount);

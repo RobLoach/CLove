@@ -8,12 +8,20 @@
 */
 #include "mesh.h"
 
-void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_Image* image, graphics_MeshDrawMode drawMode) {
+//TODO indices based on array size. eg: uint8,uint16 etc
+
+void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_MeshDrawMode drawMode) {
+
+    mesh->hasTexture = false;
+    
+    graphics_Shader_new(&mesh->plainColorShader, NULL, 
+            "vec4 effect(vec4 color, Image texture, vec2 texture_coords, vec2 screen_cords )           {\n"
+            "  return color;\n"
+            "}\n");
 
     mesh->vertices = 0;
-    printf("%s %d", "Index count e: ", indexCount);
+    mesh->indices = 0;
 
-    mesh->image = image;
     mesh->drawMode = drawMode;
    
     mesh->vertexCount = 0;
@@ -30,8 +38,7 @@ void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* ve
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(2*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(4*sizeof(float)));
-
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(4*sizeof(float)));    
 }
 
 void graphics_Mesh_free(graphics_Mesh* mesh) {
@@ -40,6 +47,14 @@ void graphics_Mesh_free(graphics_Mesh* mesh) {
     
     free(mesh->indices);
     free(mesh->vertices);
+}
+
+void graphics_Mesh_setTexture(graphics_Mesh* mesh, graphics_Image* image) {
+    if (image != NULL) {
+        mesh->hasTexture = true;
+        mesh->image = image;
+    } else 
+        mesh->hasTexture = false;
 }
 
 void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, int vertexCount) {
@@ -64,23 +79,31 @@ void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int in
         mesh->indices = malloc(sizeof(unsigned int) * indexCount);
         mesh->indexCount = indexCount;
     }
-    
     memcpy(mesh->indices, indices, sizeof(unsigned int) * indexCount);
 }
 
 static const graphics_Quad quad = {0.0f, 0.0f, 1.0f, 1.0f};
 void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx, float sy, float ox, float oy, float kx, float ky) {
     
-    glEnable(GL_TEXTURE_2D);
-    glActiveTexture(GL_TEXTURE0); 
-    glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
+    graphics_Shader* shader = graphics_getShader();
+    if (mesh->hasTexture) {
+        /* set the default shader in case you previously 
+         * did not have a texture put 
+         */
+        graphics_setShader(shader);
+        glEnable(GL_TEXTURE_2D);
+        glActiveTexture(GL_TEXTURE0); 
+        glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
+        } else 
+            graphics_setShader(&mesh->plainColorShader);
         
-    //glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
-   // glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
 
-    mat4x4 tr2d;
-    m4x4_newTransform2d(&tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
-    graphics_drawArray(&quad, &tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
+    m4x4_newTransform2d(&mesh->tr2d, x, y, r, sx , sy, ox, oy, kx, ky);
+    graphics_drawArray(&quad, &mesh->tr2d, mesh->ibo, mesh->indexCount, mesh->drawMode, GL_UNSIGNED_INT, graphics_getColor(), 1.0f, 1.0f);
+    
+    if (!mesh->hasTexture)
+        graphics_setShader(shader);
 }
 
 

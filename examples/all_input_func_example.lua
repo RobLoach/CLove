@@ -1,3 +1,6 @@
+
+--Joystick is separated lua file ! 
+
 local text = ""
 local a = 0
 
