@@ -41,6 +41,7 @@ Features
 - Possibility of hiding the code inside .zip files and load the data from there
 - Powerful Batch system
 - Image loader & drawing
+- Meshes
 - Image creation from scratch or from a template & save(png,bmp,tga)
 - Sound loader & playing (Vorbis and Wav)
 - Primitives drawing
