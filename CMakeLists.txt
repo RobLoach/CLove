@@ -44,6 +44,7 @@ IF(UNIX AND NOT APPLE)
     # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
     SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
     SET(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
+    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     SET(CMAKE_INSTALL_RPATH "install")
 ENDIF(UNIX AND NOT APPLE)
 
@@ -63,6 +64,7 @@ if (APPLE)
     SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
     SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
     SET(OS_SPECIFIC_LIBRARIES ${COCOA_LIB} ${CORE_SERVICES_LIB} ${FOUNDATION_LIB} ${IOKIT_LIB})
+    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     SET(CMAKE_INSTALL_RPATH "install")
 endif()
 
@@ -88,6 +90,10 @@ FILE(
     src/*.h
     src/resources/*.png
 
+    #Add native
+    native/*.c*
+    native/*.h
+
     #3rdparty "small" libs
     src/3rdparty/stb/*.c
     src/3rdparty/stb/*.h
@@ -102,6 +108,7 @@ FILE(
 set(clove_package "clove")
 set(clove_creator "Muresan Vlad")
 set(clove_copyright "Copyright (c) 2015-2016, ${clove_creator}.")
+message(clove_copyright)
 
 add_executable(
     clove
@@ -112,15 +119,6 @@ INCLUDE_DIRECTORIES(src/3rdparty/stb)
 #freetype
 add_subdirectory(src/3rdparty/freetype)
 set(FREETYPE_INCLUDE_DIR src/3rdparty/freetype/include)
-
-#zlib
-add_subdirectory(src/3rdparty/zlib)
-set(ZLIB_FOUND TRUE)
-set(ZLIB_LIBRARIES zlibstatic)
-
-#physfs
-add_subdirectory(src/3rdparty/physfs)
-set(PHYSFS_INCLUDE_DIR src/3rdparty/physfs/)
 
 #openal
 add_subdirectory(src/3rdparty/openal)
@@ -140,10 +138,8 @@ add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
 
-
 if(MINGW)
     SET(OPENAL_LIBRARIES "OpenAL32")
-    set(PHYSFS_LIBRARIES physfs)
 endif()
 if(UNIX OR APPLE)
     SET(OPENAL_LIBRARIES openal)
@@ -160,32 +156,22 @@ include_directories(src/3rdparty/freetype/include)
 
 set(GLEW_LIBRARIES libglew_static)
 
-if(UNIX AND NOT APPLE)
-    set(PHYSFS_LIBRARIES physfs)
-endif()
-if (APPLE)
-    set(PHYSFS_LIBRARIES physfs-static)
-endif()
-
 if(MINGW)
     target_link_libraries(clove ws2_32.lib
-        ${ZLIB_LIBRARIES} ${PHYSFS_LIBRARIES}
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
 if(APPLE)
-    target_link_libraries(clove 
-        ${ZLIB_LIBRARIES} ${PHYSFS_LIBRARIES}
+    target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
 if(UNIX)
-    target_link_libraries(clove 
-        ${ZLIB_LIBRARIES} ${PHYSFS_LIBRARIES}
+    target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})

@@ -8,8 +8,7 @@
 */
 #pragma once
 
-//#include "../3rdparty/SDL2/include/SDL.h"
-#include "../3rdparty/physfs/physfs.h"
+#include "../3rdparty/SDL2/include/SDL.h"
 
 void filesystem_init(char* argv0, int stats);
 const char* filesystem_getOS();
@@ -22,4 +21,7 @@ int filesystem_exists(const char* name);
 int filesystem_compare(const char* a,const char* b,int l);
 int filesystem_contain(const char* a, const char* b);
 int filesystem_remove(const char* name);
-
+int filesystem_isFile(const char* file, int mode);   
+const char* filesystem_getCurrentDirectory();
+const char* filesystem_getSource();
+ 

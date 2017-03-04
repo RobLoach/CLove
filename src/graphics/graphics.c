@@ -220,7 +220,7 @@ int* graphics_getDesktopDimension() {
         printf("Error, love.window.getDesktopDimension(): %s", SDL_GetError());
     }
     static int ret[2] = {0};
-    ret[0] = dm.w; 
+    ret[0] = dm.w;
     ret[1] = dm.h;
     return ret;
 }
@@ -298,7 +298,7 @@ int graphics_getDisplayCount() {
 int graphics_setIcon(image_ImageData* imgd) {
 //Adapted from Love
     Uint32 rmask, gmask, bmask, amask;
-    moduleData.icon = imgd;    
+    moduleData.icon = imgd;
 
     rmask = 0x000000FF;
     gmask = 0x0000FF00;
@@ -312,7 +312,7 @@ int graphics_setIcon(image_ImageData* imgd) {
     SDL_Surface *sdlicon = 0;
 
     sdlicon =SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
-  
+
     SDL_SetWindowIcon(moduleData.window, sdlicon);
     SDL_FreeSurface(sdlicon);
 

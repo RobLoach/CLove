@@ -19,7 +19,7 @@ On Windows:
  After that use the make command and that's it( if you get errors that make does not exist then paste this into CMD terminal: 
   copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe )
 - Download DX SDK 2010 only if you get errors from SDL when building: http://www.microsoft.com/en-us/download/details.aspx?id=6812
-- After you have succesfuly build CLove go into src/3rdparty directory and copy: SDL2, openal and physfs .dll in the same directory where clove.exe is.
+- After you have succesfuly build CLove go into src/3rdparty directory and copy: SDL2, openal .dll in the same directory where clove.exe is.
 - Restart the PC if needed
 
 On Linux & OS X:
@@ -34,15 +34,16 @@ libaudio-dev libesd0-dev libpulse-dev libroar-dev
 
 Features
 ========
-- Lua scripting language
+- Lua scripting language or native C/C++ support
 - 3D camera functions
 - Easy to learn and use api 
-- Cross Platform (Desktop & Web)
-- Possibility of hiding the code inside .zip files and load the data from there
+- Cross Platform 
 - Powerful Batch system
 - Image loader & drawing
+- Meshes
 - Image creation from scratch or from a template & save(png,bmp,tga)
 - Sound loader & playing (Vorbis and Wav)
+- Streaming support for Vorbis files
 - Primitives drawing
 - Filesystem functions
 - OpenGL ES 2.0 

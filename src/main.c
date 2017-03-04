@@ -49,6 +49,12 @@
 #include "mouse.h"
 #include "timer/timer.h"
 
+/* Only if USE_NATIVE is declared in tools/utils.c
+ * then use it */
+#ifdef USE_NATIVE
+    #include "../native/game.h"
+#endif
+
 typedef struct {
     lua_State *luaState;
     int errhand;
@@ -69,17 +75,13 @@ void love_focus(lua_State* state) {
     lua_call(state, 1, 0);
 }
 
-void main_clean(lua_State* state) { 
+void main_clean(lua_State* state) {
     joystick_close();
     graphics_destroyWindow();
     /* There is a nasty bug on Windows that
        causes lua_close to give a segment fault. */
     lua_close(state);
     audio_close();
-
-    if(PHYSFS_isInit() == 1)
-        PHYSFS_deinit();
-
 }
 
 void main_loop(void *data) {
@@ -96,6 +98,10 @@ void main_loop(void *data) {
 
     pcall(loopData->luaState, 1);
 
+#ifdef USE_NATIVE
+    game_update((float)timer_getDelta());
+#endif
+
     if (swap_At == 1){
         if(luaL_dofile(loopData->luaState, "main.lua")) {
             printf("Error: %s\n", lua_tostring(loopData->luaState, -1));
@@ -108,6 +114,10 @@ void main_loop(void *data) {
     lua_rawget(loopData->luaState, -2);
 
     pcall(loopData->luaState, 0);
+
+#ifdef USE_NATIVE
+    game_draw();
+#endif
 
     graphics_swap();
 
@@ -157,7 +167,7 @@ void main_loop(void *data) {
             case SDL_MOUSEMOTION:
                 mouse_mousemoved(event.motion.x, event.motion.y);
                 break;
-            case SDL_MOUSEBUTTONDOWN: 
+            case SDL_MOUSEBUTTONDOWN:
                 mouse_mousepressed(event.button.x, event.button.y, event.button.button);
                 mouse_setButton(event.button.button);
                 break;
@@ -191,7 +201,7 @@ void main_loop(void *data) {
     audio_updateStreams();
 }
 
-int main(int argc, char* argv[]) { 
+int main(int argc, char* argv[]) {
     keyboard_init();
     joystick_init();
     timer_init();
@@ -233,24 +243,12 @@ int main(int argc, char* argv[]) {
 
     l_running = 1;
 
-    /*
-     * Since 24.09.16 boot from zip was introduced which means .zip files
-     * are being used for executing games, just like Love2d does.
-     * It took me several days to make this feature to work, so
-     * appreciate it ^_^!
-     */ 
-    if (filesystem_exists("boot.lua")){
-        if(luaL_dofile(lua,"boot.lua")){
-            luaL_error(lua, "%s \n", lua_tostring(lua, -1));
-        }
-    } else {
-        int err = luaL_dofile(lua,"main.lua");
-        if (err == 1){
-            l_no_game(lua, &config);
-            printf("%s \n", lua_tostring(lua, -1));
-        } else if (err == 0)
-            luaL_dofile(lua,"main.lua");
-    }
+    int err = luaL_dofile(lua,"main.lua");
+    if (err == 1){
+        l_no_game(lua, &config);
+        printf("%s \n", lua_tostring(lua, -1));
+    } else if (err == 0)
+        luaL_dofile(lua,"main.lua");
 
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)
@@ -265,6 +263,10 @@ int main(int argc, char* argv[]) {
     pcall(lua, 0);
 
     lua_pop(lua, 1);
+
+#ifdef USE_NATIVE
+    game_load();
+#endif
 
     lua_pushcfunction(lua, errorhandler);
 
