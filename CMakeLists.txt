@@ -90,6 +90,10 @@ FILE(
     src/*.h
     src/resources/*.png
 
+    #Add native
+    native/*.c*
+    native/*.h
+
     #3rdparty "small" libs
     src/3rdparty/stb/*.c
     src/3rdparty/stb/*.h
@@ -160,14 +164,14 @@ if(MINGW)
 endif()
 
 if(APPLE)
-    target_link_libraries(clove 
+    target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
 if(UNIX)
-    target_link_libraries(clove 
+    target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})

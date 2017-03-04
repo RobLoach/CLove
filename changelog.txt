@@ -1,13 +1,15 @@
-version 0.7.0 not released yet: 
-planned: love.graphics.newMesh submodule
+version 0.7.0 04.03.2017:
 
-removed: physfs and zlib 
+added: native which lets you code your games in C or C++ !
+added: love.graphics.newMesh
+removed: physfs and zlib
 added: build script for unix systems
+fixed: functions which were supported due to physfs
 fixed: static linking for SDL. You got to use make install just to be sure clove can
-be run. @Temporal fix, use rpath or something similar
+be run and use the folder produced for deploying.
 fixed?: fixed stream support with vorbis files
 fixed: rectangles and circles alpha when using love.graphics.setColor
-fixed: Windows support should be totally functional 
+fixed: Windows support should be totally functional
 
 
 version 0.6.3 29.01.2017:
@@ -21,7 +23,7 @@ fixed: build system for windows
 fixed: font
 fixed: https://github.com/Murii/CLove/issues/26
 fixed: love.mouse.isDown()
-	 
+
 version 0.6.2 12.01.2017:
 
 added No game screen
@@ -32,7 +34,7 @@ added love.window.hasFocus()
 added love.window.hasMouseFocus()
 added love.timer.sleep(seconds)
 added love.window.setIcon(imageData)
-added love.window.getIcon(),it does not behave like Love.Clove returns the name of the file 
+added love.window.getIcon(),it does not behave like Love.Clove returns the name of the file
 added pixels = ImageData:getString()
 added love.filesystem.load(fileName) see: https://love2d.org/wiki
 

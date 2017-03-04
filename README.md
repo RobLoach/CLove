@@ -34,15 +34,17 @@ libaudio-dev libesd0-dev libpulse-dev libroar-dev
 
 Features
 ========
-- Lua scripting language
+- Lua scripting language or native C/C++ support
 - 3D camera functions
 - Easy to learn and use api 
-- Cross Platform (Desktop & Web)
+- Cross Platform 
 - Possibility of hiding the code inside .zip files and load the data from there
 - Powerful Batch system
+- Mesh
 - Image loader & drawing
 - Image creation from scratch or from a template & save(png,bmp,tga)
 - Sound loader & playing (Vorbis and Wav)
+- Streaming support for Vorbis files
 - Primitives drawing
 - Filesystem functions
 - OpenGL ES 2.0 
