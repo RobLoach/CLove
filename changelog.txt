@@ -1,3 +1,7 @@
+version 0.7.1 not released:
+
+added: love.filesystem.require("file.lua"). Acts like require
+
 version 0.7.0 04.03.2017:
 
 added: native which lets you code your games in C or C++ !

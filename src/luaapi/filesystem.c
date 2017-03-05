@@ -30,6 +30,21 @@ static int l_filesystem_read(lua_State* state) {
   return 2;
 }
 
+static int l_filesystem_require(lua_State* state) {
+
+    const char* file = l_tools_toStringOrError(state, 1);
+    int args = luaL_optinteger(state, 2, 0);
+    int returns = luaL_optinteger(state, 3, 0);
+
+    int err = luaL_loadfile(state, file);
+    if (err == LUA_ERRSYNTAX)
+        l_tools_trowError(state, lua_tostring(state, -1));
+
+    lua_pcall(state, args, returns, 0);
+
+    return 1;
+}
+
 static int l_filesystem_getSaveDirectory(lua_State* state) {
     const char* company = luaL_optstring(state, 2, "Clove");
     const char* projName = luaL_optstring(state, 1, "myGame");
@@ -114,7 +129,7 @@ static int l_filesystem_isFile(lua_State* state) {
     const char* file = l_tools_toStringOrError(state, 1);
     const char* string_mode = luaL_optstring(state, 2, "e"); //default check only for existence
     int mode = 0;
-    
+
     if (strncmp(string_mode,"e", 1) == 0)
         mode = 0;
     else if (strncmp(string_mode,"w", 1) == 0)
@@ -124,18 +139,19 @@ static int l_filesystem_isFile(lua_State* state) {
     else if (strncmp(string_mode,"wr", 2) == 0)
         mode = 6;
 
-    int isFile = filesystem_isFile(file, mode); 
+    int isFile = filesystem_isFile(file, mode);
 
     if (isFile == 0)
         lua_pushboolean(state, 1);
-    else 
+    else
         lua_pushboolean(state, 0);
-    
+
     return 1;
 }
 
 static luaL_Reg const regFuncs[] = {
   {"load", l_filesystem_load},
+  {"require", l_filesystem_require},
   {"isFile", l_filesystem_isFile},
   {"getCurrentDirectory", l_filesystem_getCurrentDirectory},
   {"getSaveDirectory", l_filesystem_getSaveDirectory},
