@@ -37,7 +37,8 @@ Features
 - Lua scripting language or native C/C++ support
 - 3D camera functions
 - Easy to learn and use api 
-- Cross Platform 
+- Cross Platform
+- Custom package format
 - Powerful Batch system
 - Image loader & drawing
 - Meshes
