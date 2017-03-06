@@ -95,6 +95,8 @@ FILE(
     native/*.h
 
     #3rdparty "small" libs
+    src/3rdparty/microtar/*.c
+    src/3rdparty/microtar/*.h
     src/3rdparty/stb/*.c
     src/3rdparty/stb/*.h
     src/3rdparty/noise/*.c

@@ -49,6 +49,8 @@
 #include "mouse.h"
 #include "timer/timer.h"
 
+#include "3rdparty/microtar/microtar.h"
+
 /* Only if USE_NATIVE is declared in tools/utils.c
  * then use it */
 #ifdef USE_NATIVE
@@ -201,6 +203,10 @@ void main_loop(void *data) {
     audio_updateStreams();
 }
 
+typedef struct {
+    char* buffer;
+} store;
+
 int main(int argc, char* argv[]) {
     keyboard_init();
     joystick_init();
@@ -243,13 +249,49 @@ int main(int argc, char* argv[]) {
 
     l_running = 1;
 
-    int err = luaL_dofile(lua,"main.lua");
-    if (err == 1){
-        l_no_game(lua, &config);
-        printf("%s \n", lua_tostring(lua, -1));
-    } else if (err == 0)
-        luaL_dofile(lua,"main.lua");
+//    int err = luaL_dofile(lua,"main.lua");
+//    if (err == 1){
+      //  l_no_game(lua, &config);
+       // printf("%s \n", lua_tostring(lua, -1));
+ //   }// else if (err == 0)
+    //    luaL_dofile(lua,"main.lua");
 
+    //TODO use microtar
+    mtar_t tar;
+    mtar_header_t header;
+
+    mtar_open(&tar, "game.clove.tar", "r");
+
+    char scripts[4000];
+    int offset = 0;
+    while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
+        printf("%s \n", header.name);
+        memcpy(scripts + offset, header.name, strlen(header.name));
+        int len = strlen(header.name) + 1;
+        offset+= len;
+        mtar_next(&tar);
+    }
+    luaL_dofile(lua, "main.lua");
+
+    char* buffer;
+    for (int i = 0; i < 2; i++) {
+        mtar_find(&tar, argv[i+1], &header);
+
+
+
+        buffer = calloc(1, header.size+1);
+        mtar_read_data(&tar, buffer, header.size);
+        printf("%s \n", buffer);
+
+        luaL_dostring(lua, buffer );
+        lua_pcall(lua, 0,0,0);
+    }
+
+    //        luaL_dostring(lua, buffer );
+      //  lua_pcall(lua, 0,0,0);
+
+
+    free(buffer);
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)
         printf("%s %s %d.%d.%d \n", "CLove version - ",
