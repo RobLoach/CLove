@@ -36,12 +36,13 @@ static int l_filesystem_require(lua_State* state) {
     int args = luaL_optinteger(state, 2, 0);
     int returns = luaL_optinteger(state, 3, 0);
 
+    #ifndef CLOVE_TAR
     int err = luaL_loadfile(state, file);
     if (err == LUA_ERRSYNTAX)
         l_tools_trowError(state, lua_tostring(state, -1));
 
     lua_pcall(state, args, returns, 0);
-
+    #endif
     return 1;
 }
 

@@ -77,13 +77,82 @@ void love_focus(lua_State* state) {
     lua_call(state, 1, 0);
 }
 
-void main_clean(lua_State* state) {
+static void main_clean(lua_State* state) {
     joystick_close();
     graphics_destroyWindow();
     /* There is a nasty bug on Windows that
        causes lua_close to give a segment fault. */
     lua_close(state);
     audio_close();
+}
+
+//NOTE: Not yet fully implemented !!
+/* Get main.lua from *.clove.tar or trow error */
+static void main_load(lua_State* lua, char* argv, love_Config* config) {
+
+    int err = luaL_dofile(lua,"main.lua");
+    if (err == 1){
+        l_no_game(lua, config);
+        printf("%s \n", lua_tostring(lua, -1));
+    }
+
+    // in case no *.clove.tar
+    if (argv == NULL) {
+        if (err == 0)
+            luaL_dofile(lua,"main.lua");
+        else
+            l_tools_trowError(lua, "No main.lua found!");
+    } // *.clove.tar is required
+    else {
+        mtar_t tar;
+        mtar_header_t header;
+
+        mtar_open(&tar, argv, "r");
+
+        //TODO fix me?
+        int size = sizeof(char) * 256;
+        char* scripts = malloc(size);
+        int offset = 0;
+        while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
+            //printf("%s \n", header.name);
+            int len = strlen(header.name) + 1;
+
+            size = size + header.size + offset;
+            //printf("%d \n", size);
+            scripts = realloc(scripts, size);
+
+
+            memcpy(scripts + offset, header.name, strlen(header.name));
+            offset += len;
+
+            mtar_next(&tar);
+        }
+
+        /* Used to control love.filesystem.require.
+         * See examples folder -> run package */
+        #ifndef CLOVE_TAR
+            #define CLOVE_TAR 1
+        #endif
+
+        // You have to have main.lua near *.clove.tar
+        luaL_dofile(lua, "main.lua");
+
+        char* buffer;
+        for (int i = 0; i < size; i++) {
+            mtar_find(&tar, &scripts[i], &header);
+
+            buffer = calloc(1, header.size+1);
+            mtar_read_data(&tar, buffer, header.size);
+            //printf("%s \n", buffer);
+
+            luaL_dostring(lua, buffer );
+            lua_pcall(lua, 0,0,0);
+        }
+
+        free(scripts);
+        free(buffer);
+
+    }
 }
 
 void main_loop(void *data) {
@@ -203,10 +272,6 @@ void main_loop(void *data) {
     audio_updateStreams();
 }
 
-typedef struct {
-    char* buffer;
-} store;
-
 int main(int argc, char* argv[]) {
     keyboard_init();
     joystick_init();
@@ -249,49 +314,8 @@ int main(int argc, char* argv[]) {
 
     l_running = 1;
 
-//    int err = luaL_dofile(lua,"main.lua");
-//    if (err == 1){
-      //  l_no_game(lua, &config);
-       // printf("%s \n", lua_tostring(lua, -1));
- //   }// else if (err == 0)
-    //    luaL_dofile(lua,"main.lua");
+    main_load(lua, argv[1], &config);
 
-    //TODO use microtar
-    mtar_t tar;
-    mtar_header_t header;
-
-    mtar_open(&tar, "game.clove.tar", "r");
-
-    char scripts[4000];
-    int offset = 0;
-    while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
-        printf("%s \n", header.name);
-        memcpy(scripts + offset, header.name, strlen(header.name));
-        int len = strlen(header.name) + 1;
-        offset+= len;
-        mtar_next(&tar);
-    }
-    luaL_dofile(lua, "main.lua");
-
-    char* buffer;
-    for (int i = 0; i < 2; i++) {
-        mtar_find(&tar, argv[i+1], &header);
-
-
-
-        buffer = calloc(1, header.size+1);
-        mtar_read_data(&tar, buffer, header.size);
-        printf("%s \n", buffer);
-
-        luaL_dostring(lua, buffer );
-        lua_pcall(lua, 0,0,0);
-    }
-
-    //        luaL_dostring(lua, buffer );
-      //  lua_pcall(lua, 0,0,0);
-
-
-    free(buffer);
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)
         printf("%s %s %d.%d.%d \n", "CLove version - ",
