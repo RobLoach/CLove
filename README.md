@@ -38,6 +38,7 @@ Features
 - 3D camera functions
 - Easy to learn and use api 
 - Cross Platform 
+- Custom package format
 - Powerful Batch system
 - Image loader & drawing
 - Meshes
