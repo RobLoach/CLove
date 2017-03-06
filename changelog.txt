@@ -1,6 +1,6 @@
 version 0.7.1 not released:
-
-added: love.filesystem.require("file.lua"). Acts like require
+added: *.clove.tar, see examples folder -> package.
+added: love.filesystem.require("file.lua"). Acts like require even in packaging mode
 
 version 0.7.0 04.03.2017:
 
