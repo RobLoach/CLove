@@ -1,10 +1,15 @@
-# Usage
-./clove game.clove.tar 
+
+# Usage 
+./clove game.clove.tar N C1, C2
+where
+    N: number of classes to be run. eg: 2
+    C1,C2: classes to load and run. eg: test.lua test2.lua
+
 If you want to pack your game you have to:
 tar -cvf X.clove.name C1, C2 ... CN 
 where 
-	X : name of your game, no "" required. eg: game.clove.tar 
-	C1,C2 ... CN : files that make your game, no "" require. eg: test.lua test2.lua
+	X: name of your game, no "" required. eg: game.clove.tar 
+	C1,C2 ... CN: files that make your game, no "" require. eg: test.lua test2.lua
 Note: 
 	Do not pack main.lua nor the assets!
 

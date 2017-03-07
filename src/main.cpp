@@ -89,46 +89,35 @@ static void main_clean(lua_State* state) {
     audio_close();
 }
 
-//NOTE: Not yet fully implemented !!
+//NOTE: Not yet fully implemented. I'm still playing around with it !!
 /* Get main.lua from *.clove.tar or trow error */
-static void main_load(lua_State* lua, char* argv, love_Config* config) {
-
-    int err = luaL_dofile(lua,"main.lua");
-    if (err == 1){
-        l_no_game(lua, config);
-        printf("%s \n", lua_tostring(lua, -1));
-    }
+static void main_load(lua_State* lua, char* argv[], love_Config* config) {
+    //argv[1] = package name
 
     // in case no *.clove.tar
-    if (argv == NULL) {
-        if (err == 0)
+    if (argv[1] == NULL) {
+        int err = luaL_dofile(lua,"main.lua");
+
+        if (err == 1){
+            l_no_game(lua, config);
+            printf("%s \n", lua_tostring(lua, -1));
+        } else if (err == 0)
             luaL_dofile(lua,"main.lua");
-        else
-            l_tools_trowError(lua, "No main.lua found!");
+
     } // *.clove.tar is required
     else {
         mtar_t tar;
         mtar_header_t header;
 
-        mtar_open(&tar, argv, "r");
+        mtar_open(&tar, argv[1], "r");
 
         //TODO fix me?
-        int size = sizeof(char) * 256;
-        //pls do not kill me
+        int size = sizeof(char);
+        //pls,C++ devs,do not kill me
         char* scripts = (char*)malloc(size);
         int offset = 0;
         while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
             //printf("%s \n", header.name);
-            int len = strlen(header.name) + 1;
-
-            size = size + header.size + offset;
-            //printf("%d \n", size);
-            scripts = (char*)realloc(scripts, size);
-
-
-            memcpy(scripts + offset, header.name, strlen(header.name));
-            offset += len;
-
             mtar_next(&tar);
         }
 
@@ -138,20 +127,20 @@ static void main_load(lua_State* lua, char* argv, love_Config* config) {
         #define CLOVE_TAR 1
         #endif
 
-        // You have to have main.lua near *.clove.tar
-        luaL_dofile(lua, "main.lua");
-
         char* buffer;
-        for (int i = 0; i < size; i++) {
-            mtar_find(&tar, &scripts[i], &header);
+        int numberOfScripts = atoi(argv[2]);
+        for (int i = 0; i < numberOfScripts; i++) {
+            mtar_find(&tar, argv[i + 3], &header);
 
             buffer = (char*)calloc(1, header.size+1);
             mtar_read_data(&tar, buffer, header.size);
             //printf("%s \n", buffer);
 
             luaL_dostring(lua, buffer );
-            lua_pcall(lua, 0,0,0);
+            lua_pcall(lua, 0, 0, 0);
         }
+
+        luaL_dofile(lua, "main.lua");
 
         free(scripts);
         free(buffer);
@@ -318,7 +307,7 @@ int main(int argc, char* argv[]) {
 
     l_running = 1;
 
-    main_load(lua, argv[1], &config);
+    main_load(lua, argv, &config);
 
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)
