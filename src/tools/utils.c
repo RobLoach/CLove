@@ -21,6 +21,6 @@
 #if defined(__APPLE__)
 #	define CLOVE_MACOSX 1
 #endif
-#if defined (CLOVE_MACOSX) || (CLOVE_LINUX)
+#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX)
 #   define CLOVE_UNIX
 #endif
