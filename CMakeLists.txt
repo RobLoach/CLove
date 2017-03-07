@@ -11,15 +11,8 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-if (UNIX)
-    add_definitions(-std=gnu99 -O3)
-endif(UNIX)
-if (MINGW)
-    add_definitions(-std=gnu99 -O3)
-endif(MINGW)
-
 IF(MINGW)
- SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
+  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
   SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
   SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
   SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /GR /FC /DWIN32 /D_MBCS")
@@ -27,8 +20,8 @@ IF(MINGW)
   SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
   SET(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
   FIND_PACKAGE(OpenGL REQUIRED)
-SET(MTCL_BUILD_FLAGS "")
-SET(OS_SPECIFIC_LIBRARIES)
+  SET(MTCL_BUILD_FLAGS "")
+  SET(OS_SPECIFIC_LIBRARIES)
 ENDIF(MINGW)
 
 IF(UNIX AND NOT APPLE)
@@ -86,7 +79,7 @@ FILE(
     src/math/*.c
     src/timer/*.h
     src/timer/*.c
-    src/*.c
+    src/*.c*
     src/*.h
     src/resources/*.png
 

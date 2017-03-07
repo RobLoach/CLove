@@ -15,6 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+extern "C" {
+
 #include "3rdparty/lua/lua.h"
 #include "3rdparty/lua/lauxlib.h"
 #include "3rdparty/lua/lualib.h"
@@ -51,11 +53,12 @@
 
 #include "3rdparty/microtar/microtar.h"
 
-/* Only if USE_NATIVE is declared in tools/utils.c
- * then use it */
+    /* Only if USE_NATIVE is declared in tools/utils.c
+     * then use it */
 #ifdef USE_NATIVE
     #include "../native/game.h"
 #endif
+}
 
 typedef struct {
     lua_State *luaState;
@@ -111,7 +114,8 @@ static void main_load(lua_State* lua, char* argv, love_Config* config) {
 
         //TODO fix me?
         int size = sizeof(char) * 256;
-        char* scripts = malloc(size);
+        //pls do not kill me
+        char* scripts = (char*)malloc(size);
         int offset = 0;
         while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
             //printf("%s \n", header.name);
@@ -119,7 +123,7 @@ static void main_load(lua_State* lua, char* argv, love_Config* config) {
 
             size = size + header.size + offset;
             //printf("%d \n", size);
-            scripts = realloc(scripts, size);
+            scripts = (char*)realloc(scripts, size);
 
 
             memcpy(scripts + offset, header.name, strlen(header.name));
@@ -131,7 +135,7 @@ static void main_load(lua_State* lua, char* argv, love_Config* config) {
         /* Used to control love.filesystem.require.
          * See examples folder -> run package */
         #ifndef CLOVE_TAR
-            #define CLOVE_TAR 1
+        #define CLOVE_TAR 1
         #endif
 
         // You have to have main.lua near *.clove.tar
@@ -141,7 +145,7 @@ static void main_load(lua_State* lua, char* argv, love_Config* config) {
         for (int i = 0; i < size; i++) {
             mtar_find(&tar, &scripts[i], &header);
 
-            buffer = calloc(1, header.size+1);
+            buffer = (char*)calloc(1, header.size+1);
             mtar_read_data(&tar, buffer, header.size);
             //printf("%s \n", buffer);
 
@@ -222,8 +226,8 @@ void main_loop(void *data) {
                         _what);
                 mouse_setButton(event.button.button);
                 break;
-            default:
-                break;
+                //default:
+                //  break;
         }
         switch(event.type) {
             case SDL_KEYDOWN:
