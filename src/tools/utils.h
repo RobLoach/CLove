@@ -6,7 +6,12 @@
 #   This project is free software; you can redistribute it and/or modify it
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
+#ifndef UTILS_H_
+#define UTILS_H_
+
 #include <stdio.h>
+
+#define SAFE_FREE(o) {  if (o) { free(o); o = NULL; } }
 
 #ifndef USE_NATIVE
     #define USE_NATIVE 0x01
@@ -23,4 +28,6 @@
 #endif
 #if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX)
 #   define CLOVE_UNIX
+#endif
+
 #endif

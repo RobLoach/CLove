@@ -8,7 +8,7 @@
 */
 #pragma once
 
-#include "../src/tools/utils.c"
+#include "../src/tools/utils.h"
 
 void game_load();
 void game_update(float delta);

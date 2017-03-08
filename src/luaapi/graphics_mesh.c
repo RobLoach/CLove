@@ -41,9 +41,9 @@ static void feedIndices(int size) {
 }
 
 static void readVertex(lua_State* state, graphics_Vertex* vertices) {
-    if (lua_objlen(state, -1) < 4) 
-       l_tools_trowError(state, "Table entry is not a valid vertex"); 
-    
+    if (lua_objlen(state, -1) < 4)
+       l_tools_trowError(state, "Table entry is not a valid vertex");
+
     float* t = (float*)vertices;
 
     for (int i = 0; i < 4; i++) {
@@ -61,11 +61,11 @@ static void readVertex(lua_State* state, graphics_Vertex* vertices) {
 }
 
 static void readIndice(lua_State* state, int* indices, int count) {
-    if (lua_objlen(state, -1) == 0) 
+    if (lua_objlen(state, -1) == 0)
         l_tools_trowError(state, "Invalid indices table");
-    
+
     int* t = indices;
-    
+
     for (int i = 0; i < count; i++) {
         lua_rawgeti(state, -1, i+1);
         t[i] = lua_tonumber(state, -1);
@@ -114,10 +114,10 @@ int l_graphics_newMesh(lua_State* state) {
 
     int vertexCount = readVertices(state, 1);
     int numberOfIndex = l_tools_toNumberOrError(state, 2);
-    
+
     feedIndices(numberOfIndex * sizeof(unsigned int));
     readIndices(state, 3, numberOfIndex);
-    
+
     graphics_MeshDrawMode mode = l_tools_toEnumOrError(state, 4, l_graphics_MeshDrawMode);
 
     l_graphics_Mesh* mesh = lua_newuserdata(state, sizeof(l_graphics_Mesh));
@@ -133,27 +133,27 @@ int l_graphics_newMesh(lua_State* state) {
 
 static int l_graphics_Mesh_setVertices(lua_State* state) {
     l_graphics_Mesh* mesh = l_graphics_toMesh(state, 1);
-    
+
     int vertexCount = readVertices(state, 2);
     graphics_Mesh_setVertices(&mesh->mesh, (graphics_Vertex*)moduleData.vertices, vertexCount);
-    
+
     return 0;
 }
 
 static int l_graphics_Mesh_setIndices(lua_State* state) {
     l_graphics_Mesh* mesh = l_graphics_toMesh(state, 1);
-    
+
     int numberOfIndex = l_tools_toNumberOrError(state, 2);
     readIndices(state, 3, numberOfIndex);
     graphics_Mesh_setIndices(&mesh->mesh, moduleData.indices, numberOfIndex);
-    
+
     return 0;
 }
 
 static int l_graphics_Mesh_setTexture(lua_State* state) {
     l_graphics_Mesh* mesh = l_graphics_toMesh(state, 1);
     graphics_Image* image = l_graphics_toImage(state, 2);
-    
+
     graphics_Mesh_setTexture(&mesh->mesh, image);
     luaL_unref(state, LUA_REGISTRYINDEX, mesh->textureRef);
     lua_settop(state, 2);

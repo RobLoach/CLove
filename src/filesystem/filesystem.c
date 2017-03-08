@@ -12,17 +12,17 @@
 
 #include "filesystem.h"
 #include "../3rdparty/SDL2/include/SDL.h"
-#include "../tools/utils.c"
+#include "../tools/utils.h"
 
-#if defined CLOVE_WINDOWS 
-#include <direct.h> 
+#if defined CLOVE_WINDOWS
+#include <direct.h>
 #define getcwd _getcwd // apparently getcwd is dreprecated on windows
 #include <io.h>
 #define access _access
-#endif 
-#if defined CLOVE_UNIX  
+#endif
+#if defined CLOVE_UNIX
 #include <unistd.h>
-#endif 
+#endif
 
 static struct {
     const char* os;
@@ -109,13 +109,13 @@ const char* filesystem_getCurrentDirectory() {
     const char* dir = getcwd(buffer, sizeof(buffer));
     if (dir != NULL)
         return dir;
-    
+
     printf("Error, Could not get the current directory \n");
     return NULL;
 }
 
 /**
- * mode can be: 
+ * mode can be:
  * 0, wether or not the file exist
  * 2, write only
  * 4, read only
@@ -123,7 +123,7 @@ const char* filesystem_getCurrentDirectory() {
  * default is 0
  */
  int filesystem_isFile(const char* file, int mode) {
-    
+
     if (access(file, mode) != -1)
         return 0;
 

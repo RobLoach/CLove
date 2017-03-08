@@ -16,6 +16,7 @@
 #include <stdlib.h>
 
 extern "C" {
+#include "tools/utils.h"
 
 #include "3rdparty/lua/lua.h"
 #include "3rdparty/lua/lauxlib.h"
@@ -38,7 +39,6 @@ extern "C" {
 #include "luaapi/system.h"
 #include "luaapi/thread.h"
 #include "luaapi/errorhandler.h"
-#include "tools/utils.c"
 #include "love.h"
 
 #include "graphics/graphics.h"
@@ -142,8 +142,8 @@ static void main_load(lua_State* lua, char* argv[], love_Config* config) {
 
         luaL_dofile(lua, "main.lua");
 
-        free(scripts);
-        free(buffer);
+        SAFE_FREE(scripts);
+        SAFE_FREE(buffer);
 
     }
 }

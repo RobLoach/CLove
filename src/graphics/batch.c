@@ -8,6 +8,9 @@
 */
 #include <stdlib.h>
 #include <string.h>
+
+#include "../tools/utils.h"
+
 #include "batch.h"
 #include "graphics.h"
 
@@ -52,7 +55,7 @@ void graphics_batch_init(void) {
 }
 
 void graphics_Batch_changeBufferSize(graphics_Batch* batch, int newSize) {
-    free(batch->vertexData);
+    SAFE_FREE(batch->vertexData);
     batch->vertexData = malloc(4 * newSize * sizeof(graphics_Vertex));
     glBindBuffer(GL_ARRAY_BUFFER, batch->vbo);
     glBufferData(GL_ARRAY_BUFFER, 4*newSize*sizeof(graphics_Vertex), batch->vertexData, batch->usage);
@@ -64,7 +67,7 @@ void graphics_Batch_changeBufferSize(graphics_Batch* batch, int newSize) {
 
 
 void graphics_Batch_new(graphics_Batch* batch, graphics_Image const* texture, int maxSize, graphics_BatchUsage usage) {
-  
+
 
   batch->texture = texture;
   batch->vertexData = malloc(4*maxSize * sizeof(graphics_Vertex));
@@ -149,7 +152,7 @@ void graphics_Batch_draw(graphics_Batch const* batch,
 
   m4x4_newTransform2d(&moduleData.tr2d, x, y, r, sx, sy, ox, oy, kx, ky);
   float const * color = batch->colorUsed ? defaultColor : graphics_getColor();
-  
+
   graphics_drawArray(&fullQuad, &moduleData.tr2d, moduleData.sharedIndexBuffer, batch->insertPos*6, GL_TRIANGLES,
                      GL_UNSIGNED_SHORT,  color, 1.0f, 1.0f);
 
@@ -200,7 +203,7 @@ void graphics_Batch_free(graphics_Batch* batch) {
   glDeleteBuffers(1, &batch->vbo);
   glDeleteBuffers(1, &moduleData.sharedIndexBuffer);
 
-  free(batch->vertexData);
+  SAFE_FREE(batch->vertexData);
 }
 
 

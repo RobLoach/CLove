@@ -8,6 +8,8 @@
 */
 #include "mesh.h"
 
+#include "../tools/utils.h"
+
 //TODO indices based on array size. eg: uint8,uint16 etc
 
 void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_MeshDrawMode drawMode) {
@@ -45,8 +47,8 @@ void graphics_Mesh_free(graphics_Mesh* mesh) {
     glDeleteBuffers(1, &mesh->ibo);
     glDeleteBuffers(1, &mesh->vbo);
 
-    free(mesh->indices);
-    free(mesh->vertices);
+    SAFE_FREE(mesh->indices);
+    SAFE_FREE(mesh->vertices);
 }
 
 void graphics_Mesh_setTexture(graphics_Mesh* mesh, graphics_Image* image) {
@@ -62,7 +64,7 @@ void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, i
     glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(graphics_Vertex), vertices, GL_DYNAMIC_DRAW);
 
     if (vertexCount != mesh->vertexCount) {
-        free(mesh->vertices);
+        SAFE_FREE(mesh->vertices);
         mesh->vertices = malloc(sizeof(graphics_Vertex) * vertexCount);
         mesh->vertexCount = vertexCount;
     }
@@ -75,7 +77,7 @@ void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int in
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indices, GL_DYNAMIC_DRAW);
 
     if (indexCount != mesh->indexCount) {
-        free(mesh->indices);
+        SAFE_FREE(mesh->indices);
         mesh->indices = malloc(sizeof(unsigned int) * indexCount);
         mesh->indexCount = indexCount;
     }

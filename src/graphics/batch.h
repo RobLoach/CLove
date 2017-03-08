@@ -14,13 +14,13 @@
 #include "../3rdparty/glew/include/GL/glew.h"
 #endif
 
-#pragma once
+#include <stdbool.h>
+
+#include "../math/vector.h"
 
 #include "quad.h"
 #include "image.h"
-#include "../math/vector.h"
 #include "vertex.h"
-#include <stdbool.h>
 
 typedef enum {
   graphics_BatchUsage_static = GL_STATIC_DRAW,

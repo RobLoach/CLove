@@ -7,7 +7,7 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include "../math/vector.h"
-#include "../tools/utils.c"
+#include "../tools/utils.h"
 #include "matrixstack.h"
 #include <string.h>
 
