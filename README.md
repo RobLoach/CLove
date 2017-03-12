@@ -21,7 +21,7 @@ On Windows:
 - Download DX SDK 2010 only if you get errors from SDL when building: http://www.microsoft.com/en-us/download/details.aspx?id=6812
 - After you have succesfuly build CLove go into src/3rdparty directory and copy: SDL2, openal .dll in the same directory where clove.exe is.
 
-On Linux & OS X:
+On Linux and OS X:
 - Download and install cmake,gcc,g++(optional git)(on OSX you can install these using brew)
 - If you have problems with building on Linux(Debian based) install: 
 sudo apt-get install freeglut3 freeglut3-dev libglew1.5 libglew1.5-dev 
@@ -48,12 +48,14 @@ Features
 - Keyboard, mouse and joystick support
 - Threads
 - Error handling
-- Custom packaging 
 
 Contributing
 ========
 If you want to contribute to the project, feel free to work on what you please. I want to do a lot of the other stuff myself too.
 Please try to replicate the code style of the existing code by using tab width of 4 spaces and expand tabs to spaces, I might refuse to pull your changes otherwise.
+
+Stuff needed: 
+    - Physics, love.physics 
 
 Examples (see examples folder)
 --------
