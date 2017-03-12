@@ -20,43 +20,40 @@ On Windows:
   copy c:\MinGW\bin\mingw32-make.exe c:\MinGW\bin\make.exe )
 - Download DX SDK 2010 only if you get errors from SDL when building: http://www.microsoft.com/en-us/download/details.aspx?id=6812
 - After you have succesfuly build CLove go into src/3rdparty directory and copy: SDL2, openal .dll in the same directory where clove.exe is.
-- Restart the PC if needed
 
 On Linux & OS X:
-- Download and install cmake,gcc,g++(optional git)(on os x you can install these using brew)
-- Download and install QT Community 
-- If you got problems with building on Linux(Debian based) install these: 
+- Download and install cmake,gcc,g++(optional git)(on OSX you can install these using brew)
+- If you have problems with building on Linux(Debian based) install: 
 sudo apt-get install freeglut3 freeglut3-dev libglew1.5 libglew1.5-dev 
 libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libasound2-dev 
 libaudio-dev libesd0-dev libpulse-dev libroar-dev
-
-
 
 Features
 ========
 - Lua scripting language or native C/C++ support
 - 3D camera functions
 - Easy to learn and use api 
-- Cross Platform
+- Cross Platform (Android wip)
 - Custom package format
 - Powerful Batch system
-- Image loader & drawing
-- Meshes
+- Image loading and drawing
 - Image creation from scratch or from a template & save(png,bmp,tga)
-- Sound loader & playing (Vorbis and Wav)
+- Meshes
+- Sound loading and playing (Vorbis and Wav)
 - Streaming support for Vorbis files
-- Primitives drawing
+- Primitive drawing
 - Filesystem functions
 - OpenGL ES 2.0 
-- Powerful font loading & drawing using batch system
-- Keyboard & Mouse & Joystick functions
+- Powerful font loading and drawing using batch system
+- Keyboard, mouse and joystick support
 - Threads
 - Error handling
+- Custom packaging 
 
 Contributing
 ========
 If you want to contribute to the project, feel free to work on what you please. I want to do a lot of the other stuff myself too.
-Please try to replicate the code style of the existing code by using tab width of 4 spaces and ident of also 4 spaces and expand tabs to spaces, I might refuse to pull your changes otherwise.
+Please try to replicate the code style of the existing code by using tab width of 4 spaces and expand tabs to spaces, I might refuse to pull your changes otherwise.
 
 Examples (see examples folder)
 --------
@@ -72,7 +69,7 @@ function love.draw()
 end
 ```
 
-Images of running CLove demos
+CLove pictures
 -----------------------------
 ![Image 1:](data/4.png?raw=true "See examples folder")
 ![Image 2:](data/1.png?raw=true "Web")
