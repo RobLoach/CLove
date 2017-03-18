@@ -8,11 +8,7 @@
 */
 #include "gltools.h"
 
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
+#include "../tools/gl.h"
 
 void graphics_Texture_setFilter(GLuint texID, graphics_Filter const* filter) {
   glBindTexture(GL_TEXTURE_2D, texID);
@@ -58,10 +54,10 @@ void graphics_Texture_setFilter(GLuint texID, graphics_Filter const* filter) {
     }
 
   int magFilter = (filter->magMode == graphics_FilterMode_linear) ? GL_LINEAR : GL_NEAREST;
-  
+
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, minFilter);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, magFilter);
-  
+
   // Not supported by WebGL, still interesting for native builds.
   // Accept GL_INVALID_ENUM on WebGL
 #ifndef EMSCRIPTEN

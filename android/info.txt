@@ -1,0 +1,5 @@
+
+Download Android SDK(23-24) and NDK(10).
+Add them to your path
+Run $ANDROID_NDK/ndk-build
+Import the project into android studio or eclipse and run it.

@@ -8,11 +8,8 @@
 */
 #pragma once
 
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
+#include "../tools/gl.h"
+
 
 typedef enum {
   graphics_FilterMode_none = 0,

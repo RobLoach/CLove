@@ -10,11 +10,7 @@
 #include "../3rdparty/SDL2/include/SDL.h"
 #include "graphics.h"
 
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
+#include "../tools/gl.h"
 
 #include "../math/vector.h"
 #include "matrixstack.h"

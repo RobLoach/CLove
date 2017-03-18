@@ -29,5 +29,16 @@
 #if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX)
 #   define CLOVE_UNIX
 #endif
-
+#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX) || defined(CLOVE_WINDOWS)
+#   define CLOVE_DESKTOP
+# 	define CLOVE_GL
+#endif
+#if defined(EMSCRIPTEN)
+#  define CLOVE_WEB
+#  define CLOVE_ES
+#endif
+#if defined(__ANDROID__) || ANDROID
+# 	define CLOVE_ANDROID
+#   define CLOVE_ES
+#endif
 #endif
