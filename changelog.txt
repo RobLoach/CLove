@@ -1,5 +1,5 @@
 version 0.7.1 not released:
-
+added: Android port
 added: Clove compiles with C++ for more future features
 added: *.clove.tar, see examples folder -> package.
 added: love.filesystem.require("file.lua"). Acts like require even in packaging mode

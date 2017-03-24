@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -g -O2 -D_DEBUG -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/makehrtf.dir/utils/makehrtf.c.o  -o makehrtf  -lm 

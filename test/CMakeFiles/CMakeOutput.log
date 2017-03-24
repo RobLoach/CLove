@@ -1,0 +1,2616 @@
+The system is: Darwin - 15.6.0 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/cc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is AppleClang, found in "/Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/3.7.1/CompilerIdC/a.out"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: /Library/Developer/CommandLineTools/usr/bin/c++ 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+
+The CXX compiler identification is AppleClang, found in "/Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/3.7.1/CompilerIdCXX/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_527b8/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_527b8.dir/build.make CMakeFiles/cmTC_527b8.dir/build
+Building C object CMakeFiles/cmTC_527b8.dir/testCCompiler.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc     -o CMakeFiles/cmTC_527b8.dir/testCCompiler.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_527b8
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_527b8.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_527b8.dir/testCCompiler.c.o  -o cmTC_527b8  
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_92421/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_92421.dir/build.make CMakeFiles/cmTC_92421.dir/build
+Building C object CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc     -o CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_92421
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_92421.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o  -o cmTC_92421   
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+Target: x86_64-apple-darwin15.6.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o cmTC_92421 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a
+@(#)PROGRAM:ld  PROJECT:ld64-274.2
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
+Library search paths:
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_92421/fast"]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_92421.dir/build.make CMakeFiles/cmTC_92421.dir/build]
+  ignore line: [Building C object CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/cc     -o CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_92421]
+  ignore line: [/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_92421.dir/link.txt --verbose=1]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o  -o cmTC_92421   ]
+  ignore line: [Apple LLVM version 8.0.0 (clang-800.0.42.1)]
+  ignore line: [Target: x86_64-apple-darwin15.6.0]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
+  link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o cmTC_92421 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+    arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
+    arg [-demangle] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.11.0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_92421] ==> ignore
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_92421.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lSystem] ==> lib [System]
+    arg [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  Library search paths: [;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  remove lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: []
+  implicit dirs: [/usr/lib;/usr/local/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_79317/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_79317.dir/build.make CMakeFiles/cmTC_79317.dir/build
+Building C object CMakeFiles/cmTC_79317.dir/feature_tests.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_79317.dir/feature_tests.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.c
+Linking C executable cmTC_79317
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_79317.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_79317.dir/feature_tests.c.o  -o cmTC_79317  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c816c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c816c.dir/build.make CMakeFiles/cmTC_c816c.dir/build
+Building C object CMakeFiles/cmTC_c816c.dir/feature_tests.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_c816c.dir/feature_tests.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.c
+Linking C executable cmTC_c816c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c816c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c816c.dir/feature_tests.c.o  -o cmTC_c816c  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_27ab5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_27ab5.dir/build.make CMakeFiles/cmTC_27ab5.dir/build
+Building C object CMakeFiles/cmTC_27ab5.dir/feature_tests.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_27ab5.dir/feature_tests.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.c
+Linking C executable cmTC_27ab5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_27ab5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_27ab5.dir/feature_tests.c.o  -o cmTC_27ab5  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the CXX compiler works passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_57d03/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_57d03.dir/build.make CMakeFiles/cmTC_57d03.dir/build
+Building CXX object CMakeFiles/cmTC_57d03.dir/testCXXCompiler.cxx.o
+/Library/Developer/CommandLineTools/usr/bin/c++      -o CMakeFiles/cmTC_57d03.dir/testCXXCompiler.cxx.o -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTC_57d03
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_57d03.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_57d03.dir/testCXXCompiler.cxx.o  -o cmTC_57d03  
+
+
+Detecting CXX compiler ABI info compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ac22a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ac22a.dir/build.make CMakeFiles/cmTC_ac22a.dir/build
+Building CXX object CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o
+/Library/Developer/CommandLineTools/usr/bin/c++      -o CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTC_ac22a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac22a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ac22a   
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+Target: x86_64-apple-darwin15.6.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o cmTC_ac22a -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a
+@(#)PROGRAM:ld  PROJECT:ld64-274.2
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
+Library search paths:
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed CXX implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_ac22a/fast"]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ac22a.dir/build.make CMakeFiles/cmTC_ac22a.dir/build]
+  ignore line: [Building CXX object CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/c++      -o CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTC_ac22a]
+  ignore line: [/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac22a.dir/link.txt --verbose=1]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_ac22a   ]
+  ignore line: [Apple LLVM version 8.0.0 (clang-800.0.42.1)]
+  ignore line: [Target: x86_64-apple-darwin15.6.0]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
+  link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.11.0 -o cmTC_ac22a -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+    arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
+    arg [-demangle] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.11.0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_ac22a] ==> ignore
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_ac22a.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lc++] ==> lib [c++]
+    arg [-lSystem] ==> lib [System]
+    arg [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  Library search paths: [;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  remove lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [c++]
+  implicit dirs: [/usr/lib;/usr/local/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+
+
+Detecting CXX [-std=c++14] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f2c25/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f2c25.dir/build.make CMakeFiles/cmTC_f2c25.dir/build
+Building CXX object CMakeFiles/cmTC_f2c25.dir/feature_tests.cxx.o
+/Library/Developer/CommandLineTools/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_f2c25.dir/feature_tests.cxx.o -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_f2c25
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f2c25.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f2c25.dir/feature_tests.cxx.o  -o cmTC_f2c25  
+
+
+    Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:1cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:1cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:1cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:1cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:1cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:1cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:1cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:1cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:1cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:1cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++11] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b3e0a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_b3e0a.dir/build.make CMakeFiles/cmTC_b3e0a.dir/build
+Building CXX object CMakeFiles/cmTC_b3e0a.dir/feature_tests.cxx.o
+/Library/Developer/CommandLineTools/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_b3e0a.dir/feature_tests.cxx.o -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_b3e0a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b3e0a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_b3e0a.dir/feature_tests.cxx.o  -o cmTC_b3e0a  
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:1cxx_alias_templates
+    Feature record: CXX_FEATURE:1cxx_alignas
+    Feature record: CXX_FEATURE:1cxx_alignof
+    Feature record: CXX_FEATURE:1cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:1cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:1cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:1cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:1cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:1cxx_default_function_template_args
+    Feature record: CXX_FEATURE:1cxx_defaulted_functions
+    Feature record: CXX_FEATURE:1cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:1cxx_delegating_constructors
+    Feature record: CXX_FEATURE:1cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:1cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:1cxx_explicit_conversions
+    Feature record: CXX_FEATURE:1cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:1cxx_extern_templates
+    Feature record: CXX_FEATURE:1cxx_final
+    Feature record: CXX_FEATURE:1cxx_func_identifier
+    Feature record: CXX_FEATURE:1cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:1cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:1cxx_inline_namespaces
+    Feature record: CXX_FEATURE:1cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:1cxx_local_type_template_args
+    Feature record: CXX_FEATURE:1cxx_long_long_type
+    Feature record: CXX_FEATURE:1cxx_noexcept
+    Feature record: CXX_FEATURE:1cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:1cxx_nullptr
+    Feature record: CXX_FEATURE:1cxx_override
+    Feature record: CXX_FEATURE:1cxx_range_for
+    Feature record: CXX_FEATURE:1cxx_raw_string_literals
+    Feature record: CXX_FEATURE:1cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:1cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:1cxx_rvalue_references
+    Feature record: CXX_FEATURE:1cxx_sizeof_member
+    Feature record: CXX_FEATURE:1cxx_static_assert
+    Feature record: CXX_FEATURE:1cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:1cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_trailing_return_types
+    Feature record: CXX_FEATURE:1cxx_unicode_literals
+    Feature record: CXX_FEATURE:1cxx_uniform_initialization
+    Feature record: CXX_FEATURE:1cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:1cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:1cxx_variadic_macros
+    Feature record: CXX_FEATURE:1cxx_variadic_templates
+
+
+Detecting CXX [-std=c++98] compiler features compiled with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9c81a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_9c81a.dir/build.make CMakeFiles/cmTC_9c81a.dir/build
+Building CXX object CMakeFiles/cmTC_9c81a.dir/feature_tests.cxx.o
+/Library/Developer/CommandLineTools/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_9c81a.dir/feature_tests.cxx.o -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTC_9c81a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9c81a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_9c81a.dir/feature_tests.cxx.o  -o cmTC_9c81a  
+
+
+    Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
+    Feature record: CXX_FEATURE:0cxx_alias_templates
+    Feature record: CXX_FEATURE:0cxx_alignas
+    Feature record: CXX_FEATURE:0cxx_alignof
+    Feature record: CXX_FEATURE:0cxx_attributes
+    Feature record: CXX_FEATURE:0cxx_attribute_deprecated
+    Feature record: CXX_FEATURE:0cxx_auto_type
+    Feature record: CXX_FEATURE:0cxx_binary_literals
+    Feature record: CXX_FEATURE:0cxx_constexpr
+    Feature record: CXX_FEATURE:0cxx_contextual_conversions
+    Feature record: CXX_FEATURE:0cxx_decltype
+    Feature record: CXX_FEATURE:0cxx_decltype_auto
+    Feature record: CXX_FEATURE:0cxx_decltype_incomplete_return_types
+    Feature record: CXX_FEATURE:0cxx_default_function_template_args
+    Feature record: CXX_FEATURE:0cxx_defaulted_functions
+    Feature record: CXX_FEATURE:0cxx_defaulted_move_initializers
+    Feature record: CXX_FEATURE:0cxx_delegating_constructors
+    Feature record: CXX_FEATURE:0cxx_deleted_functions
+    Feature record: CXX_FEATURE:0cxx_digit_separators
+    Feature record: CXX_FEATURE:0cxx_enum_forward_declarations
+    Feature record: CXX_FEATURE:0cxx_explicit_conversions
+    Feature record: CXX_FEATURE:0cxx_extended_friend_declarations
+    Feature record: CXX_FEATURE:0cxx_extern_templates
+    Feature record: CXX_FEATURE:0cxx_final
+    Feature record: CXX_FEATURE:0cxx_func_identifier
+    Feature record: CXX_FEATURE:0cxx_generalized_initializers
+    Feature record: CXX_FEATURE:0cxx_generic_lambdas
+    Feature record: CXX_FEATURE:0cxx_inheriting_constructors
+    Feature record: CXX_FEATURE:0cxx_inline_namespaces
+    Feature record: CXX_FEATURE:0cxx_lambdas
+    Feature record: CXX_FEATURE:0cxx_lambda_init_captures
+    Feature record: CXX_FEATURE:0cxx_local_type_template_args
+    Feature record: CXX_FEATURE:0cxx_long_long_type
+    Feature record: CXX_FEATURE:0cxx_noexcept
+    Feature record: CXX_FEATURE:0cxx_nonstatic_member_init
+    Feature record: CXX_FEATURE:0cxx_nullptr
+    Feature record: CXX_FEATURE:0cxx_override
+    Feature record: CXX_FEATURE:0cxx_range_for
+    Feature record: CXX_FEATURE:0cxx_raw_string_literals
+    Feature record: CXX_FEATURE:0cxx_reference_qualified_functions
+    Feature record: CXX_FEATURE:0cxx_relaxed_constexpr
+    Feature record: CXX_FEATURE:0cxx_return_type_deduction
+    Feature record: CXX_FEATURE:0cxx_right_angle_brackets
+    Feature record: CXX_FEATURE:0cxx_rvalue_references
+    Feature record: CXX_FEATURE:0cxx_sizeof_member
+    Feature record: CXX_FEATURE:0cxx_static_assert
+    Feature record: CXX_FEATURE:0cxx_strong_enums
+    Feature record: CXX_FEATURE:1cxx_template_template_parameters
+    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:0cxx_trailing_return_types
+    Feature record: CXX_FEATURE:0cxx_unicode_literals
+    Feature record: CXX_FEATURE:0cxx_uniform_initialization
+    Feature record: CXX_FEATURE:0cxx_unrestricted_unions
+    Feature record: CXX_FEATURE:0cxx_user_literals
+    Feature record: CXX_FEATURE:0cxx_variable_templates
+    Feature record: CXX_FEATURE:0cxx_variadic_macros
+    Feature record: CXX_FEATURE:0cxx_variadic_templates
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7c234/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7c234.dir/build.make CMakeFiles/cmTC_7c234.dir/build
+Building C object CMakeFiles/cmTC_7c234.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_7c234.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_7c234
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c234.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7c234.dir/CheckIncludeFile.c.o  -o cmTC_7c234  
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f2593/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f2593.dir/build.make CMakeFiles/cmTC_f2593.dir/build
+Building C object CMakeFiles/cmTC_f2593.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_f2593.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_f2593
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f2593.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f2593.dir/CheckIncludeFile.c.o  -o cmTC_f2593  
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_469b7/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_469b7.dir/build.make CMakeFiles/cmTC_469b7.dir/build
+Building C object CMakeFiles/cmTC_469b7.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_469b7.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_469b7
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_469b7.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_469b7.dir/CheckIncludeFile.c.o  -o cmTC_469b7  
+
+
+Determining size of long passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4ee2a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_4ee2a.dir/build.make CMakeFiles/cmTC_4ee2a.dir/build
+Building C object CMakeFiles/cmTC_4ee2a.dir/SIZEOF_LONG.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_4ee2a.dir/SIZEOF_LONG.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CheckTypeSize/SIZEOF_LONG.c
+Linking C executable cmTC_4ee2a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4ee2a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_4ee2a.dir/SIZEOF_LONG.c.o  -o cmTC_4ee2a  
+
+
+Determining size of long long passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2136c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2136c.dir/build.make CMakeFiles/cmTC_2136c.dir/build
+Building C object CMakeFiles/cmTC_2136c.dir/SIZEOF_LONG_LONG.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_2136c.dir/SIZEOF_LONG_LONG.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CheckTypeSize/SIZEOF_LONG_LONG.c
+Linking C executable cmTC_2136c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2136c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2136c.dir/SIZEOF_LONG_LONG.c.o  -o cmTC_2136c  
+
+
+Performing C SOURCE FILE Test HAVE_STD_C99 succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bff28/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_bff28.dir/build.make CMakeFiles/cmTC_bff28.dir/build
+Building C object CMakeFiles/cmTC_bff28.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_STD_C99  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -std=c99 -o CMakeFiles/cmTC_bff28.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_bff28
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bff28.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc   -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_STD_C99  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_bff28.dir/src.c.o  -o cmTC_bff28  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_C99_VLA succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1e409/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_1e409.dir/build.make CMakeFiles/cmTC_1e409.dir/build
+Building C object CMakeFiles/cmTC_1e409.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C99_VLA  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_1e409.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_1e409
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1e409.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C99_VLA  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_1e409.dir/src.c.o  -o cmTC_1e409  
+
+Source file was:
+int main(int argc, char *argv[])
+ {
+     volatile int tmp[argc];
+     tmp[0] = argv[0][0];
+     return tmp[0];
+ }
+Performing C SOURCE FILE Test HAVE_C99_BOOL succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6d294/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_6d294.dir/build.make CMakeFiles/cmTC_6d294.dir/build
+Building C object CMakeFiles/cmTC_6d294.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C99_BOOL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_6d294.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_6d294
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6d294.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C99_BOOL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_6d294.dir/src.c.o  -o cmTC_6d294  
+
+Source file was:
+int main(int argc, char *argv[])
+ {
+     volatile _Bool ret;
+     ret = (argc > 1) ? 1 : 0;
+     return ret ? -1 : 0;
+ }
+Performing C SOURCE FILE Test HAVE_C11_STATIC_ASSERT succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9d396/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_9d396.dir/build.make CMakeFiles/cmTC_9d396.dir/build
+Building C object CMakeFiles/cmTC_9d396.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C11_STATIC_ASSERT  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_9d396.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_9d396
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9d396.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C11_STATIC_ASSERT  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_9d396.dir/src.c.o  -o cmTC_9d396  
+
+Source file was:
+int main()
+ {
+     _Static_assert(sizeof(int) == sizeof(int), "What");
+     return 0;
+ }
+Performing C SOURCE FILE Test HAVE_C11_ALIGNAS succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_70dc2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_70dc2.dir/build.make CMakeFiles/cmTC_70dc2.dir/build
+Building C object CMakeFiles/cmTC_70dc2.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C11_ALIGNAS  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_70dc2.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_70dc2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_70dc2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_C11_ALIGNAS  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_70dc2.dir/src.c.o  -o cmTC_70dc2  
+
+Source file was:
+_Alignas(16) int foo;
+ int main()
+ {
+     return 0;
+ }
+Performing C SOURCE FILE Test HAVE_W_EXTRA succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_21ec4/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_21ec4.dir/build.make CMakeFiles/cmTC_21ec4.dir/build
+Building C object CMakeFiles/cmTC_21ec4.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_W_EXTRA  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -Wextra -o CMakeFiles/cmTC_21ec4.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_21ec4
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_21ec4.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_W_EXTRA  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_21ec4.dir/src.c.o  -o cmTC_21ec4  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_FPIC_SWITCH succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7c599/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7c599.dir/build.make CMakeFiles/cmTC_7c599.dir/build
+Building C object CMakeFiles/cmTC_7c599.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_FPIC_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -fPIC -o CMakeFiles/cmTC_7c599.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_7c599
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c599.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_FPIC_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7c599.dir/src.c.o  -o cmTC_7c599  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_GCC_DESTRUCTOR succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_25f21/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_25f21.dir/build.make CMakeFiles/cmTC_25f21.dir/build
+Building C object CMakeFiles/cmTC_25f21.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_DESTRUCTOR  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_25f21.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_25f21
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_25f21.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_DESTRUCTOR  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_25f21.dir/src.c.o  -o cmTC_25f21  
+
+Source file was:
+int foo() __attribute__((destructor));
+                             int main() {return 0;}
+Performing C SOURCE FILE Test HAVE_GCC_DEFAULT_VISIBILITY succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8fcd3/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8fcd3.dir/build.make CMakeFiles/cmTC_8fcd3.dir/build
+Building C object CMakeFiles/cmTC_8fcd3.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_DEFAULT_VISIBILITY  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror   -o CMakeFiles/cmTC_8fcd3.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_8fcd3
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8fcd3.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_DEFAULT_VISIBILITY  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8fcd3.dir/src.c.o  -o cmTC_8fcd3  
+
+Source file was:
+int foo() __attribute__((visibility("default")));
+                                 int main() {return 0;}
+Performing C SOURCE FILE Test HAVE_VISIBILITY_INTERNAL_SWITCH succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e0094/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e0094.dir/build.make CMakeFiles/cmTC_e0094.dir/build
+Building C object CMakeFiles/cmTC_e0094.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_VISIBILITY_INTERNAL_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror   -fvisibility=internal -o CMakeFiles/cmTC_e0094.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_e0094
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e0094.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_VISIBILITY_INTERNAL_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e0094.dir/src.c.o  -o cmTC_e0094  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_ATTRIBUTE_ALIGNED succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a5174/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a5174.dir/build.make CMakeFiles/cmTC_a5174.dir/build
+Building C object CMakeFiles/cmTC_a5174.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_ATTRIBUTE_ALIGNED  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror   -o CMakeFiles/cmTC_a5174.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_a5174
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5174.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_ATTRIBUTE_ALIGNED  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wattributes -Werror -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a5174.dir/src.c.o  -o cmTC_a5174  
+
+Source file was:
+int foo __attribute__((aligned(16)));
+                             int main() {return 0;}
+Performing C SOURCE FILE Test HAVE_MSSE_SWITCH succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_29379/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_29379.dir/build.make CMakeFiles/cmTC_29379.dir/build
+Building C object CMakeFiles/cmTC_29379.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -msse -o CMakeFiles/cmTC_29379.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_29379
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_29379.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_29379.dir/src.c.o  -o cmTC_29379  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_MSSE2_SWITCH succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_80d8d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_80d8d.dir/build.make CMakeFiles/cmTC_80d8d.dir/build
+Building C object CMakeFiles/cmTC_80d8d.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE2_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -msse2 -o CMakeFiles/cmTC_80d8d.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_80d8d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_80d8d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE2_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_80d8d.dir/src.c.o  -o cmTC_80d8d  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_MSSE4_1_SWITCH succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4acd5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_4acd5.dir/build.make CMakeFiles/cmTC_4acd5.dir/build
+Building C object CMakeFiles/cmTC_4acd5.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE4_1_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -msse4.1 -o CMakeFiles/cmTC_4acd5.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4acd5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4acd5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_MSSE4_1_SWITCH  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_4acd5.dir/src.c.o  -o cmTC_4acd5  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_GCC_FORMAT succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8019d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8019d.dir/build.make CMakeFiles/cmTC_8019d.dir/build
+Building C object CMakeFiles/cmTC_8019d.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_FORMAT  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_8019d.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_8019d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8019d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_GCC_FORMAT  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8019d.dir/src.c.o  -o cmTC_8019d  
+
+Source file was:
+int foo(const char *str, ...) __attribute__((format(printf, 1, 2)));
+                         int main() {return 0;}
+Determining if the include file stdbool.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a5914/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a5914.dir/build.make CMakeFiles/cmTC_a5914.dir/build
+Building C object CMakeFiles/cmTC_a5914.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_a5914.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_a5914
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5914.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a5914.dir/CheckIncludeFile.c.o  -o cmTC_a5914  
+
+
+Determining if the include file stdalign.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ff696/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ff696.dir/build.make CMakeFiles/cmTC_ff696.dir/build
+Building C object CMakeFiles/cmTC_ff696.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_ff696.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_ff696
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ff696.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ff696.dir/CheckIncludeFile.c.o  -o cmTC_ff696  
+
+
+Determining if the include file ftw.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bdd64/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_bdd64.dir/build.make CMakeFiles/cmTC_bdd64.dir/build
+Building C object CMakeFiles/cmTC_bdd64.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_bdd64.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_bdd64
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bdd64.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_bdd64.dir/CheckIncludeFile.c.o  -o cmTC_bdd64  
+
+
+Determining if the include file strings.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_67b8b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_67b8b.dir/build.make CMakeFiles/cmTC_67b8b.dir/build
+Building C object CMakeFiles/cmTC_67b8b.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_67b8b.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_67b8b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_67b8b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_67b8b.dir/CheckIncludeFile.c.o  -o cmTC_67b8b  
+
+
+Determining if the include file cpuid.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2a377/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2a377.dir/build.make CMakeFiles/cmTC_2a377.dir/build
+Building C object CMakeFiles/cmTC_2a377.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_2a377.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_2a377
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2a377.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2a377.dir/CheckIncludeFile.c.o  -o cmTC_2a377  
+
+
+Determining if the include file fenv.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d244c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d244c.dir/build.make CMakeFiles/cmTC_d244c.dir/build
+Building C object CMakeFiles/cmTC_d244c.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_d244c.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_d244c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d244c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d244c.dir/CheckIncludeFile.c.o  -o cmTC_d244c  
+
+
+Determining if the include file float.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_78ef1/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_78ef1.dir/build.make CMakeFiles/cmTC_78ef1.dir/build
+Building C object CMakeFiles/cmTC_78ef1.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_78ef1.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_78ef1
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_78ef1.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_78ef1.dir/CheckIncludeFile.c.o  -o cmTC_78ef1  
+
+
+Determining if the function pow exists in the m passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_83936/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_83936.dir/build.make CMakeFiles/cmTC_83936.dir/build
+Building C object CMakeFiles/cmTC_83936.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=pow  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_83936.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'pow' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:4:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS pow
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'pow' is a builtin with type 'double (double, double)'
+<command line>:4:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS pow
+                              ^
+1 warning generated.
+Linking C executable cmTC_83936
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_83936.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=pow  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_83936.dir/CheckFunctionExists.c.o  -o cmTC_83936  -lm 
+
+
+Determining if the posix_memalign exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0fc7e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_0fc7e.dir/build.make CMakeFiles/cmTC_0fc7e.dir/build
+Building C object CMakeFiles/cmTC_0fc7e.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_0fc7e.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_0fc7e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0fc7e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0fc7e.dir/CheckSymbolExists.c.o  -o cmTC_0fc7e  -lm 
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef posix_memalign
+  return ((int*)(&posix_memalign))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the lrintf exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_92455/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_92455.dir/build.make CMakeFiles/cmTC_92455.dir/build
+Building C object CMakeFiles/cmTC_92455.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_92455.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_92455
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_92455.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_92455.dir/CheckSymbolExists.c.o  -o cmTC_92455  -lm 
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef lrintf
+  return ((int*)(&lrintf))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the ftw exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d4df5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d4df5.dir/build.make CMakeFiles/cmTC_d4df5.dir/build
+Building C object CMakeFiles/cmTC_d4df5.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_d4df5.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_d4df5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d4df5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d4df5.dir/CheckSymbolExists.c.o  -o cmTC_d4df5  -lm 
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <ftw.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef ftw
+  return ((int*)(&ftw))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function strtof exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_20a78/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_20a78.dir/build.make CMakeFiles/cmTC_20a78.dir/build
+Building C object CMakeFiles/cmTC_20a78.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strtof  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_20a78.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_20a78
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_20a78.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strtof  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_20a78.dir/CheckFunctionExists.c.o  -o cmTC_20a78  -lm 
+
+
+Determining if the function stat exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_fb193/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_fb193.dir/build.make CMakeFiles/cmTC_fb193.dir/build
+Building C object CMakeFiles/cmTC_fb193.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=stat  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_fb193.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_fb193
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fb193.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=stat  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_fb193.dir/CheckFunctionExists.c.o  -o cmTC_fb193  -lm 
+
+
+Determining if the function strcasecmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_efcb4/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_efcb4.dir/build.make CMakeFiles/cmTC_efcb4.dir/build
+Building C object CMakeFiles/cmTC_efcb4.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strcasecmp  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_efcb4.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_efcb4
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_efcb4.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strcasecmp  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_efcb4.dir/CheckFunctionExists.c.o  -o cmTC_efcb4  -lm 
+
+
+Determining if the function strncasecmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8aab2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8aab2.dir/build.make CMakeFiles/cmTC_8aab2.dir/build
+Building C object CMakeFiles/cmTC_8aab2.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strncasecmp  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_8aab2.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_8aab2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8aab2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=strncasecmp  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8aab2.dir/CheckFunctionExists.c.o  -o cmTC_8aab2  -lm 
+
+
+Determining if the function snprintf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_70bfd/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_70bfd.dir/build.make CMakeFiles/cmTC_70bfd.dir/build
+Building C object CMakeFiles/cmTC_70bfd.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=snprintf  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_70bfd.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'snprintf' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:4:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS snprintf
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'snprintf' is a builtin with type 'int (char *, unsigned long, const char *, ...)'
+<command line>:4:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS snprintf
+                              ^
+1 warning generated.
+Linking C executable cmTC_70bfd
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_70bfd.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=snprintf  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_70bfd.dir/CheckFunctionExists.c.o  -o cmTC_70bfd  -lm 
+
+
+Determining if the isfinite exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f57a5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f57a5.dir/build.make CMakeFiles/cmTC_f57a5.dir/build
+Building C object CMakeFiles/cmTC_f57a5.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_f57a5.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_f57a5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f57a5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f57a5.dir/CheckSymbolExists.c.o  -o cmTC_f57a5  -lm 
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef isfinite
+  return ((int*)(&isfinite))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the isnan exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a5aa9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a5aa9.dir/build.make CMakeFiles/cmTC_a5aa9.dir/build
+Building C object CMakeFiles/cmTC_a5aa9.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_a5aa9.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_a5aa9
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a5aa9.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a5aa9.dir/CheckSymbolExists.c.o  -o cmTC_a5aa9  -lm 
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef isnan
+  return ((int*)(&isnan))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the include file dlfcn.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f176c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f176c.dir/build.make CMakeFiles/cmTC_f176c.dir/build
+Building C object CMakeFiles/cmTC_f176c.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_f176c.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_f176c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f176c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f176c.dir/CheckIncludeFile.c.o  -o cmTC_f176c  
+
+
+Determining if the function dlopen exists in the dl passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_810d0/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_810d0.dir/build.make CMakeFiles/cmTC_810d0.dir/build
+Building C object CMakeFiles/cmTC_810d0.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=dlopen  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_810d0.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_810d0
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_810d0.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=dlopen  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_810d0.dir/CheckFunctionExists.c.o  -o cmTC_810d0  -ldl -lm 
+
+
+Determining if the function gettimeofday exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ef7a2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ef7a2.dir/build.make CMakeFiles/cmTC_ef7a2.dir/build
+Building C object CMakeFiles/cmTC_ef7a2.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=gettimeofday  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_ef7a2.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ef7a2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ef7a2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=gettimeofday  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ef7a2.dir/CheckFunctionExists.c.o  -o cmTC_ef7a2  -lm 
+
+
+Determining if the function nanosleep exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c0356/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c0356.dir/build.make CMakeFiles/cmTC_c0356.dir/build
+Building C object CMakeFiles/cmTC_c0356.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=nanosleep  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_c0356.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_c0356
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c0356.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=nanosleep  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c0356.dir/CheckFunctionExists.c.o  -o cmTC_c0356  -lm 
+
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_447c1/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_447c1.dir/build.make CMakeFiles/cmTC_447c1.dir/build
+Building C object CMakeFiles/cmTC_447c1.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -o CMakeFiles/cmTC_447c1.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_447c1
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_447c1.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_447c1.dir/CheckIncludeFile.c.o  -o cmTC_447c1  
+
+
+Performing C SOURCE FILE Test HAVE_PTHREAD succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2ebc5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2ebc5.dir/build.make CMakeFiles/cmTC_2ebc5.dir/build
+Building C object CMakeFiles/cmTC_2ebc5.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_PTHREAD  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700   -pthread -o CMakeFiles/cmTC_2ebc5.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_2ebc5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2ebc5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DHAVE_PTHREAD  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2ebc5.dir/src.c.o  -o cmTC_2ebc5  -lm 
+
+Source file was:
+int main(void) { return 0; }
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e3d43/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e3d43.dir/build.make CMakeFiles/cmTC_e3d43.dir/build
+Building C object CMakeFiles/cmTC_e3d43.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=pthread_create  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread   -o CMakeFiles/cmTC_e3d43.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e3d43
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e3d43.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -DCHECK_FUNCTION_EXISTS=pthread_create  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e3d43.dir/CheckFunctionExists.c.o  -o cmTC_e3d43  -lpthread -lm 
+clang: warning: argument unused during compilation: '-pthread'
+
+
+Determining if the pthread_setschedparam exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7650c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7650c.dir/build.make CMakeFiles/cmTC_7650c.dir/build
+Building C object CMakeFiles/cmTC_7650c.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread   -o CMakeFiles/cmTC_7650c.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_7650c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7650c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7650c.dir/CheckSymbolExists.c.o  -o cmTC_7650c  -lm 
+clang: warning: argument unused during compilation: '-pthread'
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_setschedparam
+  return ((int*)(&pthread_setschedparam))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the include file xmmintrin.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_74820/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_74820.dir/build.make CMakeFiles/cmTC_74820.dir/build
+Building C object CMakeFiles/cmTC_74820.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread   -o CMakeFiles/cmTC_74820.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_74820
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_74820.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_74820.dir/CheckIncludeFile.c.o  -o cmTC_74820  
+clang: warning: argument unused during compilation: '-pthread'
+
+
+Determining if the include file emmintrin.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f25fa/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f25fa.dir/build.make CMakeFiles/cmTC_f25fa.dir/build
+Building C object CMakeFiles/cmTC_f25fa.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse2  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread   -o CMakeFiles/cmTC_f25fa.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_f25fa
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f25fa.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse2  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f25fa.dir/CheckIncludeFile.c.o  -o cmTC_f25fa  
+clang: warning: argument unused during compilation: '-pthread'
+
+
+Determining if the include file smmintrin.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_17c40/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_17c40.dir/build.make CMakeFiles/cmTC_17c40.dir/build
+Building C object CMakeFiles/cmTC_17c40.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse4.1  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread   -o CMakeFiles/cmTC_17c40.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_17c40
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_17c40.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -std=c99  -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL -msse4.1  -D_GNU_SOURCE=1 -D_POSIX_C_SOURCE=200809L -D_XOPEN_SOURCE=700 -pthread -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_17c40.dir/CheckIncludeFile.c.o  -o cmTC_17c40  
+clang: warning: argument unused during compilation: '-pthread'
+
+
+Performing C SOURCE FILE Test HAVE_GCC_FVISIBILITY succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3c0ea/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3c0ea.dir/build.make CMakeFiles/cmTC_3c0ea.dir/build
+Building C object CMakeFiles/cmTC_3c0ea.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_GCC_FVISIBILITY -fvisibility=hidden -Werror   -o CMakeFiles/cmTC_3c0ea.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_3c0ea
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3c0ea.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_GCC_FVISIBILITY -fvisibility=hidden -Werror -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3c0ea.dir/src.c.o  -o cmTC_3c0ea  
+
+Source file was:
+
+      #if !defined(__GNUC__) || __GNUC__ < 4
+      #error SDL only uses visibility attributes in GCC 4 or newer
+      #endif
+      int main(int argc, char **argv) {}
+Performing C SOURCE FILE Test HAVE_GCC_WALL succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_22f42/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_22f42.dir/build.make CMakeFiles/cmTC_22f42.dir/build
+Building C object CMakeFiles/cmTC_22f42.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_GCC_WALL   -Wall -o CMakeFiles/cmTC_22f42.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_22f42
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_22f42.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_GCC_WALL -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_22f42.dir/src.c.o  -o cmTC_22f42  
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test HAVE_MMX succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bb5e4/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_bb5e4.dir/build.make CMakeFiles/cmTC_bb5e4.dir/build
+Building C object CMakeFiles/cmTC_bb5e4.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_MMX -mmmx   -o CMakeFiles/cmTC_bb5e4.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_bb5e4
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bb5e4.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_MMX -mmmx -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_bb5e4.dir/src.c.o  -o cmTC_bb5e4  
+
+Source file was:
+
+          #ifdef __MINGW32__
+          #include <_mingw.h>
+          #ifdef __MINGW64_VERSION_MAJOR
+          #include <intrin.h>
+          #else
+          #include <mmintrin.h>
+          #endif
+          #else
+          #include <mmintrin.h>
+          #endif
+          #ifndef __MMX__
+          #error Assembler CPP flag not enabled
+          #endif
+          int main(int argc, char **argv) { }
+Performing C SOURCE FILE Test HAVE_3DNOW succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c0c0e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c0c0e.dir/build.make CMakeFiles/cmTC_c0c0e.dir/build
+Building C object CMakeFiles/cmTC_c0c0e.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_3DNOW -m3dnow   -o CMakeFiles/cmTC_c0c0e.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_c0c0e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c0c0e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_3DNOW -m3dnow -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c0c0e.dir/src.c.o  -o cmTC_c0c0e  
+
+Source file was:
+
+          #include <mm3dnow.h>
+          #ifndef __3dNOW__
+          #error Assembler CPP flag not enabled
+          #endif
+          int main(int argc, char **argv) {
+            void *p = 0;
+            _m_prefetch(p);
+          }
+Performing C SOURCE FILE Test HAVE_SSE succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5590f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_5590f.dir/build.make CMakeFiles/cmTC_5590f.dir/build
+Building C object CMakeFiles/cmTC_5590f.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_SSE -msse   -o CMakeFiles/cmTC_5590f.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_5590f
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5590f.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_SSE -msse -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_5590f.dir/src.c.o  -o cmTC_5590f  
+
+Source file was:
+
+          #ifdef __MINGW32__
+          #include <_mingw.h>
+          #ifdef __MINGW64_VERSION_MAJOR
+          #include <intrin.h>
+          #else
+          #include <xmmintrin.h>
+          #endif
+          #else
+          #include <xmmintrin.h>
+          #endif
+          #ifndef __SSE__
+          #error Assembler CPP flag not enabled
+          #endif
+          int main(int argc, char **argv) { }
+Performing C SOURCE FILE Test HAVE_SSE2 succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_eb32f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_eb32f.dir/build.make CMakeFiles/cmTC_eb32f.dir/build
+Building C object CMakeFiles/cmTC_eb32f.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_SSE2 -msse2   -o CMakeFiles/cmTC_eb32f.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_eb32f
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_eb32f.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_SSE2 -msse2 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_eb32f.dir/src.c.o  -o cmTC_eb32f  
+
+Source file was:
+
+          #ifdef __MINGW32__
+          #include <_mingw.h>
+          #ifdef __MINGW64_VERSION_MAJOR
+          #include <intrin.h>
+          #else
+          #include <emmintrin.h>
+          #endif
+          #else
+          #include <emmintrin.h>
+          #endif
+          #ifndef __SSE2__
+          #error Assembler CPP flag not enabled
+          #endif
+          int main(int argc, char **argv) { }
+Determining if the include file stdio.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a7a52/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a7a52.dir/build.make CMakeFiles/cmTC_a7a52.dir/build
+Building C object CMakeFiles/cmTC_a7a52.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_a7a52.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_a7a52
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a7a52.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a7a52.dir/CheckIncludeFile.c.o  -o cmTC_a7a52  
+
+
+Determining if the include file stdlib.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3974e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3974e.dir/build.make CMakeFiles/cmTC_3974e.dir/build
+Building C object CMakeFiles/cmTC_3974e.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_3974e.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_3974e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3974e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3974e.dir/CheckIncludeFile.c.o  -o cmTC_3974e  
+
+
+Determining if the include file stdarg.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9734b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_9734b.dir/build.make CMakeFiles/cmTC_9734b.dir/build
+Building C object CMakeFiles/cmTC_9734b.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_9734b.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_9734b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9734b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_9734b.dir/CheckIncludeFile.c.o  -o cmTC_9734b  
+
+
+Determining if the include file memory.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8a14b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8a14b.dir/build.make CMakeFiles/cmTC_8a14b.dir/build
+Building C object CMakeFiles/cmTC_8a14b.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_8a14b.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_8a14b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8a14b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8a14b.dir/CheckIncludeFile.c.o  -o cmTC_8a14b  
+
+
+Determining if the include file string.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ae965/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ae965.dir/build.make CMakeFiles/cmTC_ae965.dir/build
+Building C object CMakeFiles/cmTC_ae965.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_ae965.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_ae965
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ae965.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ae965.dir/CheckIncludeFile.c.o  -o cmTC_ae965  
+
+
+Determining if the include file inttypes.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_058b7/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_058b7.dir/build.make CMakeFiles/cmTC_058b7.dir/build
+Building C object CMakeFiles/cmTC_058b7.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_058b7.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_058b7
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_058b7.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_058b7.dir/CheckIncludeFile.c.o  -o cmTC_058b7  
+
+
+Determining if the include file ctype.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7fb60/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7fb60.dir/build.make CMakeFiles/cmTC_7fb60.dir/build
+Building C object CMakeFiles/cmTC_7fb60.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_7fb60.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_7fb60
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7fb60.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7fb60.dir/CheckIncludeFile.c.o  -o cmTC_7fb60  
+
+
+Determining if the include file math.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_822e2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_822e2.dir/build.make CMakeFiles/cmTC_822e2.dir/build
+Building C object CMakeFiles/cmTC_822e2.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_822e2.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_822e2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_822e2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_822e2.dir/CheckIncludeFile.c.o  -o cmTC_822e2  
+
+
+Determining if the include file iconv.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4865b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_4865b.dir/build.make CMakeFiles/cmTC_4865b.dir/build
+Building C object CMakeFiles/cmTC_4865b.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_4865b.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_4865b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4865b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_4865b.dir/CheckIncludeFile.c.o  -o cmTC_4865b  
+
+
+Determining if the include file signal.h exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c8406/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c8406.dir/build.make CMakeFiles/cmTC_c8406.dir/build
+Building C object CMakeFiles/cmTC_c8406.dir/CheckIncludeFile.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_c8406.dir/CheckIncludeFile.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_c8406
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8406.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c8406.dir/CheckIncludeFile.c.o  -o cmTC_c8406  
+
+
+Determining if files dlfcn.h;stdint.h;stddef.h;inttypes.h;stdlib.h;strings.h;string.h;float.h exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_169bd/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_169bd.dir/build.make CMakeFiles/cmTC_169bd.dir/build
+Building C object CMakeFiles/cmTC_169bd.dir/CheckIncludeFiles.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_169bd.dir/CheckIncludeFiles.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_169bd
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_169bd.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_169bd.dir/CheckIncludeFiles.c.o  -o cmTC_169bd  
+
+
+Determining size of size_t passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_764f9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_764f9.dir/build.make CMakeFiles/cmTC_764f9.dir/build
+Building C object CMakeFiles/cmTC_764f9.dir/SIZEOF_SIZE_T.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_764f9.dir/SIZEOF_SIZE_T.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CheckTypeSize/SIZEOF_SIZE_T.c
+Linking C executable cmTC_764f9
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_764f9.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_764f9.dir/SIZEOF_SIZE_T.c.o  -o cmTC_764f9  
+
+
+Determining if the M_PI exist passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_84dc0/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_84dc0.dir/build.make CMakeFiles/cmTC_84dc0.dir/build
+Building C object CMakeFiles/cmTC_84dc0.dir/CheckSymbolExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3    -o CMakeFiles/cmTC_84dc0.dir/CheckSymbolExists.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_84dc0
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_84dc0.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_84dc0.dir/CheckSymbolExists.c.o  -o cmTC_84dc0  
+
+File /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef M_PI
+  return ((int*)(&M_PI))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Performing C SOURCE FILE Test HAVE_MPROTECT succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ea644/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ea644.dir/build.make CMakeFiles/cmTC_ea644.dir/build
+Building C object CMakeFiles/cmTC_ea644.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_MPROTECT   -o CMakeFiles/cmTC_ea644.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_ea644
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ea644.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_MPROTECT -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ea644.dir/src.c.o  -o cmTC_ea644  
+
+Source file was:
+#include <sys/types.h>
+                             #include <sys/mman.h>
+                             int main() { }
+Determining if the function strtod exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_893bb/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_893bb.dir/build.make CMakeFiles/cmTC_893bb.dir/build
+Building C object CMakeFiles/cmTC_893bb.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strtod   -o CMakeFiles/cmTC_893bb.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_893bb
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_893bb.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strtod -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_893bb.dir/CheckFunctionExists.c.o  -o cmTC_893bb  
+
+
+Determining if the function malloc exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1687a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_1687a.dir/build.make CMakeFiles/cmTC_1687a.dir/build
+Building C object CMakeFiles/cmTC_1687a.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=malloc   -o CMakeFiles/cmTC_1687a.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'malloc' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS malloc
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'malloc' is a builtin with type 'void *(unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS malloc
+                              ^
+1 warning generated.
+Linking C executable cmTC_1687a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1687a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=malloc -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_1687a.dir/CheckFunctionExists.c.o  -o cmTC_1687a  
+
+
+Determining if the function calloc exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_88625/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_88625.dir/build.make CMakeFiles/cmTC_88625.dir/build
+Building C object CMakeFiles/cmTC_88625.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=calloc   -o CMakeFiles/cmTC_88625.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'calloc' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS calloc
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'calloc' is a builtin with type 'void *(unsigned long, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS calloc
+                              ^
+1 warning generated.
+Linking C executable cmTC_88625
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88625.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=calloc -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_88625.dir/CheckFunctionExists.c.o  -o cmTC_88625  
+
+
+Determining if the function realloc exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8c3e6/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8c3e6.dir/build.make CMakeFiles/cmTC_8c3e6.dir/build
+Building C object CMakeFiles/cmTC_8c3e6.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=realloc   -o CMakeFiles/cmTC_8c3e6.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'realloc' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS realloc
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'realloc' is a builtin with type 'void *(void *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS realloc
+                              ^
+1 warning generated.
+Linking C executable cmTC_8c3e6
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8c3e6.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=realloc -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8c3e6.dir/CheckFunctionExists.c.o  -o cmTC_8c3e6  
+
+
+Determining if the function free exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_45a16/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_45a16.dir/build.make CMakeFiles/cmTC_45a16.dir/build
+Building C object CMakeFiles/cmTC_45a16.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=free   -o CMakeFiles/cmTC_45a16.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_45a16
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_45a16.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=free -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_45a16.dir/CheckFunctionExists.c.o  -o cmTC_45a16  
+
+
+Determining if the function getenv exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2d8bf/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2d8bf.dir/build.make CMakeFiles/cmTC_2d8bf.dir/build
+Building C object CMakeFiles/cmTC_2d8bf.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=getenv   -o CMakeFiles/cmTC_2d8bf.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2d8bf
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2d8bf.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=getenv -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2d8bf.dir/CheckFunctionExists.c.o  -o cmTC_2d8bf  
+
+
+Determining if the function setenv exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b4335/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_b4335.dir/build.make CMakeFiles/cmTC_b4335.dir/build
+Building C object CMakeFiles/cmTC_b4335.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=setenv   -o CMakeFiles/cmTC_b4335.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b4335
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b4335.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=setenv -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_b4335.dir/CheckFunctionExists.c.o  -o cmTC_b4335  
+
+
+Determining if the function putenv exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3a61e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3a61e.dir/build.make CMakeFiles/cmTC_3a61e.dir/build
+Building C object CMakeFiles/cmTC_3a61e.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=putenv   -o CMakeFiles/cmTC_3a61e.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3a61e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3a61e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=putenv -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3a61e.dir/CheckFunctionExists.c.o  -o cmTC_3a61e  
+
+
+Determining if the function unsetenv exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_87106/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_87106.dir/build.make CMakeFiles/cmTC_87106.dir/build
+Building C object CMakeFiles/cmTC_87106.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=unsetenv   -o CMakeFiles/cmTC_87106.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_87106
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_87106.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=unsetenv -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_87106.dir/CheckFunctionExists.c.o  -o cmTC_87106  
+
+
+Determining if the function qsort exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d2a15/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d2a15.dir/build.make CMakeFiles/cmTC_d2a15.dir/build
+Building C object CMakeFiles/cmTC_d2a15.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=qsort   -o CMakeFiles/cmTC_d2a15.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d2a15
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d2a15.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=qsort -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d2a15.dir/CheckFunctionExists.c.o  -o cmTC_d2a15  
+
+
+Determining if the function abs exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0c3c1/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_0c3c1.dir/build.make CMakeFiles/cmTC_0c3c1.dir/build
+Building C object CMakeFiles/cmTC_0c3c1.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=abs   -o CMakeFiles/cmTC_0c3c1.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'abs' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS abs
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'abs' is a builtin with type 'int (int)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS abs
+                              ^
+1 warning generated.
+Linking C executable cmTC_0c3c1
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0c3c1.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=abs -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0c3c1.dir/CheckFunctionExists.c.o  -o cmTC_0c3c1  
+
+
+Determining if the function bcopy exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d6ae5/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d6ae5.dir/build.make CMakeFiles/cmTC_d6ae5.dir/build
+Building C object CMakeFiles/cmTC_d6ae5.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=bcopy   -o CMakeFiles/cmTC_d6ae5.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_d6ae5
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d6ae5.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=bcopy -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d6ae5.dir/CheckFunctionExists.c.o  -o cmTC_d6ae5  
+
+
+Determining if the function memset exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_178bb/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_178bb.dir/build.make CMakeFiles/cmTC_178bb.dir/build
+Building C object CMakeFiles/cmTC_178bb.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=memset   -o CMakeFiles/cmTC_178bb.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'memset' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memset
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'memset' is a builtin with type 'void *(void *, int, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memset
+                              ^
+1 warning generated.
+Linking C executable cmTC_178bb
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_178bb.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=memset -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_178bb.dir/CheckFunctionExists.c.o  -o cmTC_178bb  
+
+
+Determining if the function memcpy exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8231a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8231a.dir/build.make CMakeFiles/cmTC_8231a.dir/build
+Building C object CMakeFiles/cmTC_8231a.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=memcpy   -o CMakeFiles/cmTC_8231a.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'memcpy' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memcpy
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'memcpy' is a builtin with type 'void *(void *, const void *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memcpy
+                              ^
+1 warning generated.
+Linking C executable cmTC_8231a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8231a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=memcpy -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8231a.dir/CheckFunctionExists.c.o  -o cmTC_8231a  
+
+
+Determining if the function memmove exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_6b427/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_6b427.dir/build.make CMakeFiles/cmTC_6b427.dir/build
+Building C object CMakeFiles/cmTC_6b427.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=memmove   -o CMakeFiles/cmTC_6b427.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'memmove' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memmove
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'memmove' is a builtin with type 'void *(void *, const void *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memmove
+                              ^
+1 warning generated.
+Linking C executable cmTC_6b427
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_6b427.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=memmove -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_6b427.dir/CheckFunctionExists.c.o  -o cmTC_6b427  
+
+
+Determining if the function memcmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8914e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8914e.dir/build.make CMakeFiles/cmTC_8914e.dir/build
+Building C object CMakeFiles/cmTC_8914e.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=memcmp   -o CMakeFiles/cmTC_8914e.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'memcmp' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memcmp
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'memcmp' is a builtin with type 'int (const void *, const void *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS memcmp
+                              ^
+1 warning generated.
+Linking C executable cmTC_8914e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8914e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=memcmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8914e.dir/CheckFunctionExists.c.o  -o cmTC_8914e  
+
+
+Determining if the function strlen exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b7ef4/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_b7ef4.dir/build.make CMakeFiles/cmTC_b7ef4.dir/build
+Building C object CMakeFiles/cmTC_b7ef4.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strlen   -o CMakeFiles/cmTC_b7ef4.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strlen' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlen
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strlen' is a builtin with type 'unsigned long (const char *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlen
+                              ^
+1 warning generated.
+Linking C executable cmTC_b7ef4
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b7ef4.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strlen -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_b7ef4.dir/CheckFunctionExists.c.o  -o cmTC_b7ef4  
+
+
+Determining if the function strlcpy exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_645c2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_645c2.dir/build.make CMakeFiles/cmTC_645c2.dir/build
+Building C object CMakeFiles/cmTC_645c2.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strlcpy   -o CMakeFiles/cmTC_645c2.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strlcpy' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlcpy
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strlcpy' is a builtin with type 'unsigned long (char *, const char *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlcpy
+                              ^
+1 warning generated.
+Linking C executable cmTC_645c2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_645c2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strlcpy -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_645c2.dir/CheckFunctionExists.c.o  -o cmTC_645c2  
+
+
+Determining if the function strlcat exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_640db/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_640db.dir/build.make CMakeFiles/cmTC_640db.dir/build
+Building C object CMakeFiles/cmTC_640db.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strlcat   -o CMakeFiles/cmTC_640db.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strlcat' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlcat
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strlcat' is a builtin with type 'unsigned long (char *, const char *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strlcat
+                              ^
+1 warning generated.
+Linking C executable cmTC_640db
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_640db.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strlcat -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_640db.dir/CheckFunctionExists.c.o  -o cmTC_640db  
+
+
+Determining if the function strdup exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8b99c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8b99c.dir/build.make CMakeFiles/cmTC_8b99c.dir/build
+Building C object CMakeFiles/cmTC_8b99c.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strdup   -o CMakeFiles/cmTC_8b99c.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strdup' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strdup
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strdup' is a builtin with type 'char *(const char *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strdup
+                              ^
+1 warning generated.
+Linking C executable cmTC_8b99c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8b99c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strdup -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8b99c.dir/CheckFunctionExists.c.o  -o cmTC_8b99c  
+
+
+Determining if the function strchr exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3ed14/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3ed14.dir/build.make CMakeFiles/cmTC_3ed14.dir/build
+Building C object CMakeFiles/cmTC_3ed14.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strchr   -o CMakeFiles/cmTC_3ed14.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strchr' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strchr
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strchr' is a builtin with type 'char *(const char *, int)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strchr
+                              ^
+1 warning generated.
+Linking C executable cmTC_3ed14
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ed14.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strchr -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3ed14.dir/CheckFunctionExists.c.o  -o cmTC_3ed14  
+
+
+Determining if the function strrchr exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_74935/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_74935.dir/build.make CMakeFiles/cmTC_74935.dir/build
+Building C object CMakeFiles/cmTC_74935.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strrchr   -o CMakeFiles/cmTC_74935.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strrchr' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strrchr
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strrchr' is a builtin with type 'char *(const char *, int)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strrchr
+                              ^
+1 warning generated.
+Linking C executable cmTC_74935
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_74935.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strrchr -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_74935.dir/CheckFunctionExists.c.o  -o cmTC_74935  
+
+
+Determining if the function strstr exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_64311/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_64311.dir/build.make CMakeFiles/cmTC_64311.dir/build
+Building C object CMakeFiles/cmTC_64311.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strstr   -o CMakeFiles/cmTC_64311.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strstr' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strstr
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strstr' is a builtin with type 'char *(const char *, const char *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strstr
+                              ^
+1 warning generated.
+Linking C executable cmTC_64311
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_64311.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strstr -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_64311.dir/CheckFunctionExists.c.o  -o cmTC_64311  
+
+
+Determining if the function strtol exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_95b9d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_95b9d.dir/build.make CMakeFiles/cmTC_95b9d.dir/build
+Building C object CMakeFiles/cmTC_95b9d.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strtol   -o CMakeFiles/cmTC_95b9d.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_95b9d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_95b9d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strtol -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_95b9d.dir/CheckFunctionExists.c.o  -o cmTC_95b9d  
+
+
+Determining if the function strtoul exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_25093/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_25093.dir/build.make CMakeFiles/cmTC_25093.dir/build
+Building C object CMakeFiles/cmTC_25093.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strtoul   -o CMakeFiles/cmTC_25093.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_25093
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_25093.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strtoul -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_25093.dir/CheckFunctionExists.c.o  -o cmTC_25093  
+
+
+Determining if the function strtoll exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e683d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e683d.dir/build.make CMakeFiles/cmTC_e683d.dir/build
+Building C object CMakeFiles/cmTC_e683d.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strtoll   -o CMakeFiles/cmTC_e683d.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e683d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e683d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strtoll -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e683d.dir/CheckFunctionExists.c.o  -o cmTC_e683d  
+
+
+Determining if the function strtoull exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ad6cf/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ad6cf.dir/build.make CMakeFiles/cmTC_ad6cf.dir/build
+Building C object CMakeFiles/cmTC_ad6cf.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strtoull   -o CMakeFiles/cmTC_ad6cf.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ad6cf
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ad6cf.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strtoull -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ad6cf.dir/CheckFunctionExists.c.o  -o cmTC_ad6cf  
+
+
+Determining if the function atoi exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e4a41/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e4a41.dir/build.make CMakeFiles/cmTC_e4a41.dir/build
+Building C object CMakeFiles/cmTC_e4a41.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=atoi   -o CMakeFiles/cmTC_e4a41.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e4a41
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e4a41.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=atoi -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e4a41.dir/CheckFunctionExists.c.o  -o cmTC_e4a41  
+
+
+Determining if the function atof exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_47670/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_47670.dir/build.make CMakeFiles/cmTC_47670.dir/build
+Building C object CMakeFiles/cmTC_47670.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=atof   -o CMakeFiles/cmTC_47670.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_47670
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47670.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=atof -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_47670.dir/CheckFunctionExists.c.o  -o cmTC_47670  
+
+
+Determining if the function strcmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dd6e9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_dd6e9.dir/build.make CMakeFiles/cmTC_dd6e9.dir/build
+Building C object CMakeFiles/cmTC_dd6e9.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strcmp   -o CMakeFiles/cmTC_dd6e9.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strcmp' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strcmp
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strcmp' is a builtin with type 'int (const char *, const char *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strcmp
+                              ^
+1 warning generated.
+Linking C executable cmTC_dd6e9
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dd6e9.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strcmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_dd6e9.dir/CheckFunctionExists.c.o  -o cmTC_dd6e9  
+
+
+Determining if the function strncmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ef14f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ef14f.dir/build.make CMakeFiles/cmTC_ef14f.dir/build
+Building C object CMakeFiles/cmTC_ef14f.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=strncmp   -o CMakeFiles/cmTC_ef14f.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'strncmp' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strncmp
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'strncmp' is a builtin with type 'int (const char *, const char *, unsigned long)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS strncmp
+                              ^
+1 warning generated.
+Linking C executable cmTC_ef14f
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ef14f.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=strncmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ef14f.dir/CheckFunctionExists.c.o  -o cmTC_ef14f  
+
+
+Determining if the function vsscanf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ac6a9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ac6a9.dir/build.make CMakeFiles/cmTC_ac6a9.dir/build
+Building C object CMakeFiles/cmTC_ac6a9.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=vsscanf   -o CMakeFiles/cmTC_ac6a9.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'vsscanf' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS vsscanf
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'vsscanf' is a builtin with type 'int (const char *restrict, const char *restrict, struct __va_list_tag *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS vsscanf
+                              ^
+1 warning generated.
+Linking C executable cmTC_ac6a9
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ac6a9.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=vsscanf -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ac6a9.dir/CheckFunctionExists.c.o  -o cmTC_ac6a9  
+
+
+Determining if the function vsnprintf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7016b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7016b.dir/build.make CMakeFiles/cmTC_7016b.dir/build
+Building C object CMakeFiles/cmTC_7016b.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=vsnprintf   -o CMakeFiles/cmTC_7016b.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'vsnprintf' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS vsnprintf
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'vsnprintf' is a builtin with type 'int (char *, unsigned long, const char *, struct __va_list_tag *)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS vsnprintf
+                              ^
+1 warning generated.
+Linking C executable cmTC_7016b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7016b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=vsnprintf -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7016b.dir/CheckFunctionExists.c.o  -o cmTC_7016b  
+
+
+Determining if the function fseeko exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2250f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2250f.dir/build.make CMakeFiles/cmTC_2250f.dir/build
+Building C object CMakeFiles/cmTC_2250f.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=fseeko   -o CMakeFiles/cmTC_2250f.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_2250f
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2250f.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=fseeko -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2250f.dir/CheckFunctionExists.c.o  -o cmTC_2250f  
+
+
+Determining if the function sigaction exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_14ce2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_14ce2.dir/build.make CMakeFiles/cmTC_14ce2.dir/build
+Building C object CMakeFiles/cmTC_14ce2.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sigaction   -o CMakeFiles/cmTC_14ce2.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_14ce2
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_14ce2.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sigaction -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_14ce2.dir/CheckFunctionExists.c.o  -o cmTC_14ce2  
+
+
+Determining if the function setjmp exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_17793/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_17793.dir/build.make CMakeFiles/cmTC_17793.dir/build
+Building C object CMakeFiles/cmTC_17793.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=setjmp   -o CMakeFiles/cmTC_17793.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: declaration of built-in function 'setjmp' requires inclusion of the header <setjmp.h> [-Wbuiltin-requires-header]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS setjmp
+                              ^
+1 warning generated.
+Linking C executable cmTC_17793
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_17793.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=setjmp -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_17793.dir/CheckFunctionExists.c.o  -o cmTC_17793  
+
+
+Determining if the function sysconf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7c55a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7c55a.dir/build.make CMakeFiles/cmTC_7c55a.dir/build
+Building C object CMakeFiles/cmTC_7c55a.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sysconf   -o CMakeFiles/cmTC_7c55a.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_7c55a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7c55a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sysconf -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_7c55a.dir/CheckFunctionExists.c.o  -o cmTC_7c55a  
+
+
+Determining if the function sysctlbyname exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_45bfa/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_45bfa.dir/build.make CMakeFiles/cmTC_45bfa.dir/build
+Building C object CMakeFiles/cmTC_45bfa.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sysctlbyname   -o CMakeFiles/cmTC_45bfa.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_45bfa
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_45bfa.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sysctlbyname -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_45bfa.dir/CheckFunctionExists.c.o  -o cmTC_45bfa  
+
+
+Determining if the function atan exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5fd61/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_5fd61.dir/build.make CMakeFiles/cmTC_5fd61.dir/build
+Building C object CMakeFiles/cmTC_5fd61.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=atan   -o CMakeFiles/cmTC_5fd61.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'atan' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS atan
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'atan' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS atan
+                              ^
+1 warning generated.
+Linking C executable cmTC_5fd61
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5fd61.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=atan -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_5fd61.dir/CheckFunctionExists.c.o  -o cmTC_5fd61  -lm 
+
+
+Determining if the function atan2 exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_54471/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_54471.dir/build.make CMakeFiles/cmTC_54471.dir/build
+Building C object CMakeFiles/cmTC_54471.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=atan2   -o CMakeFiles/cmTC_54471.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'atan2' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS atan2
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'atan2' is a builtin with type 'double (double, double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS atan2
+                              ^
+1 warning generated.
+Linking C executable cmTC_54471
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_54471.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=atan2 -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_54471.dir/CheckFunctionExists.c.o  -o cmTC_54471  -lm 
+
+
+Determining if the function ceil exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_75a5b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_75a5b.dir/build.make CMakeFiles/cmTC_75a5b.dir/build
+Building C object CMakeFiles/cmTC_75a5b.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=ceil   -o CMakeFiles/cmTC_75a5b.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'ceil' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS ceil
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'ceil' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS ceil
+                              ^
+1 warning generated.
+Linking C executable cmTC_75a5b
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_75a5b.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=ceil -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_75a5b.dir/CheckFunctionExists.c.o  -o cmTC_75a5b  -lm 
+
+
+Determining if the function copysign exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1a4fd/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_1a4fd.dir/build.make CMakeFiles/cmTC_1a4fd.dir/build
+Building C object CMakeFiles/cmTC_1a4fd.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=copysign   -o CMakeFiles/cmTC_1a4fd.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'copysign' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS copysign
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'copysign' is a builtin with type 'double (double, double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS copysign
+                              ^
+1 warning generated.
+Linking C executable cmTC_1a4fd
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1a4fd.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=copysign -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_1a4fd.dir/CheckFunctionExists.c.o  -o cmTC_1a4fd  -lm 
+
+
+Determining if the function cos exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b66fc/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_b66fc.dir/build.make CMakeFiles/cmTC_b66fc.dir/build
+Building C object CMakeFiles/cmTC_b66fc.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=cos   -o CMakeFiles/cmTC_b66fc.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'cos' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS cos
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'cos' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS cos
+                              ^
+1 warning generated.
+Linking C executable cmTC_b66fc
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b66fc.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=cos -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_b66fc.dir/CheckFunctionExists.c.o  -o cmTC_b66fc  -lm 
+
+
+Determining if the function cosf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d3f33/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d3f33.dir/build.make CMakeFiles/cmTC_d3f33.dir/build
+Building C object CMakeFiles/cmTC_d3f33.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=cosf   -o CMakeFiles/cmTC_d3f33.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'cosf' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS cosf
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'cosf' is a builtin with type 'float (float)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS cosf
+                              ^
+1 warning generated.
+Linking C executable cmTC_d3f33
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d3f33.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=cosf -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d3f33.dir/CheckFunctionExists.c.o  -o cmTC_d3f33  -lm 
+
+
+Determining if the function fabs exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_5adf9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_5adf9.dir/build.make CMakeFiles/cmTC_5adf9.dir/build
+Building C object CMakeFiles/cmTC_5adf9.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=fabs   -o CMakeFiles/cmTC_5adf9.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'fabs' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS fabs
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'fabs' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS fabs
+                              ^
+1 warning generated.
+Linking C executable cmTC_5adf9
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5adf9.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=fabs -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_5adf9.dir/CheckFunctionExists.c.o  -o cmTC_5adf9  -lm 
+
+
+Determining if the function floor exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3ebb6/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3ebb6.dir/build.make CMakeFiles/cmTC_3ebb6.dir/build
+Building C object CMakeFiles/cmTC_3ebb6.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=floor   -o CMakeFiles/cmTC_3ebb6.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'floor' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS floor
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'floor' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS floor
+                              ^
+1 warning generated.
+Linking C executable cmTC_3ebb6
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3ebb6.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=floor -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3ebb6.dir/CheckFunctionExists.c.o  -o cmTC_3ebb6  -lm 
+
+
+Determining if the function log exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3d7e3/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3d7e3.dir/build.make CMakeFiles/cmTC_3d7e3.dir/build
+Building C object CMakeFiles/cmTC_3d7e3.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=log   -o CMakeFiles/cmTC_3d7e3.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'log' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS log
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'log' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS log
+                              ^
+1 warning generated.
+Linking C executable cmTC_3d7e3
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3d7e3.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=log -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3d7e3.dir/CheckFunctionExists.c.o  -o cmTC_3d7e3  -lm 
+
+
+Determining if the function pow exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_fe8ca/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_fe8ca.dir/build.make CMakeFiles/cmTC_fe8ca.dir/build
+Building C object CMakeFiles/cmTC_fe8ca.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=pow   -o CMakeFiles/cmTC_fe8ca.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'pow' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS pow
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'pow' is a builtin with type 'double (double, double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS pow
+                              ^
+1 warning generated.
+Linking C executable cmTC_fe8ca
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_fe8ca.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=pow -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_fe8ca.dir/CheckFunctionExists.c.o  -o cmTC_fe8ca  -lm 
+
+
+Determining if the function scalbn exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3529a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3529a.dir/build.make CMakeFiles/cmTC_3529a.dir/build
+Building C object CMakeFiles/cmTC_3529a.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=scalbn   -o CMakeFiles/cmTC_3529a.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'scalbn' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS scalbn
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'scalbn' is a builtin with type 'double (double, int)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS scalbn
+                              ^
+1 warning generated.
+Linking C executable cmTC_3529a
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3529a.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=scalbn -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3529a.dir/CheckFunctionExists.c.o  -o cmTC_3529a  -lm 
+
+
+Determining if the function sin exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_dbeba/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_dbeba.dir/build.make CMakeFiles/cmTC_dbeba.dir/build
+Building C object CMakeFiles/cmTC_dbeba.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sin   -o CMakeFiles/cmTC_dbeba.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'sin' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sin
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'sin' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sin
+                              ^
+1 warning generated.
+Linking C executable cmTC_dbeba
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_dbeba.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sin -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_dbeba.dir/CheckFunctionExists.c.o  -o cmTC_dbeba  -lm 
+
+
+Determining if the function sinf exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0f48c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_0f48c.dir/build.make CMakeFiles/cmTC_0f48c.dir/build
+Building C object CMakeFiles/cmTC_0f48c.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sinf   -o CMakeFiles/cmTC_0f48c.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'sinf' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sinf
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'sinf' is a builtin with type 'float (float)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sinf
+                              ^
+1 warning generated.
+Linking C executable cmTC_0f48c
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0f48c.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sinf -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0f48c.dir/CheckFunctionExists.c.o  -o cmTC_0f48c  -lm 
+
+
+Determining if the function sqrt exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bc9ec/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_bc9ec.dir/build.make CMakeFiles/cmTC_bc9ec.dir/build
+Building C object CMakeFiles/cmTC_bc9ec.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=sqrt   -o CMakeFiles/cmTC_bc9ec.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: warning: incompatible redeclaration of library function 'sqrt' [-Wincompatible-library-redeclaration]
+  CHECK_FUNCTION_EXISTS();
+  ^
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sqrt
+                              ^
+/usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c:7:3: note: 'sqrt' is a builtin with type 'double (double)'
+<command line>:1:31: note: expanded from here
+#define CHECK_FUNCTION_EXISTS sqrt
+                              ^
+1 warning generated.
+Linking C executable cmTC_bc9ec
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bc9ec.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=sqrt -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_bc9ec.dir/CheckFunctionExists.c.o  -o cmTC_bc9ec  -lm 
+
+
+Determining if the function iconv_open exists in the iconv passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_ae1dc/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_ae1dc.dir/build.make CMakeFiles/cmTC_ae1dc.dir/build
+Building C object CMakeFiles/cmTC_ae1dc.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=iconv_open   -o CMakeFiles/cmTC_ae1dc.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_ae1dc
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ae1dc.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=iconv_open -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_ae1dc.dir/CheckFunctionExists.c.o  -o cmTC_ae1dc  -liconv 
+
+
+Performing C SOURCE FILE Test HAVE_SA_SIGACTION succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e5d2d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e5d2d.dir/build.make CMakeFiles/cmTC_e5d2d.dir/build
+Building C object CMakeFiles/cmTC_e5d2d.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_SA_SIGACTION   -o CMakeFiles/cmTC_e5d2d.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_e5d2d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e5d2d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_SA_SIGACTION -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e5d2d.dir/src.c.o  -o cmTC_e5d2d  
+
+Source file was:
+
+#include <signal.h>
+
+int main()
+{
+   (void)sizeof(((struct sigaction *)0)->sa_sigaction);
+   return 0;
+}
+
+Determining if the function dlopen exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e9a33/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e9a33.dir/build.make CMakeFiles/cmTC_e9a33.dir/build
+Building C object CMakeFiles/cmTC_e9a33.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=dlopen   -o CMakeFiles/cmTC_e9a33.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_e9a33
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e9a33.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=dlopen -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e9a33.dir/CheckFunctionExists.c.o  -o cmTC_e9a33  
+
+
+Performing C SOURCE FILE Test HAVE_PTHREADS succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_26b14/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_26b14.dir/build.make CMakeFiles/cmTC_26b14.dir/build
+Building C object CMakeFiles/cmTC_26b14.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_PTHREADS -D_THREAD_SAFE   -o CMakeFiles/cmTC_26b14.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_26b14
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_26b14.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_PTHREADS -D_THREAD_SAFE -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_26b14.dir/src.c.o  -o cmTC_26b14  
+
+Return value: 1
+Source file was:
+
+        #include <pthread.h>
+        int main(int argc, char** argv) {
+          pthread_attr_t type;
+          pthread_attr_init(&type);
+          return 0;
+        }
+Performing C SOURCE FILE Test HAVE_RECURSIVE_MUTEXES succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4632e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_4632e.dir/build.make CMakeFiles/cmTC_4632e.dir/build
+Building C object CMakeFiles/cmTC_4632e.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_RECURSIVE_MUTEXES -D_THREAD_SAFE   -o CMakeFiles/cmTC_4632e.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_4632e
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4632e.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_RECURSIVE_MUTEXES -D_THREAD_SAFE -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_4632e.dir/src.c.o  -o cmTC_4632e  
+
+Source file was:
+
+        #include <pthread.h>
+        int main(int argc, char **argv) {
+          pthread_mutexattr_t attr;
+          pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_RECURSIVE);
+          return 0;
+        }
+Performing C SOURCE FILE Test HAVE_PTHREADS_SEM succeeded with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_aba89/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_aba89.dir/build.make CMakeFiles/cmTC_aba89.dir/build
+Building C object CMakeFiles/cmTC_aba89.dir/src.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DHAVE_PTHREADS_SEM -D_THREAD_SAFE   -o CMakeFiles/cmTC_aba89.dir/src.c.o   -c /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_aba89
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_aba89.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DHAVE_PTHREADS_SEM -D_THREAD_SAFE -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_aba89.dir/src.c.o  -o cmTC_aba89  
+
+Source file was:
+#include <pthread.h>
+                                 #include <semaphore.h>
+                                 int main(int argc, char **argv) { return 0; }
+Determining if the function pthread_setname_np exists passed with the following output:
+Change Dir: /Users/muresanvladmihail/Programming/CLove/test/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_3769d/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_3769d.dir/build.make CMakeFiles/cmTC_3769d.dir/build
+Building C object CMakeFiles/cmTC_3769d.dir/CheckFunctionExists.c.o
+/Library/Developer/CommandLineTools/usr/bin/cc    -g -O3 -DCHECK_FUNCTION_EXISTS=pthread_setname_np -D_THREAD_SAFE   -o CMakeFiles/cmTC_3769d.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.7.1/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_3769d
+/usr/local/Cellar/cmake/3.7.1/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3769d.dir/link.txt --verbose=1
+/Library/Developer/CommandLineTools/usr/bin/cc  -g -O3 -DCHECK_FUNCTION_EXISTS=pthread_setname_np -D_THREAD_SAFE -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_3769d.dir/CheckFunctionExists.c.o  -o cmTC_3769d  
+
+

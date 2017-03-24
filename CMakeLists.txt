@@ -11,7 +11,13 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-IF(MINGW)
+option(BUILD_ANDROID "Build clove lib?" true)
+option(BUILD_OSX "" false)
+option(BUILD_LINUX "" false)
+option(BUILD_WINDOWS "" false)
+
+
+IF(BUILD_WINDOWS)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
   	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
   	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
@@ -22,9 +28,9 @@ IF(MINGW)
   	FIND_PACKAGE(OpenGL REQUIRED)
   	set(MTCL_BUILD_FLAGS "")
   	set(OS_SPECIFIC_LIBRARIES)
-ENDIF(MINGW)
+ENDIF()
 
-IF(UNIX AND NOT APPLE)
+IF(BUILD_LINUX)
     FIND_PACKAGE(OpenGL REQUIRED)
     set(OPENAL_LIBRARY "openal")
     set(MTCL_BUILD_FLAGS "")
@@ -39,9 +45,9 @@ IF(UNIX AND NOT APPLE)
     set(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
     set(CMAKE_INSTALL_RPATH "install")
-ENDIF(UNIX AND NOT APPLE)
+ENDIF()
 
-if (APPLE)
+if (BUILD_OSX)
     LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
     IF("${isSystemDir}" STREQUAL "-1")
     ENDIF("${isSystemDir}" STREQUAL "-1")
@@ -61,10 +67,24 @@ if (APPLE)
     set(CMAKE_INSTALL_RPATH "install")
 endif()
 
-if (ANDROID)
+if (BUILD_ANDROID)
+	#FIND_PACKAGE(OpenGLES REQUIRED)
+  	#FIND_PACKAGE(OpenGLES2 REQUIRED)
+
+  	set (ARM_FLAGS "-march=armv6 -marm -mfloat-abi=softfp -mfpu=vfp")
 	set ( ANDROID_FORCE_ARM_BUILD ON )
 	set ( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL" )
 	set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL" )
+	ADD_DEFINITIONS("-Dva_list=__builtin_va_list")
+  	ADD_DEFINITIONS("-Dva_start=__builtin_va_start")
+  	ADD_DEFINITIONS("-Dva_end=__builtin_va_end")
+  	ADD_DEFINITIONS("-Dva_arg=__builtin_va_arg")
+  	ADD_DEFINITIONS("-DHAVE_MALLOC")
+  	ADD_DEFINITIONS("-DANDROID")
+  	ADD_DEFINITIONS("-DUSE_GLES")
+  	ADD_DEFINITIONS("-D__ANDROID__")
+
+  	SET(LIBTYPE STATIC)
 endif()
 
 FILE(
@@ -116,7 +136,7 @@ set(clove_creator "Muresan Vlad")
 set(clove_copyright "Copyright (c) 2015-2016, ${clove_creator}.")
 message(clove_copyright)
 
-if (NOT ANDROID)
+if (NOT BUILD_ANDROID)
 	add_executable(
 		clove
 		${SOURCE_FILES_MAIN}
@@ -124,7 +144,7 @@ if (NOT ANDROID)
     )
 endif()
 
-if (ANDROID)
+if (BUILD_ANDROID)
 
 	set(INCLUDE_CLOVEANDROID
 		"src/"
@@ -132,7 +152,7 @@ if (ANDROID)
 	)
 
 	include_directories( ${INCLUDE_CLOVEANDROID}	)
-	add_library( clove SHARED ${SOURCE_FILES} android/clovelib/jni/clove.c )
+	add_library( clove SHARED ${SOURCE_FILES} )
 
 endif()
 
@@ -162,16 +182,16 @@ add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
 
-if(MINGW)
+if(BUILD_WINDOWS)
     set(OPENAL_LIBRARIES "OpenAL32")
 endif()
-if(UNIX OR APPLE)
+if(BUILD_OSX OR BUILD_LINUX)
     set(OPENAL_LIBRARIES openal)
 endif()
 
 add_definitions(-DAL_LIBTYPE_STATIC)
 
-if(NOT ANDROID)
+if (NOT BUILD_ANDROID)
 	add_definitions(-DGLEW_STATIC)
 endif()
 
@@ -182,32 +202,34 @@ add_definitions(-DSDL2_STATIC)
 set(FREETYPE_LIBRARIES freetype)
 include_directories(src/3rdparty/freetype/include)
 
-set(GLEW_LIBRARIES libglew_static)
+if(NOT ANDROID)
+	set(GLEW_LIBRARIES libglew_static)
+endif()
 
-if(MINGW)
+if(BUILD_WINDOWS)
     target_link_libraries(clove ws2_32.lib
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(APPLE)
+if(BUILD_OSX)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(UNIX)
+if(BUILD_LINUX)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(ANDROID)
+if(BUILD_ANDROID)
 	target_link_libraries(clove
 		${SDL_LIBRARIES} ${OPENGL_LIBRARIES}
 		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES}
-		${LUA_LIBRARIES} GLESv1_CM GLESv2 )
+		${LUA_LIBRARIES} )
 endif()

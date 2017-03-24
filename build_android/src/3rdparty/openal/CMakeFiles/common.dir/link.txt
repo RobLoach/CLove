@@ -1,0 +1,2 @@
+/Library/Developer/CommandLineTools/usr/bin/ar qc libcommon.a  CMakeFiles/common.dir/common/atomic.c.o CMakeFiles/common.dir/common/rwlock.c.o CMakeFiles/common.dir/common/threads.c.o CMakeFiles/common.dir/common/uintmap.c.o
+/Library/Developer/CommandLineTools/usr/bin/ranlib libcommon.a

@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+f76d3cb58eb546e0e13fd556dffd6734 src/3rdparty/freetype/CMakeFiles/dist

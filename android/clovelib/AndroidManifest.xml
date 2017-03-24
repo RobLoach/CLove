@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android.clove" android:versionCode="070">
+    package="com.android.clove" android:versionCode="070" android:versionName="Cake">
     <application>
         <activity android:name="CloveMain"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -13,6 +13,6 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-feature android:glEsVersion="0x00020000" android:name="@string/gl2jni_activity"/>
-    <uses-sdk android:minSdkVersion="8" android:maxSdkVersion="24"/>
+    <uses-feature android:glEsVersion="0x00020000" android:name="@string/clove_activity"/>
+    <uses-sdk android:minSdkVersion="8"/>
 </manifest>

@@ -14,13 +14,13 @@
 #include "../3rdparty/SDL2/include/SDL.h"
 #include "../tools/utils.h"
 
-#if defined CLOVE_WINDOWS
+#ifdef CLOVE_WINDOWS
 #include <direct.h>
 #define getcwd _getcwd // apparently getcwd is dreprecated on windows
 #include <io.h>
 #define access _access
 #endif
-#if defined CLOVE_UNIX
+#ifdef CLOVE_UNIX
 #include <unistd.h>
 #endif
 
@@ -35,6 +35,8 @@ void filesystem_init(char* argv0, int stats) {
     moduleData.os = "linux";
 #elif CLOVE_WINDOWS
     moduleData.os = "windows";
+#elif CLOVE_ANDROID
+	moduleData.is = "android";
 #else
     moduleData.os = "This OS is not supported";
 #endif

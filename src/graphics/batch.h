@@ -8,7 +8,7 @@
 */
 #pragma once
 
-#include "../tools/h"
+#include "../tools/gl.h"
 
 #include <stdbool.h>
 
