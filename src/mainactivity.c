@@ -204,7 +204,7 @@ void main_loop(void *data) {
             case SDL_JOYBUTTONUP:
                 joystick_buttonUp(event.jbutton.which, event.jbutton.button, event.jbutton.state);
                 break;
-#ifndef CLOVE_DESKTOP
+#ifdef CLOVE_DESKTOP
             case SDL_QUIT:
                 quit_function(loopData->luaState);
                 l_running = 0;

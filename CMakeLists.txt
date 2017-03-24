@@ -11,9 +11,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-option(BUILD_ANDROID "Build clove lib?" true)
+option(BUILD_ANDROID "Build clove lib?" false)
 option(BUILD_OSX "" false)
-option(BUILD_LINUX "" false)
+option(BUILD_LINUX "" true)
 option(BUILD_WINDOWS "" false)
 
 
@@ -34,13 +34,12 @@ IF(BUILD_LINUX)
     FIND_PACKAGE(OpenGL REQUIRED)
     set(OPENAL_LIBRARY "openal")
     set(MTCL_BUILD_FLAGS "")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
+    set(CMAKE_C_FLAGS " --std=gnu99 ${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D__Debug__")
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
     set(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
     set(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
