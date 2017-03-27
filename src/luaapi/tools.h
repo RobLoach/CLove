@@ -8,10 +8,11 @@
 */
 #pragma once
 
-#include "../3rdparty/lua/lua.h"
-#include "../3rdparty/lua/lauxlib.h"
 #include <string.h>
 #include <stdbool.h>
+
+#include "../3rdparty/lua/lua.h"
+#include "../3rdparty/lua/lauxlib.h"
 
 #include "../love_config.h"
 #include "../graphics/font.h"
@@ -43,6 +44,19 @@ inline char const* l_tools_toStringOrError(lua_State* state, int index) {
     }
 
   return lua_tostring(state, index);
+}
+
+inline bool l_tools_optBoolean(lua_State* state, int index, int def) {
+    int get = def;
+    if (lua_isnil(state, index))
+        get = def;
+    else
+        get = lua_toboolean(state, index);
+
+    if (get <= 0)
+        return false;
+
+    return true;
 }
 
 inline int l_tools_toBooleanOrError(lua_State* state, int index) {

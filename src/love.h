@@ -12,6 +12,7 @@ typedef struct {
   int major;
   int minor;
   int revision;
+  const char* strVersion;
   char const * codename;
 } love_Version;
 

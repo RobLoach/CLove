@@ -19,9 +19,10 @@ typedef struct {
   bool resizable;
   bool window;
   bool bordless;
+  /* stats is used for displaying debug info */
+  bool stats;
   int minwidth, minheight;
   int x, y;
-  int stats;
 } love_WindowConfig;
 
 typedef struct {

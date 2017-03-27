@@ -13,6 +13,7 @@ love_Version const * love_getVersion(void) {
     .major = 0,
     .minor = 7,
     .revision = 0,
+    .strVersion = "0.7.0",
     .codename = "Cake"
   };
 

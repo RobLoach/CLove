@@ -1,12 +1,13 @@
 
 function love.conf(t)
-    t.window.width = 800
-    t.window.height = 600
+    t.window.version = "0.7.0"
+    t.window.width = 640
+    t.window.height = 480
     t.window.x = -1
     t.window.y = -1
-    t.window.window = 1
-    t.window.vsync = 1
-    t.window.resizable = 1
+    t.window.window = true
+    t.window.vsync = true
+    t.window.resizable = false
     t.window.title = "No title in conf.lua"
-    t.window.stats = 1
+    t.window.stats = true
 end
