@@ -61,11 +61,6 @@ static void main_load(lua_State* lua, char* argv[], love_Config* config) {
 
         mtar_open(&tar, argv[1], "r");
 
-        //TODO fix me?
-        int size = sizeof(char);
-        //pls,C++ devs,do not kill me
-        char* scripts = (char*)malloc(size);
-        int offset = 0;
         while (  (mtar_read_header(&tar, &header)) != MTAR_ENULLRECORD ) {
             //printf("%s \n", header.name);
             mtar_next(&tar);
@@ -82,7 +77,7 @@ static void main_load(lua_State* lua, char* argv[], love_Config* config) {
         for (int i = 0; i < numberOfScripts; i++) {
             mtar_find(&tar, argv[i + 3], &header);
 
-            buffer = (char*)calloc(1, header.size+1);
+            buffer = calloc(1, header.size+1);
             mtar_read_data(&tar, buffer, header.size);
             //printf("%s \n", buffer);
 
@@ -92,7 +87,6 @@ static void main_load(lua_State* lua, char* argv[], love_Config* config) {
 
         luaL_dofile(lua, "main.lua");
 
-        SAFE_FREE(scripts);
         SAFE_FREE(buffer);
 
     }
