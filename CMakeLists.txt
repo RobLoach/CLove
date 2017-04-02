@@ -11,10 +11,10 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-option(BUILD_ANDROID "Build clove lib?" false)
-option(BUILD_OSX "" false)
-option(BUILD_LINUX "" true)
-option(BUILD_WINDOWS "" false)
+option(BUILD_ANDROID false)
+option(BUILD_OSX false)
+option(BUILD_LINUX false)
+option(BUILD_WINDOWS false)
 
 
 IF(BUILD_WINDOWS)
