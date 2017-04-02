@@ -12,12 +12,7 @@
 #include "shader.h"
 #include "../3rdparty/slre/slre.h"
 
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
-
+#include "../tools/gl.h"
 
 static struct {
     graphics_Shader *activeShader;

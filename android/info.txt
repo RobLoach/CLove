@@ -1,0 +1,5 @@
+
+Download Android SDK(23-24), NDK(10) and add them to path.
+Compile Clove using cmake and make
+Run $ANDROID_NDK/ndk-build
+Import the project into android studio or eclipse and run it.

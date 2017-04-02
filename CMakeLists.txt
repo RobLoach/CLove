@@ -11,54 +11,79 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-IF(MINGW)
-  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
-  SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
-  SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /GR /FC /DWIN32 /D_MBCS")
-  SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
-  SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
-  SET(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
-  FIND_PACKAGE(OpenGL REQUIRED)
-  SET(MTCL_BUILD_FLAGS "")
-  SET(OS_SPECIFIC_LIBRARIES)
-ENDIF(MINGW)
+option(BUILD_ANDROID false)
+option(BUILD_OSX false)
+option(BUILD_LINUX false)
+option(BUILD_WINDOWS false)
 
-IF(UNIX AND NOT APPLE)
+
+IF(BUILD_WINDOWS)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
+  	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
+  	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
+  	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /GR /FC /DWIN32 /D_MBCS")
+  	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
+  	set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
+  	set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++ -static")
+  	FIND_PACKAGE(OpenGL REQUIRED)
+  	set(MTCL_BUILD_FLAGS "")
+  	set(OS_SPECIFIC_LIBRARIES)
+ENDIF()
+
+IF(BUILD_LINUX)
     FIND_PACKAGE(OpenGL REQUIRED)
-    SET(OPENAL_LIBRARY "openal")
-    SET(MTCL_BUILD_FLAGS "")
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
-    SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D__Debug__")
-    SET(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
-    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
-    SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
-    # I have the following in a makefile for linux: -Wl,-rpath,'$$ORIGIN'
-    SET(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
-    SET(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
-    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-    SET(CMAKE_INSTALL_RPATH "install")
-ENDIF(UNIX AND NOT APPLE)
+    set(OPENAL_LIBRARY "openal")
+    set(MTCL_BUILD_FLAGS "")
+    set(CMAKE_C_FLAGS " -std=gnu99 ${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
+    set(CMAKE_C_FLAGS_DEBUG "  -std=gnu99 ${CMAKE_C_FLAGS_DEBUG} -D__Debug__")
+    set(CMAKE_C_FLAGS_RELEASE " -std=gnu99 ${CMAKE_C_FLAGS_RELEASE} -O3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -fPIC -DLINUX -ldl")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+    set(CMAKE_SHARED_LINKER_FLAGS "-ldl -Wl,-rpath=$ORIGIN,--as-needed,--allow-multiple-definition,--build-id")
+    set(OS_SPECIFIC_LIBRARIES pthread Xxf86vm X11 Xrandr Xi)
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    set(CMAKE_INSTALL_RPATH "install")
+ENDIF()
 
-if (APPLE)
+if (BUILD_OSX)
     LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
     IF("${isSystemDir}" STREQUAL "-1")
     ENDIF("${isSystemDir}" STREQUAL "-1")
     FIND_PACKAGE(OpenGL REQUIRED)
-    FIND_LIBRARY(COCOA_LIB Cocoa)
-    FIND_LIBRARY(CORE_SERVICES_LIB CoreServices)
-    FIND_LIBRARY(FOUNDATION_LIB Foundation)
-    FIND_LIBRARY(IOKIT_LIB IOKit)
-    SET(MTCL_BUILD_FLAGS "-mmacosx-version-min=10.6")
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -O3 -DOSX")
-    SET(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D__Debug__")
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -O3 -DOSX")
-    SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
-    SET(CMAKE_SHARED_LINKER_FLAGS "-Wl")
-    SET(OS_SPECIFIC_LIBRARIES ${COCOA_LIB} ${CORE_SERVICES_LIB} ${FOUNDATION_LIB} ${IOKIT_LIB})
-    SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
-    SET(CMAKE_INSTALL_RPATH "install")
+    find_library(COCOA_LIB Cocoa)
+    find_library(CORE_SERVICES_LIB CoreServices)
+    find_library(FOUNDATION_LIB Foundation)
+    find_library(IOKIT_LIB IOKit)
+    set(MTCL_BUILD_FLAGS "-mmacosx-version-min=10.6")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MTCL_BUILD_FLAGS} -O3 -DOSX")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -D__Debug__")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MTCL_BUILD_FLAGS} -O3 -DOSX")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D__Debug__")
+    set(CMAKE_SHARED_LINKER_FLAGS "-Wl")
+    set(OS_SPECIFIC_LIBRARIES ${COCOA_LIB} ${CORE_SERVICES_LIB} ${FOUNDATION_LIB} ${IOKIT_LIB})
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+    set(CMAKE_INSTALL_RPATH "install")
+endif()
+
+if (BUILD_ANDROID)
+	#FIND_PACKAGE(OpenGLES REQUIRED)
+  	#FIND_PACKAGE(OpenGLES2 REQUIRED)
+
+  	set (ARM_FLAGS "-march=armv6 -marm -mfloat-abi=softfp -mfpu=vfp")
+	set ( ANDROID_FORCE_ARM_BUILD ON )
+	set ( CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL" )
+	set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -g -DNDEBUG -DANDROID_NDK -DDISABLE_IMPORTGL" )
+	ADD_DEFINITIONS("-Dva_list=__builtin_va_list")
+  	ADD_DEFINITIONS("-Dva_start=__builtin_va_start")
+  	ADD_DEFINITIONS("-Dva_end=__builtin_va_end")
+  	ADD_DEFINITIONS("-Dva_arg=__builtin_va_arg")
+  	ADD_DEFINITIONS("-DHAVE_MALLOC")
+  	ADD_DEFINITIONS("-DANDROID")
+  	ADD_DEFINITIONS("-DUSE_GLES")
+  	ADD_DEFINITIONS("-D__ANDROID__")
+
+  	SET(LIBTYPE STATIC)
 endif()
 
 FILE(
@@ -79,11 +104,9 @@ FILE(
     src/math/*.c
     src/timer/*.h
     src/timer/*.c
-    src/*.c*
-    src/*.h
-    src/resources/*.png
+  	src/resources/*.png
 
-    #Add native
+    #Add custom native plugins
     native/*.c*
     native/*.h
 
@@ -99,16 +122,39 @@ FILE(
     src/3rdparty/CMath/*.h
     src/3rdparty/CMath/*.c
     )
+	#TODO
+	#I do not think we're allowed by ndk to have a main.cpp file
+FILE(
+	GLOB SOURCE_FILES_MAIN
+	src/*.c*
+	src/*.h
+)
 
 set(clove_package "clove")
 set(clove_creator "Muresan Vlad")
 set(clove_copyright "Copyright (c) 2015-2016, ${clove_creator}.")
 message(clove_copyright)
 
-add_executable(
-    clove
-    ${SOURCE_FILES}
+if (NOT BUILD_ANDROID)
+	add_executable(
+		clove
+		${SOURCE_FILES_MAIN}
+		${SOURCE_FILES}
     )
+endif()
+
+if (BUILD_ANDROID)
+
+	set(INCLUDE_CLOVEANDROID
+		"src/"
+		"3rdparty/"
+	)
+
+	include_directories( ${INCLUDE_CLOVEANDROID}	)
+	add_library( clove SHARED ${SOURCE_FILES} )
+
+endif()
+
 INCLUDE_DIRECTORIES(src/3rdparty/stb)
 
 #freetype
@@ -125,23 +171,29 @@ set(LUA_INCLUDE_DIR src/3rdparty/lua/)
 set(LUA_LIBRARIES lua)
 
 #glew
-add_subdirectory(src/3rdparty/glew/)
-set(GLEW_INCLUDE_DIR src/3rdparty/glew/include/GL/)
+if(NOT ANDROID)
+	add_subdirectory(src/3rdparty/glew/)
+	set(GLEW_INCLUDE_DIR src/3rdparty/glew/include/GL/)
+endif()
 
 #sdl2
 add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
 
-if(MINGW)
-    SET(OPENAL_LIBRARIES "OpenAL32")
+if(BUILD_WINDOWS)
+    set(OPENAL_LIBRARIES "OpenAL32")
 endif()
-if(UNIX OR APPLE)
-    SET(OPENAL_LIBRARIES openal)
+if(BUILD_OSX OR BUILD_LINUX)
+    set(OPENAL_LIBRARIES openal)
 endif()
 
 add_definitions(-DAL_LIBTYPE_STATIC)
-add_definitions(-DGLEW_STATIC)
+
+if (NOT BUILD_ANDROID)
+	add_definitions(-DGLEW_STATIC)
+endif()
+
 add_definitions(-DFT2_BUILD_LIBRARY)
 add_definitions(-DSDL2_STATIC)
 
@@ -149,26 +201,34 @@ add_definitions(-DSDL2_STATIC)
 set(FREETYPE_LIBRARIES freetype)
 include_directories(src/3rdparty/freetype/include)
 
-set(GLEW_LIBRARIES libglew_static)
+if(NOT ANDROID)
+	set(GLEW_LIBRARIES libglew_static)
+endif()
 
-if(MINGW)
+if(BUILD_WINDOWS)
     target_link_libraries(clove ws2_32.lib
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(APPLE)
+if(BUILD_OSX)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(UNIX)
+if(BUILD_LINUX)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
+if(BUILD_ANDROID)
+	target_link_libraries(clove
+		${SDL_LIBRARIES} ${OPENGL_LIBRARIES}
+		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES}
+		${LUA_LIBRARIES} )
+endif()

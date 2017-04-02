@@ -6,7 +6,7 @@
 #   This project is free software; you can redistribute it and/or modify it
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
-#pragma once 
+#pragma once
 
 #include <stdbool.h>
 #include <stdlib.h>
@@ -21,12 +21,7 @@
 
 #include "../image/imagedata.h"
 #include "../math/vector.h"
-
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
+#include "../tools/gl.h"
 
 typedef enum {
   graphics_MeshDrawMode_fan       = GL_TRIANGLE_FAN,

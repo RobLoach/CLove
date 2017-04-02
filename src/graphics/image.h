@@ -9,13 +9,9 @@
 #pragma once
 
 #include "../image/imagedata.h"
-#include "quad.h"
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#else
-#include "../3rdparty/glew/include/GL/glew.h"
-#endif
+#include "../tools/gl.h"
 
+#include "quad.h"
 #include "gltools.h"
 
 typedef enum {
