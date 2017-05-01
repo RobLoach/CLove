@@ -50,7 +50,6 @@ static struct {
     const char* title;
     int x;
     int y;
-    const char* version;
     bool has_window;
     image_ImageData* icon;
 } moduleData;
@@ -62,7 +61,6 @@ SDL_Window* graphics_getWindow(void) {
 #endif
 
 void graphics_init(int width, int height, bool resizable, bool stats) {
-    moduleData.version = "0.6.3";
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         printf("Error: Could not init SDL video \n");
@@ -250,10 +248,6 @@ int graphics_hasFocus(){
 int graphics_setFocus(int value) {
     focus = value;
     return 1;
-}
-
-const char* graphics_getVersion() {
-    return moduleData.version;
 }
 
 int graphics_setPosition(int x, int y) {

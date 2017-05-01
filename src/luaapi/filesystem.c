@@ -7,12 +7,16 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include <stdlib.h>
+#include <stdio.h>
+
 #include "../3rdparty/lua/lauxlib.h"
 #include "../3rdparty/lua/lua.h"
 #include "../3rdparty/lua/lualib.h"
+
+#include "../filesystem/filesystem.h"
+
 #include "filesystem.h"
 #include "tools.h"
-#include "../filesystem/filesystem.h"
 
 static int l_filesystem_read(lua_State* state) {
   // TODO implement max length
@@ -28,6 +32,34 @@ static int l_filesystem_read(lua_State* state) {
   free(data);
   lua_pushnumber(state, len);
   return 2;
+}
+
+static int l_filesystem_lines(lua_State* state) {
+
+	const char const* filename = l_tools_toStringOrError(state, 1);
+	FILE* f = fopen(filename, "r");
+
+	if (!f){
+		luaL_error(state, "Could not read file: %s \n", filename);
+		return lua_error(state);
+	}
+
+	char buffer[256];
+
+
+	lua_newtable(state);
+	int i = 0;
+	while(fgets(buffer,256,f) != NULL)
+	{
+		i++;
+		lua_pushnumber(state, i);
+
+		lua_pushstring(state, buffer);
+		lua_settable(state, -3);
+	}
+	fclose(f);
+
+	return 1;
 }
 
 static int l_filesystem_require(lua_State* state) {
@@ -80,6 +112,7 @@ static int l_filesystem_getSource(lua_State* state) {
   lua_pushstring(state, filesystem_getSource());
   return 1;
 }
+
 static int l_filesystem_load(lua_State* state) {
   char const* filename = l_tools_toStringOrError(state, 1);
   char* data = NULL;
@@ -152,6 +185,7 @@ static int l_filesystem_isFile(lua_State* state) {
 
 static luaL_Reg const regFuncs[] = {
   {"load", l_filesystem_load},
+  {"lines", l_filesystem_lines},
   {"require", l_filesystem_require},
   {"isFile", l_filesystem_isFile},
   {"getCurrentDirectory", l_filesystem_getCurrentDirectory},
