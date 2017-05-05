@@ -25,5 +25,5 @@ int main(int argc, char* argv[]) {
 
 	main_activity_load(argc, argv);
 
- 	return 0;
+    return EXIT_SUCCESS;
 }

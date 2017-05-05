@@ -11,13 +11,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
-option(BUILD_ANDROID false)
-option(BUILD_OSX false)
-option(BUILD_LINUX false)
-option(BUILD_WINDOWS false)
-
-
-IF(BUILD_WINDOWS)
+IF(WIN32)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
   	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
   	set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /W1 /Ox /Ot /MD /DNDEBUG")
@@ -30,7 +24,7 @@ IF(BUILD_WINDOWS)
   	set(OS_SPECIFIC_LIBRARIES)
 ENDIF()
 
-IF(BUILD_LINUX)
+IF(UNIX AND NOT APPLE)
     FIND_PACKAGE(OpenGL REQUIRED)
     set(OPENAL_LIBRARY "openal")
     set(MTCL_BUILD_FLAGS "")
@@ -46,7 +40,7 @@ IF(BUILD_LINUX)
     set(CMAKE_INSTALL_RPATH "install")
 ENDIF()
 
-if (BUILD_OSX)
+if (APPLE)
     LIST(FIND CMAKE_PLATFORM_IMPLICIT_LINK_DIRECTORIES "${CMAKE_INSTALL_PREFIX}/lib" isSystemDir)
     IF("${isSystemDir}" STREQUAL "-1")
     ENDIF("${isSystemDir}" STREQUAL "-1")
@@ -66,7 +60,7 @@ if (BUILD_OSX)
     set(CMAKE_INSTALL_RPATH "install")
 endif()
 
-if (BUILD_ANDROID)
+if (ANDROID)
 	#FIND_PACKAGE(OpenGLES REQUIRED)
   	#FIND_PACKAGE(OpenGLES2 REQUIRED)
 
@@ -135,7 +129,7 @@ set(clove_creator "Muresan Vlad")
 set(clove_copyright "Copyright (c) 2015-2016, ${clove_creator}.")
 message(clove_copyright)
 
-if (NOT BUILD_ANDROID)
+if (NOT ANDROID)
 	add_executable(
 		clove
 		${SOURCE_FILES_MAIN}
@@ -143,7 +137,7 @@ if (NOT BUILD_ANDROID)
     )
 endif()
 
-if (BUILD_ANDROID)
+if (ANDROID)
 
 	set(INCLUDE_CLOVEANDROID
 		"src/"
@@ -181,16 +175,16 @@ add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
 
-if(BUILD_WINDOWS)
+if(WIN32)
     set(OPENAL_LIBRARIES "OpenAL32")
 endif()
-if(BUILD_OSX OR BUILD_LINUX)
+if(UNIX)
     set(OPENAL_LIBRARIES openal)
 endif()
 
 add_definitions(-DAL_LIBTYPE_STATIC)
 
-if (NOT BUILD_ANDROID)
+if (NOT ANDROID)
 	add_definitions(-DGLEW_STATIC)
 endif()
 
@@ -205,28 +199,28 @@ if(NOT ANDROID)
 	set(GLEW_LIBRARIES libglew_static)
 endif()
 
-if(BUILD_WINDOWS)
+if(WIN32)
     target_link_libraries(clove ws2_32.lib
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(BUILD_OSX)
+if(APPLE)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(BUILD_LINUX)
+if(UNIX AND NOT APPLE)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
-if(BUILD_ANDROID)
+if(ANDROID)
 	target_link_libraries(clove
 		${SDL_LIBRARIES} ${OPENGL_LIBRARIES}
 		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES}

@@ -89,10 +89,12 @@ void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx
 
     graphics_Shader* shader = graphics_getShader();
     if (mesh->hasTexture) {
-        /* set the default shader in case you previously
-         * did not have a texture put */
+        /*
+         * Set the default shader in case you previously
+         * did not have a texture put
+         */
         graphics_setShader(shader);
-        glEnable(GL_TEXTURE_2D);
+        //glEnable(GL_TEXTURE_2D); Deprecated in GLES 2
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
         } else

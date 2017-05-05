@@ -9,9 +9,9 @@
 
 #pragma once 
 
+#include "../3rdparty/lua/lua.h"
 #include "../joystick.h"
 #include "tools.h"
-#include "../3rdparty/lua/lua.h"
 
 typedef struct {
     joystick_Joystick* joystick;

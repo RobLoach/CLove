@@ -205,8 +205,10 @@ int graphics_Font_getWrap(graphics_Font * font, char const* text, int width, cha
 static void prepareBatches(graphics_Font* font, int chars) {
     int newSize = max(chars, moduleData.batchsize);
 
-    /* This will be called only once to set up the only texture used for batch which will contain
-        all the text from print and printf functions. */
+    /*
+     * This will be called only once to set up the only texture used for batch which will contain
+     * all the text from print and printf functions.
+     */
     if(font->glyphs.numTextures > moduleData.batchcount) {
         moduleData.batches = realloc(moduleData.batches, font->glyphs.numTextures * sizeof(graphics_Batch));
         for(int i = moduleData.batchcount; i < font->glyphs.numTextures; ++i) {
@@ -219,8 +221,10 @@ static void prepareBatches(graphics_Font* font, int chars) {
         }
     }
 
-    /* If batchsize is smaller than the size of the text we want to print then we 
-        need to increas the size of the batch and update the rest of components */
+    /*
+     * If batchsize is smaller than the size of the text we want to print then we
+     * need to increas the size of the batch and update the rest of components
+     */
     if(font->batchsize < newSize) {
         for(int i = 0; i < moduleData.batchcount; ++i) {
             graphics_Batch_bind(&moduleData.batches[i]);
@@ -230,8 +234,10 @@ static void prepareBatches(graphics_Font* font, int chars) {
             ((graphics_Image*)moduleData.batches[i].texture)->height = font->glyphs.textureHeight;
         }
     } else {
-        /* In case we do not need to increase the size of the batch we just update the 
-            components */
+        /*
+         * In case we do not need to increase the size of the batch we just update the
+         * components
+         */
         for(int i = 0; i < moduleData.batchcount; ++i) {
             graphics_Batch_bind(&moduleData.batches[i]);
             graphics_Batch_clear(&moduleData.batches[i]);
