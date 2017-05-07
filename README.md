@@ -23,6 +23,8 @@ On Windows:
 
 On Linux and OS X:
 - Download and install cmake,gcc,g++(optional git)(on OSX you can install these using brew)
+- Make a new directory inside Clove, eg: build. Go there and call: cmake ../ &&
+  make 
 - If you have problems with building on Linux(Debian based) install: 
 sudo apt-get install freeglut3 freeglut3-dev libglew1.5 libglew1.5-dev 
 libglu1-mesa libglu1-mesa-dev libgl1-mesa-glx libgl1-mesa-dev libasound2-dev 
@@ -30,44 +32,62 @@ libaudio-dev libesd0-dev libpulse-dev libroar-dev
 
 Features
 ========
-- Lua scripting language or native C/C++ support
-- 3D camera functions
-- Easy to learn and use api 
-- Cross Platform (Android wip)
-- Custom package format
-- Powerful Batch system
-- Image loading and drawing
-- Image creation from scratch or from a template & save(png,bmp,tga)
-- Meshes
-- Sound loading and playing (Vorbis and Wav)
-- Streaming support for Vorbis files
-- Primitive drawing
-- Filesystem functions
-- OpenGL ES 2.0 
-- Powerful font loading and drawing using batch system
-- Keyboard, mouse and joystick support
-- Threads
-- Error handling
+- Lua scripting language or native C/C++ support.
+- 3D camera functions.
+- Easy to learn and use api.
+- Cross Platform. Android is planned. Web needs a new build system.
+- Custom package format.
+- Powerful Batch system.
+- Image loading and drawing.
+- Image creation from scratch or from a template & save(png,bmp,tga).
+- Meshes.
+- Sound loading and playing (Vorbis and Wav).
+- Streaming support for Vorbis files.
+- Primitive drawing.
+- Filesystem functions.
+- OpenGL ES 2.0.
+- Powerful font loading and drawing using batch system.
+- Support for image fonts. 
+- Keyboard, mouse and joystick support.
+- Threads.
+- Error handling.
 
 Contributing
 ========
 If you want to contribute to the project, feel free to work on what you please. I want to do a lot of the other stuff myself too.
-Please try to replicate the code style of the existing code by using tab width of 4 spaces and expand tabs to spaces, I might refuse to pull your changes otherwise.
+Please try to replicate the code style of the existing code by using tab width of 4 spaces and expand tabs to spaces, I will refuse to pull your changes otherwise.
 
 Stuff needed: 
-    - Physics, love.physics 
+    - Physics, love.physics
+	- Networking 
+	- Web build system 
 
 Examples (see examples folder)
 --------
 ```lua
+-- Example of drawing an image
 local image = love.graphics.newImage("image.png")
 
 function love.draw()
-   --draw the loaded image named "image" at the postion X:200, Y:200
 	love.graphics.draw(image, 200, 200)
-	--draw a circle at X:100 Y:100 with the radius of 32 and number of
-	--segments(points) of 24
-	love.graphics.circle("fill", 100, 100, 32, 24)
+end
+```
+
+```lua
+-- Example of drawing some primitives
+function love.draw()
+	love.graphics.rectangle("fill", 100, 100, 32, 16)
+	love.graphics.rectangle("line", 200, 200, 32, 32)
+	love.graphics.circle("fill", 270, 200, 32, 16)
+	love.graphics.circle("line", 300, 100, 32, 8)
+end
+```
+
+```lua
+-- Example of playing music
+local ogg_music = love.graphics.newSource("music.ogg")
+function love.load()
+	ogg_music:play()
 end
 ```
 

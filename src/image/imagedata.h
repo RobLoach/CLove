@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-typedef struct 
+typedef struct
 {
 	unsigned char r, g, b, a;
 } pixel;
@@ -37,7 +37,7 @@ int image_ImageData_getHeight(image_ImageData *dst);
 
 int image_ImageData_getChannels(image_ImageData *dst);
 int image_ImageData_getPixel(image_ImageData *dst, int x, int y);
-int image_ImageData_setPixel(image_ImageData *dst, int x, int y, pixel p); 
+int image_ImageData_setPixel(image_ImageData *dst, int x, int y, pixel p);
 
 //named encode in Love
 int image_ImageData_save(image_ImageData *dst, const char* format, const char* filename);

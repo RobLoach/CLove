@@ -24,6 +24,7 @@
 #include "graphics_image.h"
 #include "graphics_quad.h"
 #include "graphics_font.h"
+#include "graphics_bitmapfont.h"
 #include "graphics_geometry.h"
 #include "graphics_shader.h"
 #include "graphics_window.h"
@@ -374,16 +375,17 @@ static luaL_Reg const regFuncs[] = {
 
 
 int l_graphics_register(lua_State* state) {
-    l_tools_registerModule(state, "graphics", regFuncs);
+	l_tools_registerModule(state, "graphics", regFuncs);
 
-    l_graphics_shader_register(state);
-    l_graphics_image_register(state);
-    l_graphics_quad_register(state);
-    l_graphics_font_register(state);
-    l_graphics_batch_register(state);
-    l_graphics_mesh_register(state);
-    l_graphics_window_register(state);
-    l_graphics_geometry_register(state);
+	l_graphics_shader_register(state);
+	l_graphics_image_register(state);
+	l_graphics_quad_register(state);
+	l_graphics_font_register(state);
+	l_graphics_batch_register(state);
+	l_graphics_mesh_register(state);
+	l_graphics_window_register(state);
+	l_graphics_geometry_register(state);
+	l_graphics_bitmapfont_register(state);
 
-    return 0;
+	return 0;
 }
