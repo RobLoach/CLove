@@ -171,7 +171,6 @@ void graphics_Batch_flush(graphics_Batch *batch) {
 	glBufferSubData(GL_ARRAY_BUFFER, 0, 4*batch->insertPos*sizeof(graphics_Vertex), batch->vertexData);
 }
 
-
 void graphics_Batch_unbind(graphics_Batch *batch) {
 	if(!batch->bound) {
 		return;

@@ -8,21 +8,23 @@
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include "../tools/utils.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "../3rdparty/stb/stb_image.c"
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../3rdparty/stb/stb_image_write.h"
 #include "imagedata.h"
 
-
 int image_ImageData_new_with_filename(image_ImageData *dst, char const* filename) {
   int n;
   dst->surface = stbi_load(filename, &dst->w, &dst->h, &n, STBI_rgb_alpha);
   dst->c = STBI_rgb_alpha;
   dst->path = filename;
-  
+  dst->error_msg = "";
+
   if(!dst->surface){  //image could not be loaded
-     printf("%s %s \n", "Error: No image data in file ", filename);
+      dst->error_msg = util_concatenate("Error: Could not open image: ", filename);
+      printf("%s \n", dst->error_msg);
  	  return 0;
   }
   dst->pixels = (pixel*) dst->surface;
@@ -76,7 +78,8 @@ int image_ImageData_save(image_ImageData *dst, const char* format, const char* f
 	if(succeded != 0)
 		return 1;
 	else {
-		printf("%s %s \n", "Error: failed to save imageData: ", filename);
+        dst->error_msg = util_concatenate("Error: failed to save imageData: ", filename);
+        printf("%s \n", dst->error_msg );
 		return 0;
 	}
 }

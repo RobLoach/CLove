@@ -24,6 +24,7 @@ typedef struct {
   const char* path;
   unsigned char *surface;
   pixel *pixels;
+  char* error_msg;
 } image_ImageData;
 
 char const* image_error(void);

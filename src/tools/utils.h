@@ -9,7 +9,9 @@
 #ifndef UTILS_H_
 #define UTILS_H_
 
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define SAFE_FREE(o) {  if (o) { free(o); o = NULL; } }
 
@@ -42,3 +44,5 @@
 #   define CLOVE_ES
 #endif
 #endif
+
+char* util_concatenate(const char* first, const char* second);

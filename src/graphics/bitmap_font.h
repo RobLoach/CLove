@@ -24,6 +24,8 @@ typedef struct {
 
 void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename, char const* glyphs, float glyph_width, float glyph_height);
 
+void graphics_BitmapFont_setGlyphOffsetX(float off, char const* glyph);
+void graphics_BitmapFont_setGlyphOffsetY(float off, char const* glyph);
 void graphics_BitmapFont_render(graphics_BitmapFont* dst, char const* text, int x, int y, float r, float sx, float sy, float ox, float oy, float kx, float ky);
 
 void graphics_BitmapFont_free(graphics_BitmapFont* dst);

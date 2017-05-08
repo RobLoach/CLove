@@ -36,7 +36,6 @@ typedef struct {
   bool colorUsed;
   graphics_BatchUsage usage;
   GLuint vbo;
-  GLuint vao;
 } graphics_Batch;
 
 
