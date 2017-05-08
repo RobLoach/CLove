@@ -193,7 +193,12 @@ void graphics_geometry_rectangle(bool filled,
 
     bool special = rotation != 0 || sx != 1 || sy != 1;
 
-    float *buf = moduleData.data;
+	float *buf = moduleData.data;
+
+	/*
+	 * Which is commented with 0,1,2,3 represent the declaration of the shape for this rectangle
+	 * the rest are texcoords(2 floats) and color(4 floats)
+	 */
 
     if(!special) {
         buf[0] = x + w * sx; //0
@@ -223,11 +228,11 @@ void graphics_geometry_rectangle(bool filled,
         buf[24] = 0.0f; // 3
         buf[25] = 1.0f;
     }
-    
+
     //these grouped by 2 are text coords
     buf[2] = 0.0f;
     buf[3] = 0.0f;
-    
+
     //these grouped by 4 are colors
     buf[4] = 1.0f;
     buf[5] = 1.0f;
@@ -248,7 +253,7 @@ void graphics_geometry_rectangle(bool filled,
     buf[20] = 1.0f;
     buf[21] = 1.0f;
     buf[22] = 1.0f;
-    buf[23] = 1.0f;        
+    buf[23] = 1.0f;
 
     buf[26] = 1.0f;
     buf[27] = 1.0f;
