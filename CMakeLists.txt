@@ -98,6 +98,8 @@ FILE(
     src/math/*.c
     src/timer/*.h
     src/timer/*.c
+    src/net/*.c
+    src/net/*.h
   	src/resources/*.png
 
     #Add custom native plugins

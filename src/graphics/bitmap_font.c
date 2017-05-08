@@ -133,14 +133,4 @@ void graphics_BitmapFont_free(graphics_BitmapFont* dst)
     //free(moduleData.indexer_map);
 }
 
-void graphics_BitmapFont_setFilter(graphics_BitmapFont *font, graphics_Filter const* filter)
-{
-
-}
-
-void graphics_BitmapFont_getFilter(graphics_BitmapFont *font, graphics_Filter *filter)
-{
-
-}
-
 

@@ -46,6 +46,7 @@ Features
 - Primitive drawing.
 - Filesystem functions.
 - OpenGL ES 2.0.
+- Networking (TCP,IPv4 or IPv6)
 - Powerful font loading and drawing using batch system.
 - Support for image fonts. 
 - Keyboard, mouse and joystick support.
