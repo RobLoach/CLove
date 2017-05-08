@@ -9,6 +9,7 @@
 
 /* History: 
  *
+ * Monday 8 may 2017 - added the possiblity to choose between ipv4 and ipv6 + small changes
  * Tuesday 3 Jan 2017 - net_send_data accepts len as third param, added a bit more doc (1.0.1)
  * Mon 2 Jan 2017 - first real commit (1.0)
  */ 
@@ -18,7 +19,7 @@
 // non OS idependent functions
 
 const char* net_getVersion() {
-    return "1.0.1";
+    return "1.0.2";
 }
 
 const char* net_getSystem() {
@@ -47,12 +48,14 @@ const char* net_getSystem() {
 static struct {
     const char* ip_version;
     bool is_ipv4;
+    bool debug;
 } moduleData;
 
 //Note: All ports below 1024 are RESERVED (unless you're the superuser)! You can have any port number above that, right up to 65535
 int net_init(struct sockaddr_in* dest, const char* address, int port, const char* ip_version) {
     memset(dest, 0, sizeof(&dest));
 
+    moduleData.debug = true;
     moduleData.ip_version = ip_version;
     moduleData.is_ipv4 = true;
 
@@ -64,7 +67,7 @@ int net_init(struct sockaddr_in* dest, const char* address, int port, const char
     else
         dest->sin_family = AF_INET;
 
-    if (strncmp(address, "localhost", 9) == 0)
+    if (strcmp(address, "localhost") == 0)
         //INADDR_ANY = local address
         dest->sin_addr.s_addr = htonl(INADDR_ANY);
     else
@@ -72,7 +75,7 @@ int net_init(struct sockaddr_in* dest, const char* address, int port, const char
 
     dest->sin_port = htons(port);
 
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_init - done \n");
 
     return 1;
@@ -90,7 +93,7 @@ int net_create_socket() {
         printf("%s \n", "Error creating socket!");
         return -1;
     }
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_create_socket - done \n");
 
     return socket_;
@@ -98,13 +101,15 @@ int net_create_socket() {
 
 int net_bind_socket(struct sockaddr_in* dest, int socket) {
     int err = bind(socket,(struct sockaddr *)dest, sizeof(struct sockaddr));
-    if (err < 0){
+    if (err < 0)
+    {
         printf("%s \n", "Error binding socket. Perhaps it's already binded");
         net_close_connection(socket);
         return -1;
     }
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_bind_socket - done \n");
+
     return 1;
 }
 
@@ -114,20 +119,23 @@ int net_bind_socket(struct sockaddr_in* dest, int socket) {
 */
 int net_connect_to(struct sockaddr_in* dest, int socket) {
     int err = connect(socket, (struct sockaddr *)dest, sizeof(struct sockaddr_in));
-    if (err < 0) {
+    if (err < 0)
+    {
         printf("%s \n","Error connecting!");
         net_close_connection(socket);
         return -1;
     }
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_connect_to - done \n");
+
     return 1;
 }
 
 //NOTE: a write() call made to a socket behaves in exactly the same way as send() with flags set to zero. 
 int net_send_data(int new_socket, void* data, int len) {
     int err = send(new_socket, data, len, 0);
-    if (err < 0){
+    if (err < 0)
+    {
         printf("%s \n", "Error, could not send data!");
         net_close_connection(socket);
         return -1;
@@ -163,20 +171,23 @@ int net_listen_for_connection(int socket, int max_connection_pending) {
         net_close_connection(socket);
         return -1;
     }
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_listen_for_connection - done \n");
+
     return 1;
 }
 
 int net_accept_connection(struct sockaddr_in* address, int socket) {
     socklen_t socksize = sizeof(struct sockaddr_in);
     int err = accept(socket, (struct sockaddr*)address, &socksize);
-    if (err < 0){
+    if (err < 0)
+    {
         printf("%s \n", "Error, could not accept data");
         net_close_connection(socket);
         return -1;
     }
-    if (DEBUG == 1)
+
+    if (moduleData.debug)
         printf("net.c - net_accept_connection - done \n");
     
     return err;
@@ -189,7 +200,7 @@ int net_close_connection(int socket) {
         //TODO
         // exit?
     }
-    if (DEBUG == 1)
+    if (moduleData.debug)
         printf("net.c - net_close - done \n");
 
     return 1;

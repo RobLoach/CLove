@@ -27,8 +27,6 @@
     #define UNIX
 #endif
 
-#define DEBUG 1
-
 #ifdef UNIX 
 
 #include <stdio.h>
