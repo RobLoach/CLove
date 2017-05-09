@@ -111,6 +111,10 @@ float v3_length(vec3 v)                    {
  * If A * B = 0 => A,B are perpendicular ' _|_ ' (90 degree)
  * If A * B = 1 => A,B are colliniar ' = '
  *
+ * Note:
+ * If the dot product is less than 90 degrees => dot product will be positive
+ * If the dot product is greater than 90 degrees => dot product will be negative
+ *
  * Another way of representing the dot product is:
  * "That is to say, the dot product of two vectors will be equal to the cosine of
  * the angle between the vectors, times the lengths of each of the vectors."

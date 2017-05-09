@@ -8,12 +8,13 @@
 */
 
 #include "bitmap_font.h"
+#include "shader.h"
+#include "batch.h"
 
 #include <stdlib.h>
 #include <string.h>
 
 #include "../tools/utf8.h"
-#include "shader.h"
 
 typedef struct
 {
@@ -31,6 +32,10 @@ static struct
     uint16_t indexer_map_size;
     uint16_t glyph_width;
     uint16_t glyph_height;
+
+    graphics_Batch* batches;
+    uint32_t batchcount;
+    uint32_t batchsize;
 } moduleData;
 
 void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename,char const* glyphs, float glyph_width, float glyph_height)
@@ -59,6 +64,10 @@ void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename,char
     // Get all the glyphs from the font
     uint16_t i = 0;
     uint32_t get_w;
+
+    moduleData.batches = malloc(sizeof(graphics_Batch) * no_glyphs);
+    moduleData.batchcount = no_glyphs;
+
     while(get_w = utf8_scan(&glyphs))
     {
         graphics_Quad_newWithRef(&dst->quads[i], glyph_width * i, 0, glyph_width, glyph_height, img_width, img_height);
@@ -68,9 +77,11 @@ void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename,char
         moduleData.indexer_map[i].offsety = 0;
         moduleData.glyph_width = glyph_width;
         moduleData.glyph_height = glyph_height;
+
+        graphics_Batch_new(&moduleData.batches[i], dst->image, no_glyphs, graphics_BatchUsage_static);
+        graphics_Batch_bind(&moduleData.batches[i]);
         i++;
     }
-
 }
 
 void graphics_BitmapFont_setGlyphOffsetX(float off, char const* glyph)
@@ -110,6 +121,8 @@ static glyphs_indexer find_glyph(uint32_t what)
 
 void graphics_BitmapFont_render(graphics_BitmapFont* dst, char const* text, int x, int y, float r, float sx, float sy, float ox, float oy, float kx, float ky)
 {
+    graphics_Shader* shader = graphics_getShader();
+    graphics_setDefaultShader();
 
     uint32_t g;
     int i = 0;
@@ -118,10 +131,18 @@ void graphics_BitmapFont_render(graphics_BitmapFont* dst, char const* text, int 
         glyphs_indexer map = find_glyph(g);
         if (map.word == g) {
             //printf("%c %d %d %d \n", map.word, map.index, map.offsetx, map.offsety );
-            graphics_Image_draw(dst->image, &dst->quads[map.index], (x + map.offsetx) + moduleData.glyph_width * i * sx, (y + map.offsety), r, sx, sy, ox, oy, kx, ky);
+            graphics_Batch_add(&moduleData.batches[i], &dst->quads[map.index], map.offsetx + moduleData.glyph_width * i, map.offsety, 0, 1, 1, 0, 0, 0, 0);
             i++;
         }
     }
+
+    for (int i = 0; i < moduleData.batchcount; i++)
+    {
+        graphics_Batch_unbind(&moduleData.batches[i]);
+        graphics_Batch_draw(&moduleData.batches[i], x, y, r, sx, sy, ox, oy, kx, ky);
+    }
+
+    graphics_setShader(shader);
 }
 
 void graphics_BitmapFont_free(graphics_BitmapFont* dst)

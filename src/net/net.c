@@ -87,7 +87,7 @@ int net_create_socket() {
     if (moduleData.is_ipv4)
         socket_ = socket(AF_INET, SOCK_STREAM, 0);
     else
-        socket_ = socket_(AF_INET6, SOCK_STREAM, 0);
+        socket_ = socket(AF_INET6, SOCK_STREAM, 0);
 
     if (socket_ == -1) {
         printf("%s \n", "Error creating socket!");
