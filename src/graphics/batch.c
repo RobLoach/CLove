@@ -127,7 +127,7 @@ int graphics_Batch_add(graphics_Batch* batch, graphics_Quad const* q, float x, f
 
 	if(batch->bound) {
 	} else {
-		//glBindBuffer(GL_ARRAY_BUFFER, batch->vbo);
+        //glBindBuffer(GL_ARRAY_BUFFER, batch->vbo);
 		//glBufferSubData(GL_ARRAY_BUFFER, batch->insertPos * 4, 4*sizeof(graphics_Vertex), v);
 	}
 

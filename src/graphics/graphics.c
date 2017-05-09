@@ -297,7 +297,7 @@ int graphics_setIcon(image_ImageData* imgd) {
 
     int w = image_ImageData_getWidth(imgd);
     int h = image_ImageData_getHeight(imgd);
-    int pitch = w * 4;
+    int pitch = w * image_ImageData_getChannels(imgd);;
 
     SDL_Surface *sdlicon = 0;
 

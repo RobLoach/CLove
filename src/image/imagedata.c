@@ -17,8 +17,8 @@
 
 int image_ImageData_new_with_filename(image_ImageData *dst, char const* filename) {
   int n;
-  dst->surface = stbi_load(filename, &dst->w, &dst->h, &n, STBI_rgb_alpha);
-  dst->c = STBI_rgb_alpha;
+  dst->surface = stbi_load(filename, &dst->w, &dst->h, &n, n == 1 ? STBI_grey : n == 2 ? STBI_grey_alpha : n == 3 ? STBI_rgb : n == 4 ? STBI_rgb_alpha : STBI_default);
+  dst->c = n == 1 ? STBI_grey : n == 2 ? STBI_grey_alpha : n == 3 ? STBI_rgb : n == 4 ? STBI_rgb_alpha : STBI_default;
   dst->path = filename;
   dst->error_msg = "";
 
