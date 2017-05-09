@@ -120,18 +120,59 @@ static int l_image_ImageData_getPixel(lua_State* state) {
     //TODO check what happens when the image is RGB not RGBA
     int index = (y * image_ImageData_getWidth(imagedata) + x) * image_ImageData_getChannels(imagedata) - 1;
 
-    red = surface[index] & 255;
-    green = surface[++index] & 255;
-    blue = surface[++index] & 255;
-    alpha = surface[++index] & 255;
+    int channels = image_ImageData_getChannels(imagedata);
+    int return_no = 4;
 
+    if (channels == 4)
+    {
+        red = surface[index] & 255;
+        green = surface[++index] & 255;
+        blue = surface[++index] & 255;
+        alpha = surface[++index] & 255;
 
-    lua_pushinteger(state, red);
-    lua_pushinteger(state, green);
-    lua_pushinteger(state, blue);
-    lua_pushinteger(state, alpha);
-    lua_pushinteger(state, image_ImageData_getPixel(imagedata,x,y));
-    return 4;
+        lua_pushinteger(state, red);
+        lua_pushinteger(state, green);
+        lua_pushinteger(state, blue);
+        lua_pushinteger(state, alpha);
+        lua_pushinteger(state, image_ImageData_getPixel(imagedata,x,y));
+
+        return_no = 4;
+    }
+    else if (channels == 3)
+    {
+        red = surface[index] & 255;
+        green = surface[++index] & 255;
+        blue = surface[++index] & 255;
+
+        lua_pushinteger(state, red);
+        lua_pushinteger(state, green);
+        lua_pushinteger(state, blue);
+        lua_pushinteger(state, image_ImageData_getPixel(imagedata,x,y));
+
+        return_no = 3;
+    }
+    else if (channels == 2)
+    {
+        red = surface[index] & 255;
+        green = surface[++index] & 255;
+
+        lua_pushinteger(state, red);
+        lua_pushinteger(state, green);
+        lua_pushinteger(state, image_ImageData_getPixel(imagedata,x,y));
+
+        return_no = 2;
+    }
+    else if (channels == 1)
+    {
+        red = surface[index] & 255;
+
+        lua_pushinteger(state, red);
+        lua_pushinteger(state, image_ImageData_getPixel(imagedata,x,y));
+        return_no = 1;
+    }
+
+    return return_no;
+
 }
 
 static int l_image_ImageData_getChannels(lua_State* state) {
@@ -151,22 +192,22 @@ static luaL_Reg const regFuncs[] = {
     {NULL, NULL}
 };
 
-    l_checkTypeFn(l_image_isImageData, moduleData.imageDataMT)
+l_checkTypeFn(l_image_isImageData, moduleData.imageDataMT)
 l_toTypeFn(l_image_toImageData, image_ImageData)
 
-    static luaL_Reg const imageDataMetatableFuncs[] = {
-        //{"getString", l_image_ImageData_getString},
-        {"getWidth", l_image_ImageData_getWidth},
-        {"getHeight", l_image_ImageData_getHeight},
-        {"getDimensions", l_image_ImageData_getDimensions},
-        {"getPixel", l_image_ImageData_getPixel},
-        {"setPixel", l_image_ImageData_setPixel},
-        {"getChannels", l_image_ImageData_getChannels},
-        {"encode", l_image_ImageData_encode},
-        {"getPath", l_image_ImageData_getPath},
-        {"__gc", l_image_gcImageData},
-        {NULL, NULL}
-    };
+static luaL_Reg const imageDataMetatableFuncs[] = {
+    //{"getString", l_image_ImageData_getString},
+    {"getWidth", l_image_ImageData_getWidth},
+    {"getHeight", l_image_ImageData_getHeight},
+    {"getDimensions", l_image_ImageData_getDimensions},
+    {"getPixel", l_image_ImageData_getPixel},
+    {"setPixel", l_image_ImageData_setPixel},
+    {"getChannels", l_image_ImageData_getChannels},
+    {"encode", l_image_ImageData_encode},
+    {"getPath", l_image_ImageData_getPath},
+    {"__gc", l_image_gcImageData},
+    {NULL, NULL}
+};
 
 int l_image_register(lua_State* state) {
     l_tools_registerModule(state, "image", regFuncs);
