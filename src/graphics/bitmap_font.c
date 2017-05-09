@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "../image/imagedata.h"
 #include "../tools/utf8.h"
 
 typedef struct
@@ -147,11 +148,11 @@ void graphics_BitmapFont_render(graphics_BitmapFont* dst, char const* text, int 
 
 void graphics_BitmapFont_free(graphics_BitmapFont* dst)
 {
-    free(dst->data);
-    free(dst->image);
+    graphics_Image_free(dst->image);
+    graphics_Batch_free(moduleData.batches);
+    image_ImageData_free(dst->data);
     free(dst->quads);
-    //free((char*)dst->glyphs);
-    //free(moduleData.indexer_map);
+    free(moduleData.indexer_map);
 }
 
 
