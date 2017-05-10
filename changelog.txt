@@ -1,5 +1,9 @@
 version 0.7.1 not released:
-added: Android port
+
+fixed: imageData: getChannel, getPixel, now accepting: grey, grey_alpha, rgb, rgba
+added: newImageFont. BitmapFonts. You can draw fonts using images (see examples for more info)
+added: networking. TCP using IPv4 or UPv6 (see examples)
+wip: Android port
 added: Clove compiles with C++ for more future features
 added: *.clove.tar, see examples folder -> package.
 added: love.filesystem.require("file.lua"). Acts like require even in packaging mode
@@ -20,7 +24,7 @@ fixed: Windows support should be totally functional
 
 version 0.6.3 29.01.2017:
 
-added full joystick support. The API is different then on Love!
+added full joystick support. The API is different than Love's !
 added love.filesystem.getSaveDirectory(optional: game, optional: company)
 added batch system to fonts
 added font:getWidth
