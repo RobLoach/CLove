@@ -93,6 +93,7 @@ int net_create_socket() {
         printf("%s \n", "Error creating socket!");
         return -1;
     }
+
     if (moduleData.debug)
         printf("net.c - net_create_socket - done \n");
 

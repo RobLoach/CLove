@@ -37,6 +37,15 @@ inline float l_tools_toNumberOrError(lua_State* state, int index) {
   return lua_tonumber(state, index);
 }
 
+inline int l_tools_toIntegerOrError(lua_State* state, int index) {
+  if(lua_type(state, index) != LUA_TNUMBER) {
+      luaL_argerror(state,index-1,"expected number");
+      lua_error(state);
+    }
+
+  return lua_tointeger(state, index);
+}
+
 inline char const* l_tools_toStringOrError(lua_State* state, int index) {
   if(lua_type(state, index) != LUA_TSTRING) {
       luaL_argerror(state,index,"expected string");
