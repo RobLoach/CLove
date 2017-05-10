@@ -7,8 +7,9 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 
-/* History: 
+/* History:
  *
+ * Wednesday 10 may 2017 - added the possibity to choose between ipv4 or ipv6 (for real)
  * Monday 8 may 2017 - added the possiblity to choose between ipv4 and ipv6 + small changes
  * Tuesday 3 Jan 2017 - net_send_data accepts len as third param, added a bit more doc (1.0.1)
  * Mon 2 Jan 2017 - first real commit (1.0)
@@ -19,7 +20,7 @@
 // non OS idependent functions
 
 const char* net_getVersion() {
-    return "1.0.2";
+    return "1.0.3";
 }
 
 const char* net_getSystem() {
@@ -46,26 +47,18 @@ const char* net_getSystem() {
 #include <sys/socket.h>
 
 static struct {
-    const char* ip_version;
     bool is_ipv4;
     bool debug;
 } moduleData;
 
 //Note: All ports below 1024 are RESERVED (unless you're the superuser)! You can have any port number above that, right up to 65535
-int net_init(struct sockaddr_in* dest, const char* address, int port, const char* ip_version) {
+int net_init_ipv4(struct sockaddr_in* dest, const char* address, int port) {
     memset(dest, 0, sizeof(&dest));
 
     moduleData.debug = true;
-    moduleData.ip_version = ip_version;
-    moduleData.is_ipv4 = true;
 
-    if (strcmp(ip_version, "ipv6"))
-    {
-        moduleData.is_ipv4 = false;
-        dest->sin_family = AF_INET6;
-    }
-    else
-        dest->sin_family = AF_INET;
+    moduleData.is_ipv4 = true;
+    dest->sin_family = AF_INET;
 
     if (strcmp(address, "localhost") == 0)
         //INADDR_ANY = local address
@@ -74,6 +67,30 @@ int net_init(struct sockaddr_in* dest, const char* address, int port, const char
         dest->sin_addr.s_addr = inet_addr(address);   /* set destination address */
 
     dest->sin_port = htons(port);
+
+    if (moduleData.debug)
+        printf("net.c - net_init - done \n");
+
+    return 1;
+}
+
+int net_init_ipv6(struct sockaddr_in6* dest, const char* address, int port) {
+    memset(dest, 0, sizeof(&dest));
+
+    moduleData.debug = true;
+
+    moduleData.is_ipv4 = false;
+    dest->sin6_family = AF_INET6;
+
+    //char* str[INET6_ADDRSTRLEN];
+
+    if (strcmp(address, "localhost") == 0)
+        //INADDR_ANY = local address
+        dest->sin6_addr = in6addr_any;
+    else
+        inet_pton(AF_INET6, address, &(dest->sin6_addr));   /* set destination address */
+
+    dest->sin6_port = htons(port);
 
     if (moduleData.debug)
         printf("net.c - net_init - done \n");
@@ -100,7 +117,7 @@ int net_create_socket() {
     return socket_;
 }
 
-int net_bind_socket(struct sockaddr_in* dest, int socket) {
+int net_bind_socket_ipv4(struct sockaddr_in* dest, int socket) {
     int err = bind(socket,(struct sockaddr *)dest, sizeof(struct sockaddr));
     if (err < 0)
     {
@@ -114,11 +131,40 @@ int net_bind_socket(struct sockaddr_in* dest, int socket) {
     return 1;
 }
 
+int net_bind_socket_ipv6(struct sockaddr_in6* dest, int socket) {
+    int err = bind(socket,(struct sockaddr *)dest, sizeof(struct sockaddr));
+    if (err < 0)
+    {
+        printf("%s \n", "Error binding socket. Perhaps it's already binded");
+        net_close_connection(socket);
+        return -1;
+    }
+    if (moduleData.debug)
+        printf("net.c - net_bind_socket - done \n");
+
+    return 1;
+}
+
+
 /*
  * When connecting to a server the kernel will choose a local port for us.
  * This means you don't have to call net_bind_socket() !
 */
-int net_connect_to(struct sockaddr_in* dest, int socket) {
+int net_connect_to_ipv4(struct sockaddr_in* dest, int socket) {
+    int err = connect(socket, (struct sockaddr *)dest, sizeof(struct sockaddr_in));
+    if (err < 0)
+    {
+        printf("%s \n","Error connecting!");
+        net_close_connection(socket);
+        return -1;
+    }
+    if (moduleData.debug)
+        printf("net.c - net_connect_to - done \n");
+
+    return 1;
+}
+
+int net_connect_to_ipv6(struct sockaddr_in6* dest, int socket) {
     int err = connect(socket, (struct sockaddr *)dest, sizeof(struct sockaddr_in));
     if (err < 0)
     {
@@ -138,7 +184,7 @@ int net_send_data(int new_socket, void* data, int len) {
     if (err < 0)
     {
         printf("%s \n", "Error, could not send data!");
-        net_close_connection(socket);
+        net_close_connection(new_socket);
         return -1;
     }
     // return the number of bytes sent
@@ -178,7 +224,7 @@ int net_listen_for_connection(int socket, int max_connection_pending) {
     return 1;
 }
 
-int net_accept_connection(struct sockaddr_in* address, int socket) {
+int net_accept_connection_ipv4(struct sockaddr_in* address, int socket) {
     socklen_t socksize = sizeof(struct sockaddr_in);
     int err = accept(socket, (struct sockaddr*)address, &socksize);
     if (err < 0)
@@ -191,6 +237,22 @@ int net_accept_connection(struct sockaddr_in* address, int socket) {
     if (moduleData.debug)
         printf("net.c - net_accept_connection - done \n");
     
+    return err;
+}
+
+int net_accept_connection_ipv6(struct sockaddr_in6* address, int socket) {
+    socklen_t socksize = sizeof(struct sockaddr_in);
+    int err = accept(socket, (struct sockaddr*)address, &socksize);
+    if (err < 0)
+    {
+        printf("%s \n", "Error, could not accept data");
+        net_close_connection(socket);
+        return -1;
+    }
+
+    if (moduleData.debug)
+        printf("net.c - net_accept_connection - done \n");
+
     return err;
 }
 
@@ -208,8 +270,14 @@ int net_close_connection(int socket) {
 }
 
 // Returns the IP address of someone who has connected to you
-const char* net_getConnectedIP(struct sockaddr_in* dest) {
+const char* net_getConnectedIP_ipv4(struct sockaddr_in* dest) {
     return inet_ntoa(dest->sin_addr);
+}
+
+const char* net_getConnectedIP_ipv6(struct sockaddr_in6* dest) {
+    char* str = malloc(sizeof(char)*INET6_ADDRSTRLEN);
+    inet_ntop(AF_INET6, &(dest->sin6_addr), str, INET6_ADDRSTRLEN);
+    return str;
 }
 
 #endif // unix 

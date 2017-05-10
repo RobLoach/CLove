@@ -38,17 +38,23 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 
-int net_init(struct sockaddr_in* dest, const char* address, int port, const char *ip_version);
+int net_init_ipv4(struct sockaddr_in* dest, const char* address, int port);
+int net_init_ipv6(struct sockaddr_in6* dest, const char *address, int port);
+
 int net_create_socket();
-int net_bind_socket(struct sockaddr_in* dest, int socket);
-int net_connect_to(struct sockaddr_in* dest, int socket);
+int net_bind_socket_ipv4(struct sockaddr_in* dest, int socket);
+int net_connect_to_ipv4(struct sockaddr_in* dest, int socket);
+int net_bind_socket_ipv6(struct sockaddr_in6* dest, int socket);
+int net_connect_to_ipv6(struct sockaddr_in6* dest, int socket);
 int net_send_data(int new_socket, void* data, int len);
 int net_recieve_data(int socket, void* msg, int len);
 int net_listen_for_connection(int socket, int max_connection_pending);
-int net_accept_connection(struct sockaddr_in* address, int socket);
+int net_accept_connection_ipv4(struct sockaddr_in* address, int socket);
+int net_accept_connection_ipv6(struct sockaddr_in6* address, int socket);
 int net_close_connection(int socket);
 
-const char* net_getConnectedIP(struct sockaddr_in* dest);
+const char* net_getConnectedIP_ipv4(struct sockaddr_in* dest);
+const char* net_getConnectedIP_ipv6(struct sockaddr_in6* dest);
 
 #endif // unix
 
