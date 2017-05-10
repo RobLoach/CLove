@@ -260,8 +260,7 @@ int net_close_connection(int socket) {
     int err = close(socket);
     if (err < 0){
         printf("Error, could not close socket, perhaps the server has been already closed? \n!");
-        //TODO
-        // exit?
+        return -1;
     }
     if (moduleData.debug)
         printf("net.c - net_close - done \n");

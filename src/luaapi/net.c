@@ -50,7 +50,11 @@ static int l_net_load(lua_State* state)
     int port = l_tools_toIntegerOrError(state, 2);
     const char* ip_version = l_tools_toStringOrError(state, 3);
 
-    if (strcmp(ip_version, "ipv6") == 0)
+    moduleData.is_ipv4 = true;
+
+    //TODO FIX ME. Why isn't strcmp working!?
+
+/*    if (strcmp(ip_version, "ipv6") == 0)
     {
         moduleData.is_ipv4 = false;
         net_init_ipv4(&moduleData.server_ipv4, address, port);
@@ -58,8 +62,19 @@ static int l_net_load(lua_State* state)
     else
     {
         moduleData.is_ipv4 = true;
-        net_init_ipv6(&moduleData.server_ipv6, address, port);
-    }
+*/        //net_init_ipv6(&moduleData.server_ipv6, address, port);
+  //  }
+    net_init_ipv4(&moduleData.server_ipv4, address, port);
+
+    return 0;
+}
+
+static int l_net_connect(lua_State* state)
+{
+    if (moduleData.is_ipv4)
+        net_connect_to_ipv4(&moduleData.server_ipv4, moduleData.socket);
+    else
+        net_connect_to_ipv6(&moduleData.server_ipv6, moduleData.socket);
 
     return 0;
 }
@@ -144,12 +159,14 @@ static int l_net_close(lua_State* state)
 
     l_net_check_socket(moduleData.socket, "close");
     net_close_connection(moduleData.socket);
+
     return 0;
 }
 
 static luaL_Reg const regFuncs[] = {
     {"load",         l_net_load},
     {"send",         l_net_send},
+    {"connect",      l_net_connect},
     {"accept",       l_net_accept},
     {"listen",       l_net_listen},
     {"bind",         l_net_bind_socket},

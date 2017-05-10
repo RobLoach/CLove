@@ -234,6 +234,7 @@ void main_activity_load(int argc, char* argv[]) {
     l_timer_register(lua);
     l_math_register(lua);
     l_system_register(lua);
+    l_net_register(lua);
     l_thread_register(lua);
 
     l_boot(lua, &config);

@@ -31,6 +31,7 @@
 #include "luaapi/math.h"
 #include "luaapi/system.h"
 #include "luaapi/thread.h"
+#include "luaapi/net.h"
 #include "luaapi/errorhandler.h"
 
 #include "tools/utils.h"
