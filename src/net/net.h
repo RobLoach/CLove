@@ -29,6 +29,7 @@
 
 #ifdef UNIX 
 
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,7 +41,7 @@
 
 int net_init_ipv4(struct sockaddr_in* dest, const char* address, int port);
 int net_init_ipv6(struct sockaddr_in6* dest, const char *address, int port);
-
+bool net_enable_debug_msg(bool enable);
 int net_create_socket();
 int net_bind_socket_ipv4(struct sockaddr_in* dest, int socket);
 int net_connect_to_ipv4(struct sockaddr_in* dest, int socket);
