@@ -2,6 +2,6 @@
 
 mkdir build &&
 cd build &&
-cmake -BUILD_OSX=TRUE ../ &&
+cmake ../ &&
 make -j2 &&
 make install DESTDIR="install"
