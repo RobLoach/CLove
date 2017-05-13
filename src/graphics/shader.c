@@ -6,70 +6,31 @@
 #   This project is free software; you can redistribute it and/or modify it
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdbool.h>
+
 #include "shader.h"
 #include "../3rdparty/slre/slre.h"
 
 #include "../tools/gl.h"
 
 static struct {
+    /*
+     * By default activeShader & defaultShader
+     * are set to 2d
+     */
     graphics_Shader *activeShader;
     graphics_Shader defaultShader;
     int maxTextureUnits;
+    /*
+     * used to check when to use
+     * the default 3d shader or the 2d one
+     */
+    bool is3d;
 } moduleData;
-
-GLchar const *defaultVertexSource =
-"vec4 position(mat4 transform_projection, vec4 vertex_position) {\n"
-"  return transform_projection * vertex_position;\n"
-"}\n";
-
-static GLchar const vertexHeader[] =
-"#version 120\n"
-"uniform   mat4 projection;\n"
-"uniform   mat4 view;\n"
-"uniform   mat4 model;\n"
-"uniform   mat2 textureRect;\n"
-"uniform   vec2 size;\n"
-"#define extern uniform\n"
-"attribute vec2 vPos;\n"
-"attribute vec2 vUV;\n"
-"attribute vec4 vColor;\n"
-"varying   vec2 fUV;\n"
-"varying   vec4 fColor;\n"
-"#line 0\n";
-
-static GLchar const vertexFooter[] =
-"void main() {\n"
-"  gl_Position = position(projection * view * model,vec4(vPos * size, 1.0f, 1.0f));\n"
-"  fUV = vUV * textureRect[1] + textureRect[0];\n"
-"  fColor = vColor;\n"
-"}\n";
-
-static GLchar const *defaultFragmentSource =
-"vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords ) {\n"
-"  return Texel(texture, texture_coords) * color;\n"
-"}\n";
-
-#define DEFAULT_SAMPLER "tex"
-
-static GLchar const fragmentHeader[] =
-"#version 120\n"
-//"precision mediump float;\n"
-"#define Image sampler2D\n"
-"#define Texel texture2D\n"
-"#define extern uniform\n"
-"varying vec2 fUV;\n"
-"varying vec4 fColor;\n"
-"uniform sampler2D " DEFAULT_SAMPLER ";\n"
-"uniform vec4 color;\n"
-"#line 0\n";
-
-static GLchar const fragmentFooter[] =
-"void main() {\n"
-"  gl_FragColor = effect(color * fColor, tex, fUV, vec2(0.0f, 0.0f));\n"
-"}\n";
 
 bool graphics_Shader_compileAndAttachShaderRaw(graphics_Shader *program, GLenum shaderType, char const* code) {
     GLuint shader = glCreateShader(shaderType);
@@ -119,15 +80,15 @@ bool graphics_Shader_compileAndAttachShaderRaw(graphics_Shader *program, GLenum 
     char *info = malloc(infolen);
     glGetShaderInfoLog(shader, infolen, 0, info);
     switch(shaderType) {
-        case GL_VERTEX_SHADER:
-            free(program->warnings.vertex);
-            program->warnings.vertex = info;
-            break;
+    case GL_VERTEX_SHADER:
+        free(program->warnings.vertex);
+        program->warnings.vertex = info;
+        break;
 
-        case GL_FRAGMENT_SHADER:
-            free(program->warnings.fragment);
-            program->warnings.fragment = info;
-            break;
+    case GL_FRAGMENT_SHADER:
+        free(program->warnings.fragment);
+        program->warnings.fragment = info;
+        break;
     }
 
     glDeleteShader(shader);
@@ -140,18 +101,40 @@ bool graphics_Shader_compileAndAttachShader(graphics_Shader *shader, GLenum shad
     int headerlen;
     int footerlen;
     switch(shaderType) {
-        case GL_VERTEX_SHADER:
-            header = vertexHeader;
-            headerlen = sizeof(vertexHeader) - 1;
-            footer = vertexFooter;
-            footerlen = sizeof(vertexFooter) - 1;
+    case GL_VERTEX_SHADER:
+        if(!moduleData.is3d)
+        {
+            header = vertexHeader2d;
+            headerlen = sizeof(vertexHeader2d) - 1;
+            footer = vertexFooter2d;
+            footerlen = sizeof(vertexFooter2d) - 1;
             break;
-        case GL_FRAGMENT_SHADER:
-            header = fragmentHeader;
-            headerlen = sizeof(fragmentHeader) - 1;
-            footer = fragmentFooter;
-            footerlen = sizeof(fragmentFooter) - 1;
+        }
+        else
+        {
+            header = vertexHeader3d;
+            headerlen = sizeof(vertexHeader3d) - 1;
+            footer = vertexFooter3d;
+            footerlen = sizeof(vertexFooter3d) - 1;
             break;
+        }
+    case GL_FRAGMENT_SHADER:
+        if (!moduleData.is3d)
+        {
+            header = fragmentHeader2d;
+            headerlen = sizeof(fragmentHeader2d) - 1;
+            footer = fragmentFooter2d;
+            footerlen = sizeof(fragmentFooter2d) - 1;
+            break;
+        }
+        else
+        {
+            header = fragmentHeader3d;
+            headerlen = sizeof(fragmentHeader3d) - 1;
+            footer = fragmentFooter3d;
+            footerlen = sizeof(fragmentFooter3d) - 1;
+            break;
+        }
     }
     int codelen = strlen(code);
     GLchar *combinedCode = malloc(headerlen + footerlen + codelen + 1);
@@ -172,63 +155,63 @@ static int compareUniformInfo(graphics_ShaderUniformInfo const* a, graphics_Shad
 
 int graphics_shader_toLoveComponents(GLenum type) {
     switch(type) {
-        case GL_BOOL:
-        case GL_INT:
-        case GL_FLOAT:
-            return 1;
+    case GL_BOOL:
+    case GL_INT:
+    case GL_FLOAT:
+        return 1;
 
-        case GL_BOOL_VEC2:
-        case GL_INT_VEC2:
-        case GL_FLOAT_VEC2:
-        case GL_FLOAT_MAT2:
-            return 2;
+    case GL_BOOL_VEC2:
+    case GL_INT_VEC2:
+    case GL_FLOAT_VEC2:
+    case GL_FLOAT_MAT2:
+        return 2;
 
-        case GL_BOOL_VEC3:
-        case GL_INT_VEC3:
-        case GL_FLOAT_VEC3:
-        case GL_FLOAT_MAT3:
-            return 3;
+    case GL_BOOL_VEC3:
+    case GL_INT_VEC3:
+    case GL_FLOAT_VEC3:
+    case GL_FLOAT_MAT3:
+        return 3;
 
 
-        case GL_BOOL_VEC4:
-        case GL_INT_VEC4:
-        case GL_FLOAT_VEC4:
-        case GL_FLOAT_MAT4:
-            return 4;
+    case GL_BOOL_VEC4:
+    case GL_INT_VEC4:
+    case GL_FLOAT_VEC4:
+    case GL_FLOAT_MAT4:
+        return 4;
 
-        default:
-            return 0;
+    default:
+        return 0;
     };
 }
 
 graphics_ShaderUniformType graphics_shader_toLoveType(GLenum type) {
     switch(type) {
-        case GL_BOOL:
-        case GL_BOOL_VEC2:
-        case GL_BOOL_VEC3:
-        case GL_BOOL_VEC4:
-            return graphics_ShaderUniformType_bool;
+    case GL_BOOL:
+    case GL_BOOL_VEC2:
+    case GL_BOOL_VEC3:
+    case GL_BOOL_VEC4:
+        return graphics_ShaderUniformType_bool;
 
-        case GL_INT:
-        case GL_INT_VEC2:
-        case GL_INT_VEC3:
-        case GL_INT_VEC4:
-            return graphics_ShaderUniformType_int;
+    case GL_INT:
+    case GL_INT_VEC2:
+    case GL_INT_VEC3:
+    case GL_INT_VEC4:
+        return graphics_ShaderUniformType_int;
 
-        case GL_FLOAT:
-        case GL_FLOAT_VEC2:
-        case GL_FLOAT_VEC3:
-        case GL_FLOAT_VEC4:
-        case GL_FLOAT_MAT2:
-        case GL_FLOAT_MAT3:
-        case GL_FLOAT_MAT4:
-            return graphics_ShaderUniformType_float;
+    case GL_FLOAT:
+    case GL_FLOAT_VEC2:
+    case GL_FLOAT_VEC3:
+    case GL_FLOAT_VEC4:
+    case GL_FLOAT_MAT2:
+    case GL_FLOAT_MAT3:
+    case GL_FLOAT_MAT4:
+        return graphics_ShaderUniformType_float;
 
-        case GL_SAMPLER_2D:
-            return graphics_ShaderUniformType_sampler;
+    case GL_SAMPLER_2D:
+        return graphics_ShaderUniformType_sampler;
 
-        default:
-            return graphics_ShaderUniformType_none;
+    default:
+        return graphics_ShaderUniformType_none;
     };
 }
 
@@ -295,7 +278,6 @@ static void allocateTextureUnits(graphics_Shader *shader) {
 
 }
 
-
 graphics_ShaderCompileStatus graphics_Shader_new(graphics_Shader *shader, char const* vertexCode, char const* fragmentCode) {
 
     memset(shader, 0, sizeof(*shader));
@@ -304,12 +286,68 @@ graphics_ShaderCompileStatus graphics_Shader_new(graphics_Shader *shader, char c
     shader->warnings.program = malloc(1);
     *shader->warnings.vertex = *shader->warnings.fragment = *shader->warnings.program = 0;
 
+    moduleData.is3d = false;
+
+    // This code is overited by graphics_Shader_new3d
     if(!vertexCode) {
-        vertexCode = defaultVertexSource;
+        vertexCode = defaultVertexSource2d;
     }
 
+    // This code is overited by graphics_Shader_new3d
     if(!fragmentCode) {
-        fragmentCode = defaultFragmentSource;
+        fragmentCode = defaultFragmentSource2d;
+    }
+
+    shader->program = glCreateProgram();
+
+    if(!graphics_Shader_compileAndAttachShader(shader, GL_VERTEX_SHADER, vertexCode)) {
+        return graphics_ShaderCompileStatus_vertexError;
+    }
+
+    if(!graphics_Shader_compileAndAttachShader(shader, GL_FRAGMENT_SHADER, fragmentCode)) {
+        return graphics_ShaderCompileStatus_fragmentError;
+    }
+
+    glBindAttribLocation(shader->program, 0, "vPos");
+    glBindAttribLocation(shader->program, 1, "vUV");
+    glBindAttribLocation(shader->program, 2, "vColor");
+    glLinkProgram(shader->program);
+
+    int linkState;
+    glGetProgramiv(shader->program, GL_LINK_STATUS, &linkState);
+    if (linkState != GL_TRUE) {
+        printf("ERROR OpenGL : unable to compile shader\n");
+        char shader_link_error[4096];
+        glGetShaderInfoLog(shader->program, sizeof(shader_link_error), NULL, shader_link_error);
+        printf("%s", shader_link_error);
+        return graphics_ShaderCompileStatus_linkError;
+    }
+
+    readShaderUniforms(shader);
+
+    allocateTextureUnits(shader);
+
+    return graphics_ShaderCompileStatus_okay;
+}
+
+graphics_ShaderCompileStatus graphics_Shader_new3d(graphics_Shader *shader, char const* vertexCode, char const* fragmentCode)
+{
+    memset(shader, 0, sizeof(*shader));
+    shader->warnings.vertex = malloc(1);
+    shader->warnings.fragment = malloc(1);
+    shader->warnings.program = malloc(1);
+    *shader->warnings.vertex = *shader->warnings.fragment = *shader->warnings.program = 0;
+
+    moduleData.is3d = true;
+
+    // This code is overited by graphics_Shader_new3d
+    if(!vertexCode) {
+        vertexCode = defaultVertexSource3d;
+    }
+
+    // This code is overited by graphics_Shader_new3d
+    if(!fragmentCode) {
+        fragmentCode = defaultFragmentSource3d;
     }
 
     shader->program = glCreateProgram();
@@ -394,55 +432,55 @@ void graphics_shader_init(void) {
 
 #define mkScalarSendFunc(name, type, glfunc) \
     void graphics_Shader_ ## name(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, int count, type const* numbers) {  \
-        glUseProgram(shader->program); \
-        glfunc(info->location, count, numbers); \
+    glUseProgram(shader->program); \
+    glfunc(info->location, count, numbers); \
     }
 
-    mkScalarSendFunc(sendIntegers, GLint,   glUniform1iv)
-    mkScalarSendFunc(sendBooleans, GLint,   glUniform1iv)
+mkScalarSendFunc(sendIntegers, GLint,   glUniform1iv)
+mkScalarSendFunc(sendBooleans, GLint,   glUniform1iv)
 mkScalarSendFunc(sendFloats,   GLfloat, glUniform1fv)
 
 #undef mkScalarSendFunc
 
 #define mkVectorSendFunc(name, valuetype, abbr) \
-        void graphics_Shader_ ## name(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, int count, valuetype const* numbers) {  \
-            glUseProgram(shader->program);                                \
-            switch(graphics_shader_toLoveComponents(info->type)) {       \
-                case 2:                                                       \
-                                                                              glUniform2 ## abbr ## v(info->location, count, numbers);    \
-                break;                                                      \
-                case 3:                                                       \
-                                                                              glUniform3 ## abbr ## v(info->location, count, numbers);    \
-                break;                                                      \
-                case 4:                                                       \
-                                                                              glUniform4 ## abbr ## v(info->location, count, numbers);    \
-                break;                                                      \
-            }                                                             \
-        }
+    void graphics_Shader_ ## name(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, int count, valuetype const* numbers) {  \
+    glUseProgram(shader->program);                                \
+    switch(graphics_shader_toLoveComponents(info->type)) {       \
+    case 2:                                                       \
+    glUniform2 ## abbr ## v(info->location, count, numbers);    \
+    break;                                                      \
+    case 3:                                                       \
+    glUniform3 ## abbr ## v(info->location, count, numbers);    \
+    break;                                                      \
+    case 4:                                                       \
+    glUniform4 ## abbr ## v(info->location, count, numbers);    \
+    break;                                                      \
+    }                                                             \
+    }
 
-    mkVectorSendFunc(sendIntegerVectors, GLint,   i)
-    mkVectorSendFunc(sendBooleanVectors, GLint,   i)
+mkVectorSendFunc(sendIntegerVectors, GLint,   i)
+mkVectorSendFunc(sendBooleanVectors, GLint,   i)
 mkVectorSendFunc(sendFloatVectors,   GLfloat, f)
 
 #undef mkVectorSendFunc
 
-    void graphics_Shader_sendFloatMatrices(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, int count, float const* numbers) {
-        glUseProgram(shader->program);
+void graphics_Shader_sendFloatMatrices(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, int count, float const* numbers) {
+    glUseProgram(shader->program);
 
-        switch(graphics_shader_toLoveComponents(info->type)) {
-            case 2:
-                glUniformMatrix2fv(info->location, count, false, numbers);
-                break;
+    switch(graphics_shader_toLoveComponents(info->type)) {
+    case 2:
+        glUniformMatrix2fv(info->location, count, false, numbers);
+        break;
 
-            case 3:
-                glUniformMatrix3fv(info->location, count, false, numbers);
-                break;
+    case 3:
+        glUniformMatrix3fv(info->location, count, false, numbers);
+        break;
 
-            case 4:
-                glUniformMatrix4fv(info->location, count, false, numbers);
-                break;
-        }
+    case 4:
+        glUniformMatrix4fv(info->location, count, false, numbers);
+        break;
     }
+}
 
 
 void graphics_Shader_sendTexture(graphics_Shader *shader, graphics_ShaderUniformInfo const* info, GLuint texture) {

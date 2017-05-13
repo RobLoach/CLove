@@ -178,6 +178,33 @@ void graphics_swap(void) {
 #endif
 }
 
+void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint ibo, GLuint count, GLenum type, GLenum indexType, float const * useColor, float ws, float hs)
+{
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(2*sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(4*sizeof(float)));
+
+    graphics_Shader_activate(
+            &moduleData.projectionMatrix,
+            matrixstack_head(),
+            tr3d,
+            quad,
+            useColor,
+            ws,
+            hs
+            );
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glDrawElements(type, count, indexType, (GLvoid const*)0);
+
+    glDisableVertexAttribArray(3);
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(0);
+}
+
 void graphics_drawArray(graphics_Quad const* quad, mat4x4 const* tr2d, GLuint ibo, GLuint count, GLenum type, GLenum indexType, float const* useColor, float ws, float hs) {
     // tr = proj * view * model * vpos;
 
@@ -201,11 +228,9 @@ void graphics_drawArray(graphics_Quad const* quad, mat4x4 const* tr2d, GLuint ib
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     glDrawElements(type, count, indexType, (GLvoid const*)0);
 
-    /*glDisableVertexAttribArray(3);
-      glDisableVertexAttribArray(2);
-      This piece of code does not seem to do anything. Untill proven other
-      whise I'll comment it
-      glDisableVertexAttribArray(0);*/
+    glDisableVertexAttribArray(3);
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(0);
 }
 
 int* graphics_getDesktopDimension() {

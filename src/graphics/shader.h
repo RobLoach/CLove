@@ -9,8 +9,9 @@
 #pragma once
 
 #include "../tools/gl.h"
-
 #include "../math/vector.h"
+
+#include "list_shaders.h"
 #include "quad.h"
 
 typedef enum {
@@ -70,6 +71,7 @@ typedef enum {
 } graphics_ShaderCompileStatus;
 
 graphics_ShaderCompileStatus graphics_Shader_new(graphics_Shader *shader, char const* vertexCode, char const* fragmentCode);
+graphics_ShaderCompileStatus graphics_Shader_new3d(graphics_Shader *shader, char const* vertexCode, char const* fragmentCode);
 void graphics_Shader_activate(mat4x4 const* projection,mat4x4 const* view,mat4x4 const* model,graphics_Quad const* textureRect, float const* useColor, float ws,float hs);
 graphics_Shader* graphics_getShader(void);
 void graphics_shader_init(void);
