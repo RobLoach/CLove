@@ -10,4 +10,9 @@
 
 #include "../3rdparty/lua/lua.h"
 
+#include <stdbool.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 int l_net_register(lua_State* state);

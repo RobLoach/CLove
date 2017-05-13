@@ -51,11 +51,14 @@ static struct {
     bool debug;
 } moduleData;
 
+bool net_enable_debug_msg(bool enable)
+{
+    moduleData.debug = enable;
+}
+
 //Note: All ports below 1024 are RESERVED (unless you're the superuser)! You can have any port number above that, right up to 65535
 int net_init_ipv4(struct sockaddr_in* dest, const char* address, int port) {
     memset(dest, 0, sizeof(&dest));
-
-    moduleData.debug = true;
 
     moduleData.is_ipv4 = true;
     dest->sin_family = AF_INET;
@@ -76,8 +79,6 @@ int net_init_ipv4(struct sockaddr_in* dest, const char* address, int port) {
 
 int net_init_ipv6(struct sockaddr_in6* dest, const char* address, int port) {
     memset(dest, 0, sizeof(&dest));
-
-    moduleData.debug = true;
 
     moduleData.is_ipv4 = false;
     dest->sin6_family = AF_INET6;

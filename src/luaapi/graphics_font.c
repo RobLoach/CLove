@@ -229,8 +229,9 @@ static int l_graphics_Font_getWrap(lua_State* state) {
 	char const* line = l_tools_toStringOrError(state, 2);
 	int width = l_tools_toNumberOrError(state, 3);
 
-	//lua_pushinteger(state, graphics_Font_getWrap(font, line, width, NULL));
-	return 1;
+    lua_pushstring(state, "not yet implemented!");
+    lua_pushinteger(state, graphics_Font_getWrap(font, line, width, NULL));
+    return 2;
 }
 
 static int l_graphics_Font_getFilter(lua_State* state) {
@@ -263,8 +264,6 @@ static int l_graphics_Font_setFilter(lua_State* state) {
 	return 0;
 }
 
-
-
 static luaL_Reg const fontMetatableFuncs[] = {
 	{"__gc",               l_graphics_gcFont},
 	{"getHeight",          l_graphics_Font_getHeight},
@@ -287,20 +286,20 @@ static luaL_Reg const fontFreeFuncs[] = {
 	{NULL, NULL}
 };
 
-	l_checkTypeFn(l_graphics_isFont, moduleData.fontMT)
+void l_graphics_font_register(lua_State* state) {
+    l_tools_registerFuncsInModule(state, "graphics", fontFreeFuncs);
+    moduleData.fontMT   = l_tools_makeTypeMetatable(state, fontMetatableFuncs);
+    moduleData.currentFont = NULL;
+
+    lua_newtable(state);
+    lua_newtable(state);
+    lua_pushstring(state, "__mode");
+    lua_pushstring(state, "v");
+    lua_rawset(state, -3);
+    lua_setmetatable(state, -2);
+    moduleData.loadedFontsRef = luaL_ref(state, LUA_REGISTRYINDEX);
+
+}
+
+l_checkTypeFn(l_graphics_isFont, moduleData.fontMT)
 l_toTypeFn(l_graphics_toFont, graphics_Font)
-
-	void l_graphics_font_register(lua_State* state) {
-		l_tools_registerFuncsInModule(state, "graphics", fontFreeFuncs);
-		moduleData.fontMT   = l_tools_makeTypeMetatable(state, fontMetatableFuncs);
-		moduleData.currentFont = NULL;
-
-		lua_newtable(state);
-		lua_newtable(state);
-		lua_pushstring(state, "__mode");
-		lua_pushstring(state, "v");
-		lua_rawset(state, -3);
-		lua_setmetatable(state, -2);
-		moduleData.loadedFontsRef = luaL_ref(state, LUA_REGISTRYINDEX);
-
-	}

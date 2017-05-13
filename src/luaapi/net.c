@@ -8,11 +8,6 @@
 */
 #include "net.h"
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-
 #include "../net/net.h"
 
 #include "tools.h"
@@ -23,7 +18,6 @@ static struct
     struct sockaddr_in6 server_ipv6;
     int socket;
     bool is_ipv4;
-
 } moduleData;
 
 /*
@@ -49,22 +43,22 @@ static int l_net_load(lua_State* state)
     const char* address = l_tools_toStringOrError(state, 1);
     int port = l_tools_toIntegerOrError(state, 2);
     const char* ip_version = l_tools_toStringOrError(state, 3);
+    bool enable_debug = l_tools_optBoolean(state, 4, false);
+
+    net_enable_debug_msg(enable_debug);
 
     moduleData.is_ipv4 = true;
 
-    //TODO FIX ME. Why isn't strcmp working!?
-
-/*    if (strcmp(ip_version, "ipv6") == 0)
+    if (strcmp(ip_version, "ipv6") == 0)
     {
         moduleData.is_ipv4 = false;
-        net_init_ipv4(&moduleData.server_ipv4, address, port);
+        net_init_ipv6(&moduleData.server_ipv6, address, port);
     }
     else
     {
         moduleData.is_ipv4 = true;
-*/        //net_init_ipv6(&moduleData.server_ipv6, address, port);
-  //  }
-    net_init_ipv4(&moduleData.server_ipv4, address, port);
+        net_init_ipv4(&moduleData.server_ipv4, address, port);
+    }
 
     return 0;
 }
