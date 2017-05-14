@@ -88,6 +88,8 @@ FILE(
     src/filesystem/*.c
     src/graphics/*.h
     src/graphics/*.c
+    src/graphics/3d/*.h
+    src/graphics/3d/*.c
     src/image/*.h
     src/image/*.c
     src/luaapi/*.h

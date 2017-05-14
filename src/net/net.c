@@ -13,7 +13,7 @@
  * Monday 8 may 2017 - added the possiblity to choose between ipv4 and ipv6 + small changes
  * Tuesday 3 Jan 2017 - net_send_data accepts len as third param, added a bit more doc (1.0.1)
  * Mon 2 Jan 2017 - first real commit (1.0)
- */ 
+ */
 
 #include "net.h"
 
@@ -24,17 +24,17 @@ const char* net_getVersion() {
 }
 
 const char* net_getSystem() {
-#ifdef UNIX 
+#ifdef UNIX
     return "unix";
 #endif
-#ifdef WINDOWS 
+#ifdef WINDOWS
     return "windows";
 #endif
 }
 
 // end non OS idependent functions
 
-#ifdef UNIX 
+#ifdef UNIX
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -179,7 +179,7 @@ int net_connect_to_ipv6(struct sockaddr_in6* dest, int socket) {
     return 1;
 }
 
-//NOTE: a write() call made to a socket behaves in exactly the same way as send() with flags set to zero. 
+//NOTE: a write() call made to a socket behaves in exactly the same way as send() with flags set to zero.
 int net_send_data(int new_socket, void* data, int len) {
     int err = send(new_socket, data, len, 0);
     if (err < 0)
@@ -197,7 +197,7 @@ int net_send_data(int new_socket, void* data, int len) {
  * If successful, recv() returns the number of bytes received
 */
 int net_recieve_data(int socket, void* msg, int len) {
-    int n_bytes = recv(socket, msg, len, 0); 
+    int n_bytes = recv(socket, msg, len, 0);
     /* Note: A read() call made to a socket behaves in exactly the same way as a recv() with flags set to zero. */
     if (n_bytes < 0) {
         printf("%s \n", "Error, could not recieve data!");
@@ -237,7 +237,7 @@ int net_accept_connection_ipv4(struct sockaddr_in* address, int socket) {
 
     if (moduleData.debug)
         printf("net.c - net_accept_connection - done \n");
-    
+
     return err;
 }
 
@@ -280,4 +280,4 @@ const char* net_getConnectedIP_ipv6(struct sockaddr_in6* dest) {
     return str;
 }
 
-#endif // unix 
+#endif // unix

@@ -82,17 +82,23 @@ typedef struct {
   float m[3][3];
 } mat3x3;
 
+void m4x4_rotate_X(mat4x4* Q, mat4x4* M, float angle);
+void m4x4_rotate_Y(mat4x4* Q, mat4x4* M, float angle);
+void m4x4_rotate_Z(mat4x4* Q, mat4x4* M, float angle);
+
+void m4x4_newRotationX(mat4x4 *out, float a);
+void m4x4_newRotationY(mat4x4 *out, float a);
+void m4x4_newRotationZ(mat4x4 *out, float a);
+
+void m4x4_newTranslation(mat4x4 *out, float x, float y, float z);
+
+void m4x4_newScaling(mat4x4 *out, float x, float y, float z);
+void m4x4_newRotationScale(mat4x4 *out, float a, vec3 axis, float s_x, float s_y, float s_z);
+
 void m4x4_newIdentity(mat4x4 *out);
 void m4x4_newOrtho(mat4x4 *projectionMatrix, float left, float right, float bottom, float top, float back, float front);
 void m4x4_newPerspective(mat4x4* projectionMatrix, float fov, float ratio, float zNear, float zFar);
 void m4x4_newLookAt(mat4x4* in, vec3 pos, vec3 target, vec3 up);
-void m4x4_newScaling(mat4x4 *out, float x, float y, float z);
-void m4x4_newTranslation(mat4x4 *out, float x, float y, float z);
-void m4x4_newRotationX(mat4x4 *out, float a);
-void m4x4_newRotationY(mat4x4 *out, float a);
-void m4x4_newRotationZ(mat4x4 *out, float a);
-void m4x4_newRotationScale(mat4x4 *out, float a, vec3 axis, float s_x, float s_y, float s_z);
-void m4x4_newRotation(mat4x4 *out, float a, vec3 axis);
 void m4x4_newTransform2d(mat4x4 *out, float x, float y, float r, float sx, float sy,
                          float ox, float oy, float kx, float ky);
 void m4x4_mulM4x4(mat4x4 *out, mat4x4 const* a, mat4x4 const* b);

@@ -1,4 +1,4 @@
-/*
+﻿/*
 #   clove
 #
 #   Copyright (C) 2016-2017 Muresan Vlad
@@ -183,9 +183,9 @@ void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint 
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 9*sizeof(float), 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(2*sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(3*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(4*sizeof(float)));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 9*sizeof(float), (const void*)(5*sizeof(float)));
 
     graphics_Shader_activate(
             &moduleData.projectionMatrix,
@@ -197,8 +197,9 @@ void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint 
             hs
             );
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glDrawElements(type, count, indexType, (GLvoid const*)0);
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    //glDrawElements(type, count, indexType, (GLvoid const*)0);
+    glDrawArrays(type, 0, count);
 
     glDisableVertexAttribArray(3);
     glDisableVertexAttribArray(2);
@@ -403,13 +404,13 @@ void graphics_set_camera_2d(float left, float right, float bottom, float top, fl
     m4x4_newOrtho(&moduleData.projectionMatrix, left, right, bottom, top, zNear, zFar);
 }
 
-void graphics_set_look_at(float px, float py, float pz,float tx,float ty,float tz, float ux, float uy, float uz) {
-    m4x4_newLookAt(matrixstack_head(), vec3_new(px, py, pz), vec3_new(tx, ty, tz), vec3_new(ux, uy, uz));
-}
-
 void graphics_set_camera_3d(float fov, float ratio, float zNear, float zFar) {
     m4x4_newIdentity(&moduleData.projectionMatrix);
     m4x4_newPerspective(&moduleData.projectionMatrix, fov, ratio, zNear, zFar);
+}
+
+void graphics_set_look_at(float px, float py, float pz,float tx,float ty,float tz, float ux, float uy, float uz) {
+    m4x4_newLookAt(matrixstack_head(), vec3_new(px, py, pz), vec3_new(tx, ty, tz), vec3_new(ux, uy, uz));
 }
 
 float* graphics_getColor(void) {
