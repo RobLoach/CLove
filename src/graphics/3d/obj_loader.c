@@ -14,9 +14,6 @@
 
 static struct
 {
-
-    graphics_Shader* shader;
-
     GLuint vbo;
     GLuint ibo;
 
@@ -27,8 +24,6 @@ static struct
 int graphics_ObjLoader_new(obj_loader *loader, const char* path)
 {
 
-    moduleData.shader = malloc(sizeof(graphics_Shader));
-    graphics_Shader_new3d(moduleData.shader, NULL, NULL);
 
     vec3* temp_vertex = malloc(sizeof(vec3));
     vec2* temp_uv = malloc(sizeof(vec2));
@@ -158,32 +153,30 @@ int graphics_ObjLoader_new(obj_loader *loader, const char* path)
         vec3 normal = temp_normal[normalIndex-1];
 
         //printf("%f %f %f \n", vertex.x, vertex.y, vertex.z);
-        //printf("%f %f %f \n", uv.x, uv.y, uv.z);
+        //printf("%f %f \n", uv.x, uv.y);
         //printf("%f %f %f \n", normal.x, normal.y, normal.z);
 
         loader->vertex[i].pos = vertex;
         loader->vertex[i].uv = uv;
-        loader->vertex[i].color.x = normal.x;
-        loader->vertex[i].color.y = normal.y;
-        loader->vertex[i].color.z = normal.z;
+        loader->vertex[i].color.x = 1.0f;
+        loader->vertex[i].color.y = 1.0f;
+        loader->vertex[i].color.z = 1.0f;
+        loader->vertex[i].color.w = 1.0f;
     }
 
     fclose(file);
 
     glGenBuffers(1, &moduleData.vbo);
-    // glGenBuffers(1, &moduleData.ibo);
 
     glBindBuffer(GL_ARRAY_BUFFER, moduleData.vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(loader->vertex), loader->vertex, GL_STATIC_DRAW);
 
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, sizeof(loader->vertex), );
-
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(3*sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(2*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(5*sizeof(float)));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(4*sizeof(float)));
 
     free(temp_normal);
     free(temp_uv);
@@ -201,26 +194,23 @@ static const graphics_Quad quad = {0.0f, 0.0f, 1.0f, 1.0f};
 void graphics_ObjLoader_draw(obj_loader *loader, graphics_Image const* image, float x, float y, float z)
 {
 
-    graphics_Shader* shader = graphics_getShader();
-
-    graphics_setShader(moduleData.shader);
-
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(loader->vertex), loader->vertex);
-    m4x4_scalexyz(&moduleData.tr3d, 1, 1, 1);
 
-    m4x4_rotate_X(&moduleData.tr3d, &moduleData.tr3d, 0);
-    m4x4_rotate_Y(&moduleData.tr3d, &moduleData.tr3d, 0);
-    m4x4_rotate_Z(&moduleData.tr3d, &moduleData.tr3d, 0);
+    mat4x4 trans;
+    m4x4_newIdentity(&trans);
+    m4x4_newTranslation(&trans, x, y, z);
 
-    m4x4_translate(&moduleData.tr3d, x, y, z);
+    mat4x4 scale;
+    m4x4_newIdentity(&scale);
+    m4x4_newScaling(&scale, 36, 36, 36);
+
+    m4x4_mulM4x4(&moduleData.tr3d, &trans, &scale);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, image->texID);
 
-    graphics_drawArray3d(&quad, &moduleData.tr3d,  0, sizeof(loader->vertex->pos), GL_TRIANGLES, GL_UNSIGNED_INT,
-            graphics_getColor(), image->width * quad.w, image->height * quad.h);
-
-    graphics_setShader(shader);
+    graphics_drawArray3d(&quad, &moduleData.tr3d,  0, 36, GL_TRIANGLES, GL_UNSIGNED_INT,
+            graphics_getColor(), image->width * quad.w, image->height * quad.h, image->width * quad.w);
 
 }
 

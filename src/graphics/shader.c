@@ -340,7 +340,6 @@ graphics_ShaderCompileStatus graphics_Shader_new3d(graphics_Shader *shader, char
 
     moduleData.is3d = true;
 
-    // This code is overited by graphics_Shader_new3d
     if(!vertexCode) {
         vertexCode = defaultVertexSource3d;
     }
@@ -392,11 +391,31 @@ void graphics_Shader_free(graphics_Shader* shader) {
     glDeleteProgram(shader->program);
 }
 
+void graphics_Shader_activate3d(mat4x4 const* projection, mat4x4 const* view, mat4x4 const* model, graphics_Quad const* textureRect, float const* useColor, float ws, float hs, float ds) {
+
+    glUseProgram(moduleData.activeShader->program);
+
+    float s[3] = { ws, hs, ds };
+
+    glUniform1i(moduleData.activeShader->uniformLocations.tex,               0);
+    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.projection,  1, 0, (GLfloat const*)projection);
+    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.view,  1, 0, (GLfloat const*)view);
+    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.model,  1, 0, (GLfloat const*)model);
+    glUniformMatrix2fv(moduleData.activeShader->uniformLocations.textureRect, 1, 0, (GLfloat const*)textureRect);
+    glUniform4fv(moduleData.activeShader->uniformLocations.color,1,useColor);
+    glUniform3fv(moduleData.activeShader->uniformLocations.size,1,s);
+
+    for(int i = 0; i < moduleData.activeShader->textureUnitCount; ++i) {
+        glActiveTexture(GL_TEXTURE0 + moduleData.activeShader->textureUnits[i].unit);
+        glBindTexture(GL_TEXTURE_2D, moduleData.activeShader->textureUnits[i].boundTexture);
+    }
+}
+
 void graphics_Shader_activate(mat4x4 const* projection, mat4x4 const* view, mat4x4 const* model, graphics_Quad const* textureRect, float const* useColor, float ws, float hs) {
 
     glUseProgram(moduleData.activeShader->program);
 
-    float s[2] = { ws, hs };
+    float s[3] = { ws, hs};
 
     glUniform1i(moduleData.activeShader->uniformLocations.tex,               0);
     glUniformMatrix4fv(moduleData.activeShader->uniformLocations.projection,  1, 0, (GLfloat const*)projection);
@@ -425,7 +444,7 @@ graphics_Shader* graphics_getShader(void) {
 }
 
 void graphics_shader_init(void) {
-    graphics_Shader_new(&moduleData.defaultShader, NULL, NULL);
+    graphics_Shader_new3d(&moduleData.defaultShader, NULL, NULL);
     moduleData.activeShader = &moduleData.defaultShader;
     glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &moduleData.maxTextureUnits);
 }

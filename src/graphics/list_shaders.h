@@ -80,7 +80,7 @@ static GLchar const vertexHeader3d[] =
         "uniform   mat4 view;\n"
         "uniform   mat4 model;\n"
         "uniform   mat2 textureRect;\n"
-        "uniform   vec2 size;\n"
+        "uniform   vec3 size;\n"
         "#define extern uniform\n"
         "attribute vec3 vPos;\n"
         "attribute vec2 vUV;\n"
@@ -90,7 +90,7 @@ static GLchar const vertexHeader3d[] =
         "#line 0\n";
 static GLchar const vertexFooter3d[]=
         "void main() {\n"
-        "  gl_Position = position(projection * view * model,vec4(vPos * vec3(size,1.0f), 1.0f));\n"
+        "  gl_Position = position(projection * view * model,vec4(vPos * size, 1.0f));\n"
         "  fUV = vUV * textureRect[1] + textureRect[0];\n"
         "  fColor = vColor;\n"
         "}\n";

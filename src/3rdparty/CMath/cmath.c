@@ -8,6 +8,8 @@
 */
 
 #include "cmath.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <tgmath.h>
 
 /*
@@ -379,53 +381,21 @@ void m4x4_newRotationScale(mat4x4 *out, float a, vec3 axis, float s_x, float s_y
 
 }
 
-void m4x4_newRotationX(mat4x4 *out, float a) {
-    float c = cos(a);
-    float s = sin(a);
-
-    m4x4_set(out,
-             1,  0,  0,  0,
-             0,  c, -s,  0,
-             0,  s,  c,  0,
-             0,  0,  0,  1
-             );
-}
-
-void m4x4_newRotationY(mat4x4 *out, float a) {
-    float c = cos(a);
-    float s = sin(a);
-
-    m4x4_set(out,
-             c,  0,  s,  0,
-             0,  1,  0,  0,
-             -s,  0,  c,  0,
-             0,  0,  0,  1
-             );
-}
-
-void m4x4_newRotationZ(mat4x4 *out, float a) {
-    float c = cos(a);
-    float s = sin(a);
-
-    m4x4_set(out,
-             c, -s,  0,  0,
-             s,  c,  0,  0,
-             0,  0,  1,  0,
-             0,  0,  0,  1
-             );
-}
-
 void m4x4_rotate_Z(mat4x4 *Q, mat4x4 *M, float angle)
 {
     float s = sinf(angle);
     float c = cosf(angle);
     mat4x4 R;
-    m4x4_set(&R,
-             c,   s, 0.f, 0.f,
-             -s,   c, 0.f, 0.f,
-             0.f, 0.f, 1.f, 0.f,
-             0.f, 0.f, 0.f, 1.f
-             );
+
+    R.m[0][0] = c;
+    R.m[0][1] = -s;
+
+    R.m[1][0] = s;
+    R.m[1][1] = c;
+
+    R.m[2][2] = 1.0f;
+    R.m[3][3] = 1.0f;
+
     m4x4_mulM4x4(Q, M, &R);
 }
 
@@ -434,12 +404,17 @@ void m4x4_rotate_Y(mat4x4* Q, mat4x4* M, float angle)
     float s = sinf(angle);
     float c = cosf(angle);
     mat4x4 R;
-    m4x4_set(&R,
-             c, 0.f,   s, 0.f,
-             0.f, 1.f, 0.f, 0.f,
-             -s, 0.f,   c, 0.f,
-             0.f, 0.f, 0.f, 1.f
-             );
+
+    R.m[0][0] = c;
+    R.m[0][2] = -s;
+
+    R.m[1][1] = 1.0f;
+
+    R.m[2][0] = s;
+    R.m[2][2] = c;
+
+    R.m[3][3] = 1.0f;
+
     m4x4_mulM4x4(Q, M, &R);
 }
 
@@ -448,31 +423,35 @@ void m4x4_rotate_X(mat4x4 *Q, mat4x4 *M, float angle)
     float s = sinf(angle);
     float c = cosf(angle);
     mat4x4 R;
-    m4x4_set(&R,
-             1.f, 0.f, 0.f, 0.f,
-             0.f,   c,   s, 0.f,
-             0.f,  -s,   c, 0.f,
-             0.f, 0.f, 0.f, 1.f
-             );
+
+    R.m[0][0] = 0.0f;
+    R.m[1][1] = c;
+    R.m[1][2] = -s;
+
+    R.m[2][1] = s;
+    R.m[2][2] = c;
+
+    R.m[3][3] = 1.0f;
+
     m4x4_mulM4x4(Q, M, &R);
 }
 
 void m4x4_newScaling(mat4x4 *out, float x, float y, float z) {
-    m4x4_set(out,
-             x,  0,  0,  0,
-             0,  y,  0,  0,
-             0,  0,  z,  0,
-             0,  0,  0,  1
-             );
+    out->m[0][0] = x;
+    out->m[1][1] = y;
+    out->m[2][2] = z;
+    out->m[3][3] = 1.0f;
 }
 
 void m4x4_newTranslation(mat4x4 *out, float x, float y, float z) {
-    m4x4_set(out,
-             1,  0,  0,  x,
-             0,  1,  0,  y,
-             0,  0,  1,  z,
-             0,  0,  0,  1
-             );
+    out->m[0][0] = 1.0f;
+    out->m[1][1] = 1.0f;
+    out->m[2][2] = 1.0f;
+
+    out->m[3][0] = x;
+    out->m[3][1] = y;
+    out->m[3][2] = z;
+    out->m[3][3] = 1.0f;
 }
 
 void m4x4_newIdentity(mat4x4 *out) {
@@ -494,4 +473,18 @@ void m4x4_mulM4x4(mat4x4 *out, mat4x4 const* a, mat4x4 const* b) {
             out->m[i][j] = sum;
         }
     }
+}
+
+
+void m4x4_printf(mat4x4 matrix, int width, int precision)
+{
+    mat4x4 m = matrix;
+    int w = width, p = precision;
+    printf("-\n");
+    for(int r = 0; r < 4; r++) {
+        printf("| %*.*f %*.*f %*.*f %*.*f |\n",
+               w, p, m.m[0][r], w, p, m.m[1][r], w, p, m.m[2][r], w, p, m.m[3][r]
+                );
+    }
+    printf("-\n");
 }
