@@ -17,6 +17,10 @@ typedef struct {
   const char* version;
   bool vsync;
   bool resizable;
+  /* true = window is visible
+   * flase = window is hidded
+   * Note: use setMode to make it visible
+   */
   bool window;
   bool bordless;
   /* stats is used for displaying debug info */

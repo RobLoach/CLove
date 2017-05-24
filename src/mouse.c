@@ -108,7 +108,8 @@ void mouse_setPosition(int x, int y) {
 #ifdef EMSCRIPTEN
     SDL_WarpMouse(x, y);
 #else
-    SDL_WarpMouseInWindow(graphics_getWindow(), x, y);
+    if (graphics_getWindow() != NULL)
+        SDL_WarpMouseInWindow(graphics_getWindow(), x, y);
 #endif
 }
 
@@ -121,7 +122,8 @@ void mouse_setX(int x) {
 #ifdef EMSCRIPTEN
     SDL_WarpMouse(x, moduleData.y);
 #else
-    SDL_WarpMouseInWindow(graphics_getWindow(), x, moduleData.y);
+    if (graphics_getWindow() != NULL)
+        SDL_WarpMouseInWindow(graphics_getWindow(), x, moduleData.y);
 #endif
 }
 
@@ -129,6 +131,7 @@ void mouse_setY(int y) {
 #ifdef EMSCRIPTEN
     SDL_WarpMouse(moduleData.x, y);
 #else
-    SDL_WarpMouseInWindow(graphics_getWindow(), moduleData.x, y);
+    if (graphics_getWindow() != NULL)
+        SDL_WarpMouseInWindow(graphics_getWindow(), moduleData.x, y);
 #endif
 }

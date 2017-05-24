@@ -14,7 +14,14 @@
 #include "quad.h"
 #include "../math/vector.h"
 
-void graphics_init(int width, int height, bool resizable, bool stats);
+/*
+ * The width of the window in pixels
+ * The height of the window in pixels
+ * Wether or not the window can be resizabled
+ * Wether or not debug messages should be logged
+ * Wether or not the window should appear on the screen
+ */
+void graphics_init(int width, int height, bool resizable, bool stats, bool show);
 
 typedef enum {
     graphics_BlendMode_additive,
@@ -51,7 +58,7 @@ int graphics_getWidth(void);
 int graphics_getHeight(void);
 int graphics_setTitle(const char* title);
 int graphics_setMode(int width, int height,
-        bool fullscreen, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
+        bool fullscreen, bool vsync, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
         int x, int y);
 
 const char* graphics_getDisplayName(int indx);
@@ -61,7 +68,6 @@ const char* graphics_getVersion();
 int graphics_setMinSize(int x, int y);
 int graphics_setBordless(bool value);
 int graphics_setVsync(bool value);
-int graphics_setWindow(bool value);
 int graphics_setFullscreen(int value, const char* mode);
 int graphics_isCreated();
 void graphics_destroyWindow();

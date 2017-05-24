@@ -320,6 +320,7 @@ void m4x4_newPerspective(mat4x4* projectionMatrix, float fov, float ratio, float
     projectionMatrix->m[3][1] = 0.0f;
     projectionMatrix->m[3][2] = (-temp * zFar) / temp4;
     projectionMatrix->m[3][3] = 1.0f;
+
 }
 /*
  * Builds a transformation matrix for a camera that looks from `from` towards

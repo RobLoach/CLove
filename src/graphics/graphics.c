@@ -56,63 +56,15 @@ static struct {
 
 #ifndef EMSCRIPTEN
 SDL_Window* graphics_getWindow(void) {
-    return moduleData.window;
+    if (moduleData.has_window)
+        return moduleData.window;
+
+    return NULL;
 }
 #endif
 
-void graphics_init(int width, int height, bool resizable, bool stats) {
-
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-        printf("Error: Could not init SDL video \n");
-
-    moduleData.isCreated = 0;
-#ifdef EMSCRIPTEN
-    moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
-#else
-    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-
-    moduleData.width = width;
-    moduleData.height = height;
-    moduleData.x = SDL_WINDOWPOS_CENTERED;
-    moduleData.y = SDL_WINDOWPOS_CENTERED;
-    moduleData.title = "CLove: Untitled window";
-
-    moduleData.w_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
-    if (resizable)
-        moduleData.w_flags |= SDL_WINDOW_RESIZABLE;
-
-    if (moduleData.has_window)
-        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
-    else
-        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, 1, 1, moduleData.w_flags);
-
-    if(!moduleData.window)
-        printf("Error: Could not create window :O");
-    moduleData.context = SDL_GL_CreateContext(moduleData.window);
-    if(!moduleData.context)
-        printf("Error: Could not create window context!");
-
-    //moduleData.surface = SDL_GetWindowSurface(moduleData.window);
-    SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
-
-    if (stats > 0) {
-        printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
-        printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
-        printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-        printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
-        printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
-    }
-#endif
+static void graphics_init_window(int width, int height)
+{
     glewExperimental = true;
     GLenum res = glewInit();
 
@@ -145,9 +97,73 @@ void graphics_init(int width, int height, bool resizable, bool stats) {
     graphics_clearScissor();
 }
 
+void graphics_init(int width, int height, bool resizable, bool stats, bool show) {
+
+    moduleData.has_window = show;
+
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+        printf("Error: Could not init SDL video \n");
+
+    moduleData.isCreated = 0;
+#ifdef EMSCRIPTEN
+    moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
+#else
+    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_BUFFER_SIZE, 32);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
+
+    moduleData.width = width;
+    moduleData.height = height;
+    moduleData.x = SDL_WINDOWPOS_CENTERED;
+    moduleData.y = SDL_WINDOWPOS_CENTERED;
+    moduleData.title = "CLove: Untitled window";
+
+    moduleData.w_flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+    if (resizable)
+        moduleData.w_flags |= SDL_WINDOW_RESIZABLE;
+
+    if (moduleData.has_window)
+    {
+        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
+
+        if(!moduleData.window)
+            printf("Error: Could not create window :O");
+
+        moduleData.context = SDL_GL_CreateContext(moduleData.window);
+        if(!moduleData.context)
+            printf("Error: Could not create window context!");
+
+        //moduleData.surface = SDL_GetWindowSurface(moduleData.window);
+        SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
+
+        if (stats > 0) {
+            printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+            printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
+            printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+            printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
+            printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
+        }
+#endif
+
+        graphics_init_window(width, height);
+
+    }
+    else
+        moduleData.isCreated = 0;
+}
+
 void graphics_destroyWindow() {
     SDL_GL_DeleteContext(moduleData.context);
-    SDL_DestroyWindow(moduleData.window);
+    if (moduleData.has_window)
+        SDL_DestroyWindow(moduleData.window);
     SDL_Quit();
 }
 
@@ -174,7 +190,8 @@ void graphics_swap(void) {
 #ifdef EMSCRIPTEN
     SDL_GL_SwapBuffers();
 #else
-    SDL_GL_SwapWindow(moduleData.window);
+    if (moduleData.has_window)
+        SDL_GL_SwapWindow(moduleData.window);
 #endif
 }
 
@@ -185,18 +202,18 @@ void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint 
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (const void*)(3*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (const void*)(5*sizeof(float)));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (const void*)(7*sizeof(float)));
 
     graphics_Shader_activate3d(
-            &moduleData.projectionMatrix,
-            matrixstack_head(),
-            tr3d,
-            quad,
-            useColor,
-            ws,
-            hs,
-            ds
-            );
+                &moduleData.projectionMatrix,
+                matrixstack_head(),
+                tr3d,
+                quad,
+                useColor,
+                ws,
+                hs,
+                ds
+                );
 
     //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     //glDrawElements(type, count, indexType, (GLvoid const*)0);
@@ -218,14 +235,14 @@ void graphics_drawArray(graphics_Quad const* quad, mat4x4 const* tr2d, GLuint ib
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), (const void*)(4*sizeof(float)));
 
     graphics_Shader_activate(
-            &moduleData.projectionMatrix,
-            matrixstack_head(),
-            tr2d,
-            quad,
-            useColor,
-            ws,
-            hs
-            );
+                &moduleData.projectionMatrix,
+                matrixstack_head(),
+                tr2d,
+                quad,
+                useColor,
+                ws,
+                hs
+                );
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     glDrawElements(type, count, indexType, (GLvoid const*)0);
@@ -253,8 +270,11 @@ const char* graphics_getDisplayName(int indx) {
 
 int graphics_setTitle(const char* title){
 #ifndef EMSCRIPTEN
-    moduleData.title = title;
-    SDL_SetWindowTitle(moduleData.window,title);
+    if (moduleData.has_window)
+    {
+        moduleData.title = title;
+        SDL_SetWindowTitle(moduleData.window,title);
+    }
 #endif
     return 1;
 }
@@ -279,27 +299,27 @@ int graphics_setFocus(int value) {
 
 int graphics_setPosition(int x, int y) {
 #ifndef EMSCRIPTEN
-    if(x <= -1) // center x
-        x = SDL_WINDOWPOS_CENTERED;
-    if(y <= -1) // center y
-        y = SDL_WINDOWPOS_CENTERED;
-    SDL_SetWindowPosition(moduleData.window, x, y);
+    if (moduleData.has_window)
+    {
+        if(x <= -1) // center x
+            x = SDL_WINDOWPOS_CENTERED;
+        if(y <= -1) // center y
+            y = SDL_WINDOWPOS_CENTERED;
+        SDL_SetWindowPosition(moduleData.window, x, y);
+    }
 #endif
     return 1;
 }
 
-int graphics_setWindow(bool value) {
-    moduleData.has_window = value;
-    return 1;
-}
-
 int graphics_setVsync(bool value) {
-    SDL_GL_SetSwapInterval(value == true ? 1 : 0);
+    if (moduleData.has_window)
+        SDL_GL_SetSwapInterval(value == true ? 1 : 0);
     return 1;
 }
 
 int graphics_setBordless(bool value) {
-    SDL_SetWindowBordered(moduleData.window, value);
+    if (moduleData.has_window)
+        SDL_SetWindowBordered(moduleData.window, value);
     return 1;
 }
 
@@ -309,11 +329,11 @@ int graphics_setMinSize(int x, int y) {
 }
 
 int graphics_getDisplayCount() {
-   return SDL_GetNumVideoDisplays();
+    return SDL_GetNumVideoDisplays();
 }
 
 int graphics_setIcon(image_ImageData* imgd) {
-//Adapted from Love
+    //Adapted from Love
     Uint32 rmask, gmask, bmask, amask;
     moduleData.icon = imgd;
 
@@ -328,9 +348,9 @@ int graphics_setIcon(image_ImageData* imgd) {
 
     SDL_Surface *sdlicon = 0;
 
-    sdlicon =SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
-
-    SDL_SetWindowIcon(moduleData.window, sdlicon);
+    sdlicon = SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
+    if (moduleData.has_window)
+        SDL_SetWindowIcon(moduleData.window, sdlicon);
     SDL_FreeSurface(sdlicon);
 
     return  1;
@@ -341,15 +361,38 @@ image_ImageData* graphics_getIcon() {
 }
 
 int graphics_setMode(int width, int height,
-        bool fullscreen, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
-        int x, int y){
+                     bool fullscreen, bool vsync, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
+                     int x, int y){
+
+    /*
+     * If the main window was disabled in conf.lua
+     * then we shall create one using this function.
+     */
+    if (moduleData.has_window < 1)
+    {
+        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
+        if (!moduleData.window)
+            printf("Error: Could not create window :O");
+
+        moduleData.context = SDL_GL_CreateContext(moduleData.window);
+
+        if (!moduleData.context)
+            printf("Error: Could not create window context!");
+
+        if (vsync)
+            SDL_GL_SetSwapInterval(1);
+
+        graphics_init_window(width, height);
+
+        moduleData.has_window = 1;
+    }
 #ifndef EMSCRIPTEN
     moduleData.width = width;
     moduleData.height = height;
     SDL_SetWindowSize(moduleData.window, width, height);
 
     m4x4_newOrtho(&moduleData.projectionMatrix, 0, width, height, 0, 0.1f, 100.0f);
-    glViewport(0,0,width,height);
+    glViewport(0, 0, width, height);
 
     if (fullscreen)
         SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN);
@@ -368,17 +411,25 @@ int graphics_setMode(int width, int height,
 }
 
 int graphics_getWidth(void) {
-    int w;
-    int h;
-    SDL_GetWindowSize(moduleData.window,&w,&h);
-    return w;
+    if (moduleData.has_window)
+    {
+        int w;
+        int h;
+        SDL_GetWindowSize(moduleData.window,&w,&h);
+        return w;
+    }
+    return 0;
 }
 
 int graphics_getHeight(void) {
-    int w;
-    int h;
-    SDL_GetWindowSize(moduleData.window,&w,&h);
-    return h;
+    if (moduleData.has_window)
+    {
+        int w;
+        int h;
+        SDL_GetWindowSize(moduleData.window,&w,&h);
+        return h;
+    }
+    return 0;
 }
 
 const char* graphics_getTitle()
@@ -389,10 +440,15 @@ const char* graphics_getTitle()
 int graphics_setFullscreen(int value, const char* mode){
 
 #ifndef EMSCRIPTEN
-    if ((strncmp(mode,"desktop", 7) == 0) && value == 1)
-        SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+    if (moduleData.has_window)
+    {
+        if ((strncmp(mode,"desktop", 7) == 0) && value == 1)
+            SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+        return 1;
+    }
 #endif
-    return 1;
+    return 0;
 }
 
 int graphics_isCreated()
@@ -452,40 +508,40 @@ void graphics_setBlendMode(graphics_BlendMode mode) {
     GLenum bFunc = GL_FUNC_ADD;
 
     switch(mode) {
-        case graphics_BlendMode_alpha:
-            sfRGB = GL_SRC_ALPHA;
-            sfA = GL_ONE;
-            dfRGB = dfA = GL_ONE_MINUS_SRC_ALPHA;
-            break;
+    case graphics_BlendMode_alpha:
+        sfRGB = GL_SRC_ALPHA;
+        sfA = GL_ONE;
+        dfRGB = dfA = GL_ONE_MINUS_SRC_ALPHA;
+        break;
 
-        case graphics_BlendMode_subtractive:
-            bFunc = GL_FUNC_REVERSE_SUBTRACT;
-            // fallthrough
-        case graphics_BlendMode_additive:
-            sfA = sfRGB = GL_SRC_ALPHA;
-            dfA = dfRGB = GL_ONE;
-            break;
+    case graphics_BlendMode_subtractive:
+        bFunc = GL_FUNC_REVERSE_SUBTRACT;
+        // fallthrough
+    case graphics_BlendMode_additive:
+        sfA = sfRGB = GL_SRC_ALPHA;
+        dfA = dfRGB = GL_ONE;
+        break;
 
 
-        case graphics_BlendMode_multiplicative:
-            sfA = sfRGB = GL_DST_COLOR;
-            dfA = dfRGB = GL_ZERO;
-            break;
+    case graphics_BlendMode_multiplicative:
+        sfA = sfRGB = GL_DST_COLOR;
+        dfA = dfRGB = GL_ZERO;
+        break;
 
-        case graphics_BlendMode_premultiplied:
-            sfA = sfRGB = GL_ONE;
-            dfA = dfRGB = GL_ONE_MINUS_SRC_ALPHA;
-            break;
+    case graphics_BlendMode_premultiplied:
+        sfA = sfRGB = GL_ONE;
+        dfA = dfRGB = GL_ONE_MINUS_SRC_ALPHA;
+        break;
 
-        case graphics_BlendMode_screen:
-            sfA = sfRGB = GL_ONE;
-            dfA = dfRGB = GL_ONE_MINUS_SRC_COLOR;
-            break;
+    case graphics_BlendMode_screen:
+        sfA = sfRGB = GL_ONE;
+        dfA = dfRGB = GL_ONE_MINUS_SRC_COLOR;
+        break;
 
-        case graphics_BlendMode_replace:
-        default:
-            // uses default init values
-            break;
+    case graphics_BlendMode_replace:
+    default:
+        // uses default init values
+        break;
     }
 
     glBlendFuncSeparate(sfRGB, dfRGB, sfA, dfA);

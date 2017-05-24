@@ -174,9 +174,9 @@ int graphics_ObjLoader_new(obj_loader *loader, const char* path)
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), 0);
     glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(2*sizeof(float)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(3*sizeof(float)));
     glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(4*sizeof(float)));
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (GLvoid const*)(7*sizeof(float)));
 
     free(temp_normal);
     free(temp_uv);
@@ -209,7 +209,7 @@ void graphics_ObjLoader_draw(obj_loader *loader, graphics_Image const* image, fl
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, image->texID);
 
-    graphics_drawArray3d(&quad, &moduleData.tr3d,  0, 36, GL_TRIANGLES, GL_UNSIGNED_INT,
+    graphics_drawArray3d(&quad, &moduleData.tr3d,  0, 12, GL_TRIANGLES, GL_UNSIGNED_INT,
             graphics_getColor(), image->width * quad.w, image->height * quad.h, image->width * quad.w);
 
 }

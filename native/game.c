@@ -25,6 +25,7 @@ obj_loader* obj;
 graphics_Image* image;
 
 void game_load() {
+    /*
     printf("Clove: Hello from native game! \n");
     graphics_setTitle("Clove in native");
 
@@ -46,6 +47,8 @@ void game_load() {
 
     //image_ImageData_free(data);
     //free(data);
+
+    */
 }
 
 float x = 0;
@@ -53,7 +56,7 @@ float y = 0;
 float z = 0;
 
 void game_update(float delta) {
-    timer += delta * 2.0f;
+   // timer += delta * 2.0f;
 }
 
 static const graphics_Quad defaultQuad = {
@@ -64,6 +67,7 @@ static const graphics_Quad defaultQuad = {
 };
 
 void game_draw() {
+    /*
     graphics_setBackgroundColor(.8f, .6f, .5f, 1);
     graphics_setColor(.4f,.43f,.7f,1.0f);
 
@@ -76,10 +80,13 @@ void game_draw() {
     graphics_ObjLoader_draw(obj, image, 30, 30, -4000);
 
     matrixstack_pop();
+    */
 }
 
 void game_quit() {
+    /*
     // free objects here
     graphics_Image_free(image);
+    */
 }
 
