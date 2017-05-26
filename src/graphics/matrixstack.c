@@ -89,7 +89,7 @@ void matrixstack_scale(float x, float y, float z) {
 
 void matrixstack_rotate(float a) {
   moduleData.rotAngle = a;
-  m4x4_rotate_Z(matrixstack_head(), matrixstack_head(), moduleData.rotAngle);
+  m4x4_newRotationZ(matrixstack_head(), a);
 }
 
 void matrixstack_rotate_3d(float r, float x, float y, float z) {

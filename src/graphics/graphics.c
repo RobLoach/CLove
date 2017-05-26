@@ -44,12 +44,12 @@ static struct {
     bool scissorSet;
 
     mat4x4 projectionMatrix;
-    int isCreated;
     int width;
     int height;
     const char* title;
     int x;
     int y;
+    bool isCreated;
     bool has_window;
     image_ImageData* icon;
 } moduleData;
@@ -78,7 +78,7 @@ static void graphics_init_window(int width, int height)
     m4x4_newIdentity(&moduleData.projectionMatrix);
     m4x4_newOrtho(&moduleData.projectionMatrix, 0, width, height, 0, 0.1f, 100.0f);
 
-    moduleData.isCreated = 1;
+    moduleData.isCreated = true;
 
     graphics_setColor(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -104,7 +104,7 @@ void graphics_init(int width, int height, bool resizable, bool stats, bool show)
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         printf("Error: Could not init SDL video \n");
 
-    moduleData.isCreated = 0;
+    moduleData.isCreated = false;
 #ifdef EMSCRIPTEN
     moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
 #else
@@ -157,13 +157,15 @@ void graphics_init(int width, int height, bool resizable, bool stats, bool show)
 
     }
     else
-        moduleData.isCreated = 0;
+        moduleData.isCreated = false;
 }
 
 void graphics_destroyWindow() {
-    SDL_GL_DeleteContext(moduleData.context);
     if (moduleData.has_window)
+    {
+        SDL_GL_DeleteContext(moduleData.context);
         SDL_DestroyWindow(moduleData.window);
+    }
     SDL_Quit();
 }
 
@@ -396,6 +398,7 @@ int graphics_setMode(int width, int height,
 
     if (fullscreen)
         SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN);
+
     SDL_SetWindowMinimumSize(moduleData.window, min_size_x, min_size_y);
     SDL_SetWindowMaximumSize(moduleData.window, max_size_x, max_size_y);
     SDL_SetWindowBordered(moduleData.window, border);

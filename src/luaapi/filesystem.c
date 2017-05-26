@@ -34,34 +34,6 @@ static int l_filesystem_read(lua_State* state) {
   return 2;
 }
 
-static int l_filesystem_lines(lua_State* state) {
-
-	const char const* filename = l_tools_toStringOrError(state, 1);
-	FILE* f = fopen(filename, "r");
-
-	if (!f){
-		luaL_error(state, "Could not read file: %s \n", filename);
-		return lua_error(state);
-	}
-
-	char buffer[256];
-
-
-	lua_newtable(state);
-	int i = 0;
-	while(fgets(buffer,256,f) != NULL)
-	{
-		i++;
-		lua_pushnumber(state, i);
-
-		lua_pushstring(state, buffer);
-		lua_settable(state, -3);
-	}
-	fclose(f);
-
-	return 1;
-}
-
 static int l_filesystem_require(lua_State* state) {
 
     const char* file = l_tools_toStringOrError(state, 1);
@@ -143,14 +115,17 @@ static int l_filesystem_contain(lua_State* state)  {
   return 1;
 }
 
-static int l_filesystem_compare(lua_State* state)  {
+static int l_filesystem_equals(lua_State* state)
+{
   const char* a = l_tools_toStringOrError(state, 1);
   const char* b = l_tools_toStringOrError(state, 2);
-  int l = l_tools_toNumberOrError(state, 3);
-  if ( filesystem_compare(a, b, l))
+  int l = luaL_optinteger(state, 3, -1);
+
+  if ( filesystem_equals(a, b, l))
     lua_pushboolean(state, 1);
   else
     lua_pushboolean(state, 0);
+
   return 1;
 }
 
@@ -183,6 +158,41 @@ static int l_filesystem_isFile(lua_State* state) {
     return 1;
 }
 
+static int l_filesystem_lines(lua_State* state)
+{
+	const char* filename = l_tools_toStringOrError(state, 1);
+	//lua_pushstring(state, filesystem_line(filename));
+
+	FILE* f;
+	f = fopen(filename, "r");
+	if (f == NULL)
+	{
+		printf("%s %s \n", "Could not open: ", filename);
+		fclose(f);
+		l_tools_trowError(state, "Error in lines");
+	}
+
+	fseek(f, 0, SEEK_END);
+	long size = ftell(f);
+	rewind(f);
+
+	int index = 1;
+	char line[size+1];
+
+	lua_newtable(state);
+
+	while(fgets(line, sizeof(line), f))
+	{
+		lua_pushnumber(state, index);
+		lua_pushstring(state, line);
+		lua_settable(state, -3);
+		index++;
+	}
+	fclose(f);
+
+	return 1;
+}
+
 static luaL_Reg const regFuncs[] = {
   {"load", l_filesystem_load},
   {"lines", l_filesystem_lines},
@@ -196,7 +206,7 @@ static luaL_Reg const regFuncs[] = {
   {"exists", l_filesystem_exists},
   {"write", l_filesystem_write},
   {"append", l_filesystem_append},
-  {"compare", l_filesystem_compare},
+  {"equals", l_filesystem_equals},
   {"contain", l_filesystem_contain},
   {NULL, NULL}
 };
