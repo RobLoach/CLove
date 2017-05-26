@@ -7,19 +7,21 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include <stdint.h>
+#include <stdio.h>
+
 #include "../3rdparty/SDL2/include/SDL.h"
 #include "graphics.h"
 
 #include "../tools/gl.h"
-
+#include "../tools/utils.h"
 #include "../math/vector.h"
+
 #include "matrixstack.h"
 #include "font.h"
 #include "batch.h"
 #include "quad.h"
 #include "shader.h"
 #include "geometry.h"
-#include <stdio.h>
 
 typedef struct {
     float red;
@@ -29,7 +31,7 @@ typedef struct {
 } graphics_Color;
 
 static struct {
-#ifndef EMSCRIPTEN
+#ifdef CLOVE_DESKTOP
     SDL_Window* window;
     SDL_GLContext context;
     SDL_WindowFlags w_flags;
@@ -50,13 +52,13 @@ static struct {
     int x;
     int y;
     bool isCreated;
-    bool has_window;
+    bool hasWindow;
     image_ImageData* icon;
 } moduleData;
 
-#ifndef EMSCRIPTEN
+#ifdef CLOVE_DESKTOP
 SDL_Window* graphics_getWindow(void) {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
         return moduleData.window;
 
     return NULL;
@@ -99,13 +101,13 @@ static void graphics_init_window(int width, int height)
 
 void graphics_init(int width, int height, bool resizable, bool stats, bool show) {
 
-    moduleData.has_window = show;
+    moduleData.hasWindow = show;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         printf("Error: Could not init SDL video \n");
 
     moduleData.isCreated = false;
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
 #else
     //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
@@ -130,38 +132,37 @@ void graphics_init(int width, int height, bool resizable, bool stats, bool show)
     if (resizable)
         moduleData.w_flags |= SDL_WINDOW_RESIZABLE;
 
-    if (moduleData.has_window)
-    {
-        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
+	if (moduleData.hasWindow)
+	{
+		moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
 
-        if(!moduleData.window)
-            printf("Error: Could not create window :O");
+		if(!moduleData.window)
+			printf("Error: Could not create window :O");
 
-        moduleData.context = SDL_GL_CreateContext(moduleData.window);
-        if(!moduleData.context)
-            printf("Error: Could not create window context!");
+		moduleData.context = SDL_GL_CreateContext(moduleData.window);
+		if(!moduleData.context)
+			printf("Error: Could not create window context!");
 
-        //moduleData.surface = SDL_GetWindowSurface(moduleData.window);
-        SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
+		//moduleData.surface = SDL_GetWindowSurface(moduleData.window);
+		SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
 
-        if (stats > 0) {
-            printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
-            printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
-            printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-            printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
-            printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
-        }
+		if (stats > 0) {
+			printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+			printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
+			printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+			printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
+			printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
+		}
 #endif
 
-        graphics_init_window(width, height);
-
-    }
-    else
-        moduleData.isCreated = false;
+		graphics_init_window(width, height);
+	}
+	else
+		moduleData.isCreated = false;
 }
 
 void graphics_destroyWindow() {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
     {
         SDL_GL_DeleteContext(moduleData.context);
         SDL_DestroyWindow(moduleData.window);
@@ -185,14 +186,14 @@ void graphics_setColor(float red, float green, float blue, float alpha) {
 }
 
 void graphics_clear(void) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void graphics_swap(void) {
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     SDL_GL_SwapBuffers();
 #else
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
         SDL_GL_SwapWindow(moduleData.window);
 #endif
 }
@@ -271,8 +272,8 @@ const char* graphics_getDisplayName(int indx) {
 }
 
 int graphics_setTitle(const char* title){
-#ifndef EMSCRIPTEN
-    if (moduleData.has_window)
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
     {
         moduleData.title = title;
         SDL_SetWindowTitle(moduleData.window,title);
@@ -300,8 +301,8 @@ int graphics_setFocus(int value) {
 }
 
 int graphics_setPosition(int x, int y) {
-#ifndef EMSCRIPTEN
-    if (moduleData.has_window)
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
     {
         if(x <= -1) // center x
             x = SDL_WINDOWPOS_CENTERED;
@@ -314,13 +315,13 @@ int graphics_setPosition(int x, int y) {
 }
 
 int graphics_setVsync(bool value) {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
         SDL_GL_SetSwapInterval(value == true ? 1 : 0);
     return 1;
 }
 
 int graphics_setBordless(bool value) {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
         SDL_SetWindowBordered(moduleData.window, value);
     return 1;
 }
@@ -351,7 +352,7 @@ int graphics_setIcon(image_ImageData* imgd) {
     SDL_Surface *sdlicon = 0;
 
     sdlicon = SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
         SDL_SetWindowIcon(moduleData.window, sdlicon);
     SDL_FreeSurface(sdlicon);
 
@@ -370,7 +371,7 @@ int graphics_setMode(int width, int height,
      * If the main window was disabled in conf.lua
      * then we shall create one using this function.
      */
-    if (moduleData.has_window < 1)
+    if (!moduleData.hasWindow)
     {
         moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
         if (!moduleData.window)
@@ -386,9 +387,9 @@ int graphics_setMode(int width, int height,
 
         graphics_init_window(width, height);
 
-        moduleData.has_window = 1;
+        moduleData.hasWindow = true;
     }
-#ifndef EMSCRIPTEN
+#ifndef CLOVE_WEB
     moduleData.width = width;
     moduleData.height = height;
     SDL_SetWindowSize(moduleData.window, width, height);
@@ -414,7 +415,7 @@ int graphics_setMode(int width, int height,
 }
 
 int graphics_getWidth(void) {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
     {
         int w;
         int h;
@@ -425,7 +426,7 @@ int graphics_getWidth(void) {
 }
 
 int graphics_getHeight(void) {
-    if (moduleData.has_window)
+    if (moduleData.hasWindow)
     {
         int w;
         int h;
@@ -442,8 +443,8 @@ const char* graphics_getTitle()
 
 int graphics_setFullscreen(int value, const char* mode){
 
-#ifndef EMSCRIPTEN
-    if (moduleData.has_window)
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
     {
         if ((strncmp(mode,"desktop", 7) == 0) && value == 1)
             SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
@@ -459,9 +460,13 @@ int graphics_isCreated()
     return moduleData.isCreated;
 }
 
-void graphics_set_camera_2d(float left, float right, float bottom, float top, float zNear, float zFar) {
-    m4x4_newIdentity(&moduleData.projectionMatrix);
-    m4x4_newOrtho(&moduleData.projectionMatrix, left, right, bottom, top, zNear, zFar);
+void graphics_set_camera_2d(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	if (moduleData.hasWindow)
+	{
+		m4x4_newIdentity(&moduleData.projectionMatrix);
+		m4x4_newOrtho(&moduleData.projectionMatrix, left, right, bottom, top, zNear, zFar);
+	}
 }
 
 void graphics_set_camera_3d(float fov, float ratio, float zNear, float zFar) {
