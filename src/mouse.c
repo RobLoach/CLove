@@ -11,9 +11,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#include "tools/utils.h"
 #include "luaapi/mouse.h"
 
-#ifndef EMSCRIPTEN
+#ifndef CLOVE_WEB
 extern SDL_Window* graphics_getWindow(void);
 #endif
 
@@ -105,7 +107,7 @@ int mouse_getY(void) {
 }
 
 void mouse_setPosition(int x, int y) {
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     SDL_WarpMouse(x, y);
 #else
     if (graphics_getWindow() != NULL)
@@ -119,7 +121,7 @@ void mouse_setVisible(int b) {
 }
 
 void mouse_setX(int x) {
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     SDL_WarpMouse(x, moduleData.y);
 #else
     if (graphics_getWindow() != NULL)
@@ -128,7 +130,7 @@ void mouse_setX(int x) {
 }
 
 void mouse_setY(int y) {
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     SDL_WarpMouse(moduleData.x, y);
 #else
     if (graphics_getWindow() != NULL)
