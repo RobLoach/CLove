@@ -19,7 +19,7 @@
 #include "../graphics/mesh.h"
 
 typedef struct {
-    graphics_Mesh mesh;
+    graphics_Mesh3d mesh;
     int textureRef;
 }   l_graphics_Mesh;
 
