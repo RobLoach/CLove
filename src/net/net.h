@@ -11,23 +11,23 @@
 #define NET_H_
 
 #ifdef _WIN32
-#define WINDOWS
-#endif
+    #define WINDOWS
+#endif 
 #ifdef _WIN64
-#ifndef WINDOWS
-#define WINDOWS
-#endif
-#endif
-
-#ifdef __APPLE__
-#define UNIX
+    #ifndef WINDOWS 
+        #define WINDOWS
+    #endif
 #endif
 
-#ifdef __linux__
-#define UNIX
+#ifdef __APPLE__ 
+    #define UNIX
+#endif 
+
+#ifdef __linux__ 
+    #define UNIX
 #endif
 
-#ifdef UNIX
+#ifdef UNIX 
 
 #include <stdbool.h>
 #include <stdio.h>

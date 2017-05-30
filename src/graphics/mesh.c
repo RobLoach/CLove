@@ -12,7 +12,7 @@
 
 //TODO indices based on array size. eg: uint8,uint16 etc
 
-void graphics_Mesh_new(graphics_Mesh3d* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_MeshDrawMode3d drawMode) {
+void graphics_Mesh_new(graphics_Mesh* mesh, int vertexCount, graphics_Vertex* vertices, int indexCount, unsigned int* indices, graphics_MeshDrawMode drawMode) {
 
     mesh->hasTexture = false;
 
@@ -43,7 +43,7 @@ void graphics_Mesh_new(graphics_Mesh3d* mesh, int vertexCount, graphics_Vertex* 
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex), (GLvoid const*)(4*sizeof(float)));
 }
 
-void graphics_Mesh_free(graphics_Mesh3d* mesh) {
+void graphics_Mesh_free(graphics_Mesh* mesh) {
     glDeleteBuffers(1, &mesh->ibo);
     glDeleteBuffers(1, &mesh->vbo);
 
@@ -51,7 +51,7 @@ void graphics_Mesh_free(graphics_Mesh3d* mesh) {
     SAFE_FREE(mesh->vertices);
 }
 
-void graphics_Mesh_setTexture(graphics_Mesh3d* mesh, graphics_Image* image) {
+void graphics_Mesh_setTexture(graphics_Mesh* mesh, graphics_Image* image) {
     if (image != NULL) {
         mesh->hasTexture = true;
         mesh->image = image;
@@ -59,7 +59,7 @@ void graphics_Mesh_setTexture(graphics_Mesh3d* mesh, graphics_Image* image) {
         mesh->hasTexture = false;
 }
 
-void graphics_Mesh_setVertices(graphics_Mesh3d* mesh, graphics_Vertex* vertices, int vertexCount) {
+void graphics_Mesh_setVertices(graphics_Mesh* mesh, graphics_Vertex* vertices, int vertexCount) {
     glBindBuffer(GL_ARRAY_BUFFER, mesh->vbo);
     glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(graphics_Vertex), vertices, GL_DYNAMIC_DRAW);
 
@@ -72,7 +72,7 @@ void graphics_Mesh_setVertices(graphics_Mesh3d* mesh, graphics_Vertex* vertices,
     memcpy(mesh->vertices, vertices, vertexCount * sizeof(graphics_Vertex));
 }
 
-void graphics_Mesh_setIndices(graphics_Mesh3d* mesh, unsigned int* indices, int indexCount) {
+void graphics_Mesh_setIndices(graphics_Mesh* mesh, unsigned int* indices, int indexCount) {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->ibo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(unsigned int), indices, GL_DYNAMIC_DRAW);
 
@@ -85,7 +85,7 @@ void graphics_Mesh_setIndices(graphics_Mesh3d* mesh, unsigned int* indices, int 
 }
 
 static const graphics_Quad quad = {0.0f, 0.0f, 1.0f, 1.0f};
-void graphics_Mesh_draw(graphics_Mesh3d* mesh, float x, float y, float r, float sx, float sy, float ox, float oy, float kx, float ky) {
+void graphics_Mesh_draw(graphics_Mesh* mesh, float x, float y, float r, float sx, float sy, float ox, float oy, float kx, float ky) {
 
     graphics_Shader* shader = graphics_getShader();
     if (mesh->hasTexture) {

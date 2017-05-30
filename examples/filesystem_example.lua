@@ -52,13 +52,6 @@ print(love.filesystem.isFile("test.txt", "r"))
 --love.filesystem.exists works like in love2d
 --love.filesystem.append works like in love2d
 
-local list_of_lines = love.filesystem.lines("text.txt")
-for i=1,#list_of_lines do
-	if (love.filesystem.equals("LOOK_FOR_SOMETHING", list_of_lines[i])) then
-		print(list_of_lines[i])	
-	end	
-end
-
 print("\n")
 print("Does TEST.txt exist?")
 print(love.filesystem.exists("TEST.txt"))

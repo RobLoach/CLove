@@ -59,15 +59,14 @@ static int l_graphics_window_setMode(lua_State* state){
   float w = l_tools_toNumberOrError(state, 1);
   float h = l_tools_toNumberOrError(state, 2);
   bool fullscreen = lua_toboolean(state, 3);
-  bool vsync = lua_toboolean(state, 4);
-  int m_s_x = luaL_optinteger(state, 5, 1);
-  int m_s_y = luaL_optinteger(state, 6, 1);
-  int ma_s_x = luaL_optinteger(state, 7, w);
-  int ma_s_y = luaL_optinteger(state, 8, h);
-  bool border = !lua_toboolean(state, 9);
-  int x = luaL_optinteger(state, 10, -1);
-  int y = luaL_optinteger(state, 11, -1);
-  graphics_setMode(w, h, fullscreen, vsync, m_s_x, m_s_y, ma_s_x, ma_s_y, border, x, y);
+  int m_s_x = luaL_optinteger(state, 4, 1);
+  int m_s_y = luaL_optinteger(state, 5, 1);
+  int ma_s_x = luaL_optinteger(state, 6, w);
+  int ma_s_y = luaL_optinteger(state, 7, h);
+  bool border = !lua_toboolean(state, 8);
+  int x = luaL_optinteger(state, 9, -1);
+  int y = luaL_optinteger(state, 10, -1);
+  graphics_setMode(w, h, fullscreen, m_s_x, m_s_y, ma_s_x, ma_s_y, border, x, y);
   return 1;
 }
 

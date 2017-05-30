@@ -68,9 +68,9 @@ static void main_load(lua_State* lua, char* argv[], love_Config* config) {
 
         /* Used to control love.filesystem.require.
          * See examples folder -> run package */
-#ifndef CLOVE_TAR
-#define CLOVE_TAR 1
-#endif
+        #ifndef CLOVE_TAR
+        #define CLOVE_TAR 1
+        #endif
 
         char* buffer;
         int numberOfScripts = atoi(argv[2]);
@@ -135,74 +135,74 @@ void main_loop(void *data) {
     while(SDL_PollEvent(&event)) {
         if (event.type == SDL_WINDOWEVENT) {
             switch (event.window.event) {
-            case SDL_WINDOWEVENT_ENTER:
-                graphics_setMouseFocus(1);
-                break;
-            case SDL_WINDOWEVENT_LEAVE:
-                graphics_setMouseFocus(0);
-                break;
-            case SDL_WINDOWEVENT_FOCUS_LOST:
-                graphics_setFocus(0);
-                break;
-            case SDL_WINDOWEVENT_FOCUS_GAINED:
-                graphics_setFocus(1);
-                break;
-            default:
-                break;
+                case SDL_WINDOWEVENT_ENTER:
+                    graphics_setMouseFocus(1);
+                    break;
+                case SDL_WINDOWEVENT_LEAVE:
+                    graphics_setMouseFocus(0);
+                    break;
+                case SDL_WINDOWEVENT_FOCUS_LOST:
+                    graphics_setFocus(0);
+                    break;
+                case SDL_WINDOWEVENT_FOCUS_GAINED:
+                    graphics_setFocus(1);
+                    break;
+                default:
+                    break;
             }
         }
         switch(event.wheel.type) {
-        case SDL_MOUSEWHEEL:
-            mouse_mousewheel(event.wheel.y);
-            int _what = event.wheel.y == 1 ? SDL_BUTTON_WHEEL_UP : SDL_BUTTON_WHEEL_DOWN;
-            mouse_mousepressed(event.button.x, event.button.y,
-                               _what);
-            mouse_setButton(event.button.button);
-            break;
-        default:
-            break;
-        }
+            case SDL_MOUSEWHEEL:
+                mouse_mousewheel(event.wheel.y);
+                int _what = event.wheel.y == 1 ? SDL_BUTTON_WHEEL_UP : SDL_BUTTON_WHEEL_DOWN;
+                mouse_mousepressed(event.button.x, event.button.y,
+                        _what);
+				mouse_setButton(event.button.button);
+				break;
+			default:
+				break;
+		}
         switch(event.type) {
-        case SDL_KEYDOWN:
-            keyboard_keypressed(event.key.keysym.sym);
-            break;
-        case SDL_KEYUP:
-            keyboard_keyreleased(event.key.keysym.sym);
-            break;
-        case SDL_TEXTINPUT:
-            keyboard_textInput(event.text.text);
-            break;
-        case SDL_MOUSEMOTION:
-            mouse_mousemoved(event.motion.x, event.motion.y);
-            break;
-        case SDL_MOUSEBUTTONDOWN:
-            mouse_mousepressed(event.button.x, event.button.y, event.button.button);
-            mouse_setButton(event.button.button);
-            break;
-        case SDL_MOUSEBUTTONUP:
-            mouse_mousereleased(event.button.x, event.button.y,
-                                event.button.button);
-            mouse_setButton(0);
-            break;
-        case SDL_JOYDEVICEADDED:
-            joystick_added(event.jdevice.which);
-            break;
-        case SDL_JOYDEVICEREMOVED:
-            joystick_remove(event.jdevice.which);
-            break;
-        case SDL_JOYAXISMOTION:
-            break;
-        case SDL_JOYBUTTONDOWN:
-            joystick_buttonDown(event.jbutton.which, event.jbutton.button, event.jbutton.state);
-            break;
-        case SDL_JOYBUTTONUP:
-            joystick_buttonUp(event.jbutton.which, event.jbutton.button, event.jbutton.state);
-            break;
+            case SDL_KEYDOWN:
+                keyboard_keypressed(event.key.keysym.sym);
+                break;
+            case SDL_KEYUP:
+                keyboard_keyreleased(event.key.keysym.sym);
+                break;
+            case SDL_TEXTINPUT:
+                keyboard_textInput(event.text.text);
+                break;
+            case SDL_MOUSEMOTION:
+                mouse_mousemoved(event.motion.x, event.motion.y);
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                mouse_mousepressed(event.button.x, event.button.y, event.button.button);
+                mouse_setButton(event.button.button);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                mouse_mousereleased(event.button.x, event.button.y,
+                        event.button.button);
+                mouse_setButton(0);
+                break;
+            case SDL_JOYDEVICEADDED:
+                joystick_added(event.jdevice.which);
+                break;
+            case SDL_JOYDEVICEREMOVED:
+                joystick_remove(event.jdevice.which);
+                break;
+            case SDL_JOYAXISMOTION:
+                break;
+            case SDL_JOYBUTTONDOWN:
+                joystick_buttonDown(event.jbutton.which, event.jbutton.button, event.jbutton.state);
+                break;
+            case SDL_JOYBUTTONUP:
+                joystick_buttonUp(event.jbutton.which, event.jbutton.button, event.jbutton.state);
+                break;
 #ifdef CLOVE_DESKTOP
-        case SDL_QUIT:
-            quit_function(loopData->luaState);
-            l_running = 0;
-            break;
+            case SDL_QUIT:
+                quit_function(loopData->luaState);
+                l_running = 0;
+                break;
 #endif
         }
     }
@@ -211,7 +211,7 @@ void main_loop(void *data) {
 
 
 void main_activity_load(int argc, char* argv[]) {
-    keyboard_init();
+	keyboard_init();
     joystick_init();
     timer_init();
 
@@ -239,24 +239,18 @@ void main_activity_load(int argc, char* argv[]) {
 
     l_boot(lua, &config);
 
+    graphics_setWindow(config.window.window);
     audio_init(config.window.stats);
 
     if (config.window.stats > 1)
         printf("%s %s \n", "Debug: Platform: ", filesystem_getOS());
+    graphics_init(config.window.width, config.window.height, config.window.resizable, config.window.stats);
+    graphics_setTitle(config.window.title);
+    graphics_setBordless(config.window.bordless);
+    graphics_setMinSize(config.window.minwidth, config.window.minheight);
+    graphics_setVsync(config.window.vsync);
+    graphics_setPosition(config.window.x, config.window.y);
 
-    graphics_init(config.window.width, config.window.height, config.window.resizable, config.window.stats, config.window.window);
-    /*
-     * When we do not have a visible window we can't put
-     * these propieties
-     */
-    if (config.window.window)
-    {
-        graphics_setTitle(config.window.title);
-        graphics_setBordless(config.window.bordless);
-        graphics_setMinSize(config.window.minwidth, config.window.minheight);
-        graphics_setVsync(config.window.vsync);
-        graphics_setPosition(config.window.x, config.window.y);
-    }
     l_running = 1;
 
     main_load(lua, argv, &config);
@@ -264,7 +258,7 @@ void main_activity_load(int argc, char* argv[]) {
     love_Version const * version = love_getVersion();
     if (config.window.stats > 0)
         printf("%s %s %d.%d.%d \n", "CLove version - ",
-               version->codename,version->major,version->minor,version->revision);
+                version->codename,version->major,version->minor,version->revision);
 
     lua_pushcfunction(lua, errorhandler);
     lua_getglobal(lua, "love");

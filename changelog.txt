@@ -1,10 +1,5 @@
 version 0.7.1 not released:
 
-added: love.filesystem.equals(String1, String2, length(optional))
-which lets you see if two strings are equal till a certain length. By default
-it takes the full length or the strings.
-
-added: possibility to hide and create window when you want using conf.lua
 fixed: imageData: getChannel, getPixel, now accepting: grey, grey_alpha, rgb, rgba
 added: newImageFont. BitmapFonts. You can draw fonts using images (see examples for more info)
 added: networking. TCP using IPv4 or UPv6 (see examples)

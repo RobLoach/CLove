@@ -118,7 +118,7 @@ int l_graphics_newMesh(lua_State* state) {
     feedIndices(numberOfIndex * sizeof(unsigned int));
     readIndices(state, 3, numberOfIndex);
 
-    graphics_MeshDrawMode3d mode = l_tools_toEnumOrError(state, 4, l_graphics_MeshDrawMode);
+    graphics_MeshDrawMode mode = l_tools_toEnumOrError(state, 4, l_graphics_MeshDrawMode);
 
     l_graphics_Mesh* mesh = lua_newuserdata(state, sizeof(l_graphics_Mesh));
     graphics_Mesh_new(&mesh->mesh, vertexCount, (graphics_Vertex*)moduleData.vertices, numberOfIndex, moduleData.indices, mode);
