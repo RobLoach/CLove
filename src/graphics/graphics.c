@@ -1,4 +1,4 @@
-/*
+﻿/*
 #   clove
 #
 #   Copyright (C) 2016-2017 Muresan Vlad
@@ -7,19 +7,21 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include <stdint.h>
+#include <stdio.h>
+
 #include "../3rdparty/SDL2/include/SDL.h"
 #include "graphics.h"
 
 #include "../tools/gl.h"
-
+#include "../tools/utils.h"
 #include "../math/vector.h"
+
 #include "matrixstack.h"
 #include "font.h"
 #include "batch.h"
 #include "quad.h"
 #include "shader.h"
 #include "geometry.h"
-#include <stdio.h>
 
 typedef struct {
     float red;
@@ -29,7 +31,7 @@ typedef struct {
 } graphics_Color;
 
 static struct {
-#ifndef EMSCRIPTEN
+#ifdef CLOVE_DESKTOP
     SDL_Window* window;
     SDL_GLContext context;
     SDL_WindowFlags w_flags;
@@ -44,29 +46,68 @@ static struct {
     bool scissorSet;
 
     mat4x4 projectionMatrix;
-    int isCreated;
     int width;
     int height;
     const char* title;
     int x;
     int y;
-    bool has_window;
+    bool isCreated;
+    bool hasWindow;
     image_ImageData* icon;
 } moduleData;
 
-#ifndef EMSCRIPTEN
+#ifdef CLOVE_DESKTOP
 SDL_Window* graphics_getWindow(void) {
-    return moduleData.window;
+    if (moduleData.hasWindow)
+        return moduleData.window;
+
+    return NULL;
 }
 #endif
 
-void graphics_init(int width, int height, bool resizable, bool stats) {
+static void graphics_init_window(int width, int height)
+{
+    glewExperimental = true;
+    GLenum res = glewInit();
+
+    if(res != GLEW_OK)
+        printf("Error: Could not init glew!");
+
+    glViewport(0, 0, width, height);
+
+    matrixstack_init();
+
+    m4x4_newIdentity(&moduleData.projectionMatrix);
+    m4x4_newOrtho(&moduleData.projectionMatrix, 0, width, height, 0, 0.1f, 100.0f);
+
+    moduleData.isCreated = true;
+
+    graphics_setColor(1.0f, 1.0f, 1.0f, 1.0f);
+
+    graphics_geometry_init();
+    graphics_font_init();
+    graphics_batch_init();
+    graphics_image_init();
+    graphics_shader_init();
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    glPixelStorei(GL_PACK_ALIGNMENT, 1);
+
+    graphics_setColorMask(true, true, true, true);
+    graphics_setBlendMode(graphics_BlendMode_alpha);
+    glEnable(GL_BLEND);
+    graphics_clearScissor();
+}
+
+void graphics_init(int width, int height, bool resizable, bool stats, bool show) {
+
+    moduleData.hasWindow = show;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
         printf("Error: Could not init SDL video \n");
 
-    moduleData.isCreated = 0;
-#ifdef EMSCRIPTEN
+    moduleData.isCreated = false;
+#ifdef CLOVE_WEB
     moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
 #else
     //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
@@ -91,63 +132,41 @@ void graphics_init(int width, int height, bool resizable, bool stats) {
     if (resizable)
         moduleData.w_flags |= SDL_WINDOW_RESIZABLE;
 
-    if (moduleData.has_window)
-        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
-    else
-        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, 1, 1, moduleData.w_flags);
+	if (moduleData.hasWindow)
+	{
+		moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
 
-    if(!moduleData.window)
-        printf("Error: Could not create window :O");
-    moduleData.context = SDL_GL_CreateContext(moduleData.window);
-    if(!moduleData.context)
-        printf("Error: Could not create window context!");
+		if(!moduleData.window)
+			printf("Error: Could not create window :O");
 
-    //moduleData.surface = SDL_GetWindowSurface(moduleData.window);
-    SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
+		moduleData.context = SDL_GL_CreateContext(moduleData.window);
+		if(!moduleData.context)
+			printf("Error: Could not create window context!");
 
-    if (stats > 0) {
-        printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
-        printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
-        printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-        printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
-        printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
-    }
+		//moduleData.surface = SDL_GetWindowSurface(moduleData.window);
+		SDL_GL_SetSwapInterval(1); //limit FPS to 60, this may not work on all drivers
+
+		if (stats > 0) {
+			printf("%s %d.%d.%d \n", "Debug: Sdl version: ", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_PATCHLEVEL);
+			printf("Debug: OpenGL version: %s \n", glGetString(GL_VERSION));
+			printf("Debug: GLSL version %s \n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+			printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
+			printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
+		}
 #endif
-    glewExperimental = true;
-    GLenum res = glewInit();
 
-    if(res != GLEW_OK)
-        printf("Error: Could not init glew!");
-
-    glViewport(0, 0, width, height);
-
-    matrixstack_init();
-
-    m4x4_newIdentity(&moduleData.projectionMatrix);
-    m4x4_newOrtho(&moduleData.projectionMatrix, 0, width, height, 0, 0.1f, 100.0f);
-
-    moduleData.isCreated = 1;
-
-    graphics_setColor(1.0f, 1.0f, 1.0f, 1.0f);
-
-    graphics_geometry_init();
-    graphics_font_init();
-    graphics_batch_init();
-    graphics_image_init();
-    graphics_shader_init();
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-    glPixelStorei(GL_PACK_ALIGNMENT, 1);
-
-    graphics_setColorMask(true, true, true, true);
-    graphics_setBlendMode(graphics_BlendMode_alpha);
-    glEnable(GL_BLEND);
-    graphics_clearScissor();
+		graphics_init_window(width, height);
+	}
+	else
+		moduleData.isCreated = false;
 }
 
 void graphics_destroyWindow() {
-    SDL_GL_DeleteContext(moduleData.context);
-    SDL_DestroyWindow(moduleData.window);
+    if (moduleData.hasWindow)
+    {
+        SDL_GL_DeleteContext(moduleData.context);
+        SDL_DestroyWindow(moduleData.window);
+    }
     SDL_Quit();
 }
 
@@ -167,15 +186,45 @@ void graphics_setColor(float red, float green, float blue, float alpha) {
 }
 
 void graphics_clear(void) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void graphics_swap(void) {
-#ifdef EMSCRIPTEN
+#ifdef CLOVE_WEB
     SDL_GL_SwapBuffers();
 #else
-    SDL_GL_SwapWindow(moduleData.window);
+    if (moduleData.hasWindow)
+        SDL_GL_SwapWindow(moduleData.window);
 #endif
+}
+
+void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint ibo, GLuint count, GLenum type, GLenum indexType, float const * useColor, float ws, float hs, float ds)
+{
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (const void*)(3*sizeof(float)));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(graphics_Vertex3d), (const void*)(7*sizeof(float)));
+
+    graphics_Shader_activate3d(
+                &moduleData.projectionMatrix,
+                matrixstack_head(),
+                tr3d,
+                quad,
+                useColor,
+                ws,
+                hs,
+                ds
+                );
+
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    //glDrawElements(type, count, indexType, (GLvoid const*)0);
+    glDrawArrays(type, 0, count);
+
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(0);
 }
 
 void graphics_drawArray(graphics_Quad const* quad, mat4x4 const* tr2d, GLuint ibo, GLuint count, GLenum type, GLenum indexType, float const* useColor, float ws, float hs) {
@@ -189,23 +238,21 @@ void graphics_drawArray(graphics_Quad const* quad, mat4x4 const* tr2d, GLuint ib
     glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), (const void*)(4*sizeof(float)));
 
     graphics_Shader_activate(
-            &moduleData.projectionMatrix,
-            matrixstack_head(),
-            tr2d,
-            quad,
-            useColor,
-            ws,
-            hs
-            );
+                &moduleData.projectionMatrix,
+                matrixstack_head(),
+                tr2d,
+                quad,
+                useColor,
+                ws,
+                hs
+                );
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     glDrawElements(type, count, indexType, (GLvoid const*)0);
 
-    /*glDisableVertexAttribArray(3);
-      glDisableVertexAttribArray(2);
-      This piece of code does not seem to do anything. Untill proven other
-      whise I'll comment it
-      glDisableVertexAttribArray(0);*/
+    glDisableVertexAttribArray(2);
+    glDisableVertexAttribArray(1);
+    glDisableVertexAttribArray(0);
 }
 
 int* graphics_getDesktopDimension() {
@@ -225,9 +272,12 @@ const char* graphics_getDisplayName(int indx) {
 }
 
 int graphics_setTitle(const char* title){
-#ifndef EMSCRIPTEN
-    moduleData.title = title;
-    SDL_SetWindowTitle(moduleData.window,title);
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
+    {
+        moduleData.title = title;
+        SDL_SetWindowTitle(moduleData.window,title);
+    }
 #endif
     return 1;
 }
@@ -251,28 +301,28 @@ int graphics_setFocus(int value) {
 }
 
 int graphics_setPosition(int x, int y) {
-#ifndef EMSCRIPTEN
-    if(x <= -1) // center x
-        x = SDL_WINDOWPOS_CENTERED;
-    if(y <= -1) // center y
-        y = SDL_WINDOWPOS_CENTERED;
-    SDL_SetWindowPosition(moduleData.window, x, y);
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
+    {
+        if(x <= -1) // center x
+            x = SDL_WINDOWPOS_CENTERED;
+        if(y <= -1) // center y
+            y = SDL_WINDOWPOS_CENTERED;
+        SDL_SetWindowPosition(moduleData.window, x, y);
+    }
 #endif
     return 1;
 }
 
-int graphics_setWindow(bool value) {
-    moduleData.has_window = value;
-    return 1;
-}
-
 int graphics_setVsync(bool value) {
-    SDL_GL_SetSwapInterval(value == true ? 1 : 0);
+    if (moduleData.hasWindow)
+        SDL_GL_SetSwapInterval(value == true ? 1 : 0);
     return 1;
 }
 
 int graphics_setBordless(bool value) {
-    SDL_SetWindowBordered(moduleData.window, value);
+    if (moduleData.hasWindow)
+        SDL_SetWindowBordered(moduleData.window, value);
     return 1;
 }
 
@@ -282,11 +332,11 @@ int graphics_setMinSize(int x, int y) {
 }
 
 int graphics_getDisplayCount() {
-   return SDL_GetNumVideoDisplays();
+    return SDL_GetNumVideoDisplays();
 }
 
 int graphics_setIcon(image_ImageData* imgd) {
-//Adapted from Love
+    //Adapted from Love
     Uint32 rmask, gmask, bmask, amask;
     moduleData.icon = imgd;
 
@@ -301,9 +351,9 @@ int graphics_setIcon(image_ImageData* imgd) {
 
     SDL_Surface *sdlicon = 0;
 
-    sdlicon =SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
-
-    SDL_SetWindowIcon(moduleData.window, sdlicon);
+    sdlicon = SDL_CreateRGBSurfaceFrom(image_ImageData_getSurface(imgd), w, h, 32, pitch, rmask, gmask, bmask, amask);
+    if (moduleData.hasWindow)
+        SDL_SetWindowIcon(moduleData.window, sdlicon);
     SDL_FreeSurface(sdlicon);
 
     return  1;
@@ -314,18 +364,42 @@ image_ImageData* graphics_getIcon() {
 }
 
 int graphics_setMode(int width, int height,
-        bool fullscreen, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
-        int x, int y){
-#ifndef EMSCRIPTEN
+                     bool fullscreen, bool vsync, int min_size_x, int min_size_y, int max_size_x, int max_size_y, bool border,
+                     int x, int y){
+
+    /*
+     * If the main window was disabled in conf.lua
+     * then we shall create one using this function.
+     */
+    if (!moduleData.hasWindow)
+    {
+        moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
+        if (!moduleData.window)
+            printf("Error: Could not create window :O");
+
+        moduleData.context = SDL_GL_CreateContext(moduleData.window);
+
+        if (!moduleData.context)
+            printf("Error: Could not create window context!");
+
+        if (vsync)
+            SDL_GL_SetSwapInterval(1);
+
+        graphics_init_window(width, height);
+
+        moduleData.hasWindow = true;
+    }
+#ifndef CLOVE_WEB
     moduleData.width = width;
     moduleData.height = height;
     SDL_SetWindowSize(moduleData.window, width, height);
 
     m4x4_newOrtho(&moduleData.projectionMatrix, 0, width, height, 0, 0.1f, 100.0f);
-    glViewport(0,0,width,height);
+    glViewport(0, 0, width, height);
 
     if (fullscreen)
         SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN);
+
     SDL_SetWindowMinimumSize(moduleData.window, min_size_x, min_size_y);
     SDL_SetWindowMaximumSize(moduleData.window, max_size_x, max_size_y);
     SDL_SetWindowBordered(moduleData.window, border);
@@ -341,17 +415,25 @@ int graphics_setMode(int width, int height,
 }
 
 int graphics_getWidth(void) {
-    int w;
-    int h;
-    SDL_GetWindowSize(moduleData.window,&w,&h);
-    return w;
+    if (moduleData.hasWindow)
+    {
+        int w;
+        int h;
+        SDL_GetWindowSize(moduleData.window,&w,&h);
+        return w;
+    }
+    return 0;
 }
 
 int graphics_getHeight(void) {
-    int w;
-    int h;
-    SDL_GetWindowSize(moduleData.window,&w,&h);
-    return h;
+    if (moduleData.hasWindow)
+    {
+        int w;
+        int h;
+        SDL_GetWindowSize(moduleData.window,&w,&h);
+        return h;
+    }
+    return 0;
 }
 
 const char* graphics_getTitle()
@@ -361,11 +443,16 @@ const char* graphics_getTitle()
 
 int graphics_setFullscreen(int value, const char* mode){
 
-#ifndef EMSCRIPTEN
-    if ((strncmp(mode,"desktop", 7) == 0) && value == 1)
-        SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+#ifndef CLOVE_WEB
+    if (moduleData.hasWindow)
+    {
+        if ((strncmp(mode,"desktop", 7) == 0) && value == 1)
+            SDL_SetWindowFullscreen(moduleData.window, SDL_WINDOW_FULLSCREEN_DESKTOP);
+
+        return 1;
+    }
 #endif
-    return 1;
+    return 0;
 }
 
 int graphics_isCreated()
@@ -373,18 +460,22 @@ int graphics_isCreated()
     return moduleData.isCreated;
 }
 
-void graphics_set_camera_2d(float left, float right, float bottom, float top, float zNear, float zFar) {
-    m4x4_newIdentity(&moduleData.projectionMatrix);
-    m4x4_newOrtho(&moduleData.projectionMatrix, left, right, bottom, top, zNear, zFar);
-}
-
-void graphics_set_look_at(float px, float py, float pz,float tx,float ty,float tz, float ux, float uy, float uz) {
-    m4x4_newLookAt(matrixstack_head(), vec3_new(px, py, pz), vec3_new(tx, ty, tz), vec3_new(ux, uy, uz));
+void graphics_set_camera_2d(float left, float right, float bottom, float top, float zNear, float zFar)
+{
+	if (moduleData.hasWindow)
+	{
+		m4x4_newIdentity(&moduleData.projectionMatrix);
+		m4x4_newOrtho(&moduleData.projectionMatrix, left, right, bottom, top, zNear, zFar);
+	}
 }
 
 void graphics_set_camera_3d(float fov, float ratio, float zNear, float zFar) {
     m4x4_newIdentity(&moduleData.projectionMatrix);
     m4x4_newPerspective(&moduleData.projectionMatrix, fov, ratio, zNear, zFar);
+}
+
+void graphics_set_look_at(float px, float py, float pz,float tx,float ty,float tz, float ux, float uy, float uz) {
+    m4x4_newLookAt(matrixstack_head(), vec3_new(px, py, pz), vec3_new(tx, ty, tz), vec3_new(ux, uy, uz));
 }
 
 float* graphics_getColor(void) {
@@ -425,40 +516,40 @@ void graphics_setBlendMode(graphics_BlendMode mode) {
     GLenum bFunc = GL_FUNC_ADD;
 
     switch(mode) {
-        case graphics_BlendMode_alpha:
-            sfRGB = GL_SRC_ALPHA;
-            sfA = GL_ONE;
-            dfRGB = dfA = GL_ONE_MINUS_SRC_ALPHA;
-            break;
+    case graphics_BlendMode_alpha:
+        sfRGB = GL_SRC_ALPHA;
+        sfA = GL_ONE;
+        dfRGB = dfA = GL_ONE_MINUS_SRC_ALPHA;
+        break;
 
-        case graphics_BlendMode_subtractive:
-            bFunc = GL_FUNC_REVERSE_SUBTRACT;
-            // fallthrough
-        case graphics_BlendMode_additive:
-            sfA = sfRGB = GL_SRC_ALPHA;
-            dfA = dfRGB = GL_ONE;
-            break;
+    case graphics_BlendMode_subtractive:
+        bFunc = GL_FUNC_REVERSE_SUBTRACT;
+        // fallthrough
+    case graphics_BlendMode_additive:
+        sfA = sfRGB = GL_SRC_ALPHA;
+        dfA = dfRGB = GL_ONE;
+        break;
 
 
-        case graphics_BlendMode_multiplicative:
-            sfA = sfRGB = GL_DST_COLOR;
-            dfA = dfRGB = GL_ZERO;
-            break;
+    case graphics_BlendMode_multiplicative:
+        sfA = sfRGB = GL_DST_COLOR;
+        dfA = dfRGB = GL_ZERO;
+        break;
 
-        case graphics_BlendMode_premultiplied:
-            sfA = sfRGB = GL_ONE;
-            dfA = dfRGB = GL_ONE_MINUS_SRC_ALPHA;
-            break;
+    case graphics_BlendMode_premultiplied:
+        sfA = sfRGB = GL_ONE;
+        dfA = dfRGB = GL_ONE_MINUS_SRC_ALPHA;
+        break;
 
-        case graphics_BlendMode_screen:
-            sfA = sfRGB = GL_ONE;
-            dfA = dfRGB = GL_ONE_MINUS_SRC_COLOR;
-            break;
+    case graphics_BlendMode_screen:
+        sfA = sfRGB = GL_ONE;
+        dfA = dfRGB = GL_ONE_MINUS_SRC_COLOR;
+        break;
 
-        case graphics_BlendMode_replace:
-        default:
-            // uses default init values
-            break;
+    case graphics_BlendMode_replace:
+    default:
+        // uses default init values
+        break;
     }
 
     glBlendFuncSeparate(sfRGB, dfRGB, sfA, dfA);

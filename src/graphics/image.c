@@ -115,6 +115,7 @@ void graphics_Image_draw(graphics_Image const* image, graphics_Quad const* quad,
     glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(imageData), imageData);
     m4x4_newTransform2d(&moduleData.tr2d, x, y, r, sx, sy, ox, oy, kx, ky);
 
+
     //glEnable(GL_TEXTURE_2D); Deprecated in GLES 2
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, image->texID);

@@ -9,10 +9,6 @@
 #include "vector.h"
 #include <tgmath.h>
 
-void m4x4_scale(mat4x4 *inout,float angle, float r_x, float r_y, float r_z, float x, float y, float z) {
-  m4x4_newRotationScale(inout, angle, vec3_new(r_x, r_y, r_z), x, y, z);
-}
-
 void m4x4_scalexyz(mat4x4 *inout, float x, float y, float z) {
   for(int i = 0; i < 3; ++i) {
     inout->m[0][i] *= x;
@@ -25,20 +21,6 @@ void m4x4_translate(mat4x4 *inout, float x, float y, float z) {
   inout->m[3][0] += x * inout->m[0][0] + y * inout->m[1][0] + z * inout->m[2][0];
   inout->m[3][1] += x * inout->m[0][1] + y * inout->m[1][1] + z * inout->m[2][1];
   inout->m[3][2] += x * inout->m[0][2] + y * inout->m[1][2] + z * inout->m[2][2];
-}
-
-void m4x4_rotateZ(mat4x4 *inout, float a, float s_x, float s_y, float s_z) {
-  m4x4_newRotationScale(inout, a, vec3_new(0,0,1), s_x, s_y, s_z);
-}
-
-
-void m4x4_rotateY(mat4x4 *inout, float a, float s_x, float s_y, float s_z) {
-  m4x4_newRotationScale(inout, a, vec3_new(0,0,1), s_x, s_y, s_z);
-}
-
-
-void m4x4_rotateX(mat4x4 *inout, float a, float s_x, float s_y, float s_z) {
-  m4x4_newRotationScale(inout, a, vec3_new(0,1,0), s_x, s_y, s_z);
 }
 
 void m4x4_shear2d(mat4x4 *inout, float x, float y) {

@@ -56,12 +56,24 @@ int filesystem_contain(const char* a, const char* b) {
     else
         return 0;
 }
+/*
+ * This functions checks to see if two strings are the same
+ * If you pass a number to argument 'l' then clove will
+ * dheck for equality untill the point of 'l' value
+ */
+int filesystem_equals(const char* a, const char* b, int l) {
+	if (l > 0)
+	{
+		if(strncmp(a, b, l) == 0)
+			return 1;
+	}
+   	else
+	{
+		if (strcmp(a, b) == 0)
+			return 1;
+	}
 
-int filesystem_compare(const char* a, const char* b, int l) {
-    if(strncmp(a, b, l) == 0)
-        return 1;
-    else
-        return 0;
+	return 0;
 }
 
 int filesystem_exists(const char* name)
@@ -159,3 +171,4 @@ int filesystem_remove(const char* name) {
     remove(name);
     return 0;
 }
+
