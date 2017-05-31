@@ -88,6 +88,8 @@ FILE(
     src/filesystem/*.c
     src/graphics/*.h
     src/graphics/*.c
+    src/graphics/3d/*.h
+    src/graphics/3d/*.c
     src/image/*.h
     src/image/*.c
     src/luaapi/*.h
@@ -100,6 +102,8 @@ FILE(
     src/timer/*.c
     src/net/*.c
     src/net/*.h
+    src/physics/*.c
+    src/physics/*.h
   	src/resources/*.png
 
     #Add custom native plugins
@@ -166,6 +170,11 @@ add_subdirectory(src/3rdparty/lua)
 set(LUA_INCLUDE_DIR src/3rdparty/lua/)
 set(LUA_LIBRARIES lua)
 
+#chipmunk
+add_subdirectory(src/3rdparty/chipmunk)
+set(CHIPMUNK_INCLUDE_DIR src/3rdparty/chipmunk)
+set(CHIPMUNK_LIBRARIES chipmunk)
+
 #glew
 if(NOT ANDROID)
 	add_subdirectory(src/3rdparty/glew/)
@@ -203,21 +212,21 @@ endif()
 
 if(WIN32)
     target_link_libraries(clove ws2_32.lib
-        ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
 if(APPLE)
     target_link_libraries(clove
-        ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 endif()
 
 if(UNIX AND NOT APPLE)
     target_link_libraries(clove
-        ${SDL_LIBRARIES} ${GLEW_LIBRARIES}
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
         ${LUASOCKET_LIBRARIES})
@@ -225,7 +234,7 @@ endif()
 
 if(ANDROID)
 	target_link_libraries(clove
-		${SDL_LIBRARIES} ${OPENGL_LIBRARIES}
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${OPENGL_LIBRARIES}
 		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES}
 		${LUA_LIBRARIES} )
 endif()
