@@ -53,7 +53,7 @@ void game_load() {
     staticBody = cpSpaceAddBody(space, cpBodyNewStatic());//cpBodyNew(mass, cpMomentForBox(mass,size,size)));
     cpBodySetPosition(staticBody, cpv(100,200));
 
-    cpShape *shape = cpSpaceAddShape(space, cpBoxShapeNew(staticBody, 100, 32, 0.0));
+    cpShape *shape = cpSpaceAddShape(space, cpSegmentShapeNew(staticBody, cpv(132, -12), cpv(0, -12), 0.0f));//cpSpaceAddShape(space, cpBoxShapeNew(staticBody, 120, 32, 0.0));
     cpShapeSetElasticity(shape, 0.0f);
     cpShapeSetFriction(shape, 0.7f);
 
@@ -70,6 +70,18 @@ void game_update(float delta) {
     // timer += delta * 2.0f;
     pos = cpBodyGetPosition(ballBody);
     gpos = cpBodyGetPosition(staticBody);
+
+    if (keyboard_ispressed(SDLK_d))
+    {
+        pos.x = pos.x + 50 * delta;
+        cpBodySetPosition(ballBody, pos);
+    }
+    if (keyboard_ispressed(SDLK_a))
+    {
+        pos.x = pos.x - 50 * delta;
+        cpBodySetPosition(ballBody, pos);
+    }
+
 
     cpSpaceStep(space, delta);
 }
