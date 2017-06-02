@@ -32,6 +32,31 @@ static int l_physics_newSpace(lua_State* state)
     return 1;
 }
 
+static int l_physics_setSpaceIterations(lua_State* state)
+{
+
+    physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);
+
+    int iterations = l_tools_toIntegerOrError(state, 2);
+
+    physics_setSpaceIterations(&physics->physics, iterations);
+
+    return 0;
+}
+
+static int l_physics_setSpaceSleepTime(lua_State* state)
+{
+
+    physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);
+
+    float sleep = l_tools_toNumberOrError(state, 2);
+
+    physics_setSpaceSleepTime(&physics->physics, sleep);
+
+    return 0;
+}
+
+
 static int l_physics_newBoxBody(lua_State* state)
 {
 
@@ -402,23 +427,55 @@ static int l_physics_gc(lua_State* state)
     return 0;
 }
 
-static luaL_Reg const physicsMetatableFuncs[] =
+static luaL_Reg const physicsSpaceMetatableFuncs[] =
 {
     {"__gc",   l_physics_gc},
     {NULL, NULL}
 };
 
+static luaL_Reg const physicsBodyMetatableFuncs[] =
+{
+    {"getTorque",                    l_physics_getBodyTorque},
+    {"getAngle",                     l_physics_getBodyAngle},
+    {"getAngularVelocity",           l_physics_getBodyAngularVelocity},
+    {"getCenterOfGravity",           l_physics_getBodyCenterOfGravity},
+    {"getForce",                     l_physics_getBodyForce},
+    {"getMass",                      l_physics_getBodyMass},
+    {"getPosition",                  l_physics_getBodyPosition},
+    {"getBody",                      l_physics_getBody},
+
+    {"setAngle",                     l_physics_setBodyAngle},
+    {"setAngularVelocity",           l_physics_setBodyAngularVelocity},
+    {"setCenterOfGravity",           l_physics_setBodyCenterOfGravity},
+    {"setForce",                     l_physics_setBodyForce},
+    {"setMass",                      l_physics_setBodyMass},
+    {"setPosition",                  l_physics_setBodyPosition},
+    {"setToruq",                     l_physics_setBodyTorque},
+    {"setVelocity",                  l_physics_setBodyVelocity},
+
+    {NULL, NULL}
+};
+
+//TODO add for shape
 
 static luaL_Reg const physicsFreeFuncs[] =
 {
-    {"newSpace", l_physics_newSpace},
+    {"setSpaceIterations",    l_physics_setSpaceIterations},
+    {"setSpaceSleep",         l_physics_setSpaceSleepTime},
+    {"newSpace",              l_physics_newSpace},
+    {"newBoxBody",            l_physics_newBoxBody},
+    {"newCircleBody",         l_physics_newCircleBody},
+    {"newBoxShape",           l_physics_newBoxShape},
+    {"newCircleShape",        l_physics_newCircleShape},
+    {"newShape",              l_physics_newShape},
+
     {NULL, NULL}
 };
 
 int l_physics_register(lua_State *state)
 {
     l_tools_registerFuncsInModule(state, "physics", physicsFreeFuncs);
-    moduleData.physicsMT = l_tools_makeTypeMetatable(state, physicsMetatableFuncs);
+    moduleData.physicsMT = l_tools_makeTypeMetatable(state, physicsSpaceMetatableFuncs);
     return 1;
 }
 
