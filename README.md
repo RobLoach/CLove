@@ -33,7 +33,7 @@ libaudio-dev libesd0-dev libpulse-dev libroar-dev
 Features
 ========
 - Lua scripting language or native C/C++ support.
-- 3D camera functions.
+- Physics system thanks to Chipmunk 
 - Easy to learn and use api.
 - Cross Platform. Android is planned. Web needs a new build system.
 - Custom package format.
@@ -59,8 +59,7 @@ If you want to contribute to the project, feel free to work on what you please. 
 Please try to replicate the code style of the existing code by using tab width of 4 spaces and expand tabs to spaces, I will refuse to pull your changes otherwise.
 
 Stuff needed: 
-    - Physics, love.physics
-	- Networking 
+	- Networking for Windows   
 	- Web build system 
 
 Examples (see examples folder)

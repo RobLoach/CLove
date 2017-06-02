@@ -1,5 +1,7 @@
 version 0.7.1 not released:
 
+wip emscripten (web support)
+wip module: love.physics
 added: love.filesystem.equals(String1, String2, length(optional))
 which lets you see if two strings are equal till a certain length. By default
 it takes the full length or the strings.
