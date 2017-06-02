@@ -236,6 +236,162 @@ static int l_physics_setBodyPosition(lua_State* state)
     return 0;
 }
 
+static int l_physics_newCircleShape(lua_State* state)
+{
+    l_physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);
+    l_physics_Body* body = l_physics_toPhysicsBody(state, 2);
+    float radius = l_tools_toNumberOrError(state, 3);
+
+    cpVect offset = cpvzero;
+    offset.x = l_tools_toNumberOrError(state, 4);
+    offset.y = l_tools_toNumberOrError(state, 5);
+
+    physics_newCircleShape(physics, &body->body, radius, offset);
+
+    //TODO see if 'moduleData.bodyMT' needs to be different for different types of body!
+    lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
+    lua_setmetatable(state, -2);
+
+    return 1;
+}
+
+static int l_physics_newBoxShape(lua_State* state)
+{
+    l_physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);
+    l_physics_Body* body = l_physics_toPhysicsBody(state, 2);
+    float width = l_tools_toNumberOrError(state, 3);
+    float height = l_tools_toNumberOrError(state, 4);
+    float radius = l_tools_toNumberOrError(state, 5);
+
+    physics_newBoxShape(physics, &body->body, width, height, radius);
+
+    //TODO see if 'moduleData.bodyMT' needs to be different for different types of body!
+    lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
+    lua_setmetatable(state, -2);
+
+    return 1;
+}
+
+static int l_physics_newShape(lua_State* state)
+{
+    l_physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);
+    l_physics_Body* body = l_physics_toPhysicsBody(state, 2);
+    float x1 = l_tools_toNumberOrError(state, 3);
+    float y1 = l_tools_toNumberOrError(state, 4);
+    float x2 = l_tools_toNumberOrError(state, 5);
+    float y2 = l_tools_toNumberOrError(state, 6);
+    float radius = l_tools_toNumberOrError(state, 7);
+
+    physics_newShape(physics, &body->body, x1, y1, x2, y2, radius);
+
+    //TODO see if 'moduleData.bodyMT' needs to be different for different types of body!
+    lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
+    lua_setmetatable(state, -2);
+
+    return 1;
+}
+
+static int l_physics_getShapeDensity(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    lua_pushnumber(state, physics_getShapeDensity(&shape->shape));
+
+    return 1;
+}
+
+
+static int l_physics_getElasticity(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    lua_pushnumber(state, physics_getElasticity(&shape->shape));
+
+    return 1;
+}
+
+static int l_physics_getFriction(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    lua_pushnumber(state, physics_getFriction(&shape->shape));
+
+    return 1;
+}
+
+static int l_physics_getMass(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    lua_pushnumber(state, physics_getMass(&shape->shape));
+
+    return 1;
+}
+
+static int l_physics_getMoment(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    lua_pushnumber(state, physics_getMoment(&shape->shape));
+
+    return 1;
+}
+
+static int l_physics_setShapeFriction(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    float value = l_tools_toNumberOrError(state, 2);
+
+    physics_setShapeFriction(&shape->shape, value);
+
+    return 0;
+}
+
+static int l_physics_setShapeDensity(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    float value = l_tools_toNumberOrError(state, 2);
+
+    physics_setShapeDensity(&shape->shape, value);
+
+    return 0;
+}
+
+static int l_physics_setShapeElasticity(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    float value = l_tools_toNumberOrError(state, 2);
+
+    physics_setShapeElasticity(&shape->shape, value);
+
+    return 0;
+}
+
+static int l_physics_setShapeMass(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+
+    float value = l_tools_toNumberOrError(state, 2);
+
+    physics_setShapeMass(&shape->shape, value);
+
+    return 0;
+}
+
+static int l_physics_setShapeBody(lua_State* state)
+{
+    l_physics_Shape* shape = l_physics_toPhysicsShape(state, 1);
+    l_physics_Body* body = l_physics_toPhysicsBody(state, 2);
+
+    physics_setShapeBody(&shape->shape, &body->body);
+
+    return 0;
+}
+
+
 static int l_physics_gc(lua_State* state)
 {
     l_physics_PhysicsData* physics = l_physics_toPhysicsData(state, 1);

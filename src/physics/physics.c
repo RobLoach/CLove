@@ -228,11 +228,6 @@ void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpFloat x1, cp
     grow_shapes(shape);
 }
 
-void physics_setShapeFriction(cpShape* shape, cpFloat v)
-{
-    cpShapeSetFriction(shape, v);
-}
-
 cpFloat physics_getShapeDensity(cpShape* shape)
 {
     return cpShapeGetDensity(shape);
@@ -256,6 +251,11 @@ cpFloat physics_getMass(cpShape* shape)
 cpFloat physics_getMoment(cpShape* shape)
 {
     return cpShapeGetMass(shape);
+}
+
+void physics_setShapeFriction(cpShape* shape, cpFloat v)
+{
+    cpShapeSetFriction(shape, v);
 }
 
 void physics_setShapeDensity(cpShape* shape, cpFloat density)
