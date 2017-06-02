@@ -43,11 +43,34 @@ void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping)
 }
 
 /*********** Body stuff goes here ****************/
+
+void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, char* type)
+{
+    cpBody* body;
+    cpFloat _moment = 0;
+
+    // If we don't provide a default moment then we let chipmunk calculate one
+    if (moment)
+        _moment = cpMomentForBox(mass, width, height);
+
+    if (strcmp(type, "static"))
+    {
+        body = cpSpaceAddBody(physics->space, cpBodyNewStatic());
+    }
+    else if (strcmp(type, "dynamic"))
+    {
+        body = cpSpaceAddBody(physics->space, cpBodyNew(mass, moment == 0 ? _moment : moment));
+    }
+    else
+        printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
+
+}
+
 void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, char *type)
 {
 
-
     cpFloat _moment = 0;
+
     // If we don't provide a default moment then we let chipmunk calculate one
     if (moment == 0)
         cpMomentForCircle(mass, 0, radius, offset);
@@ -56,11 +79,13 @@ void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat r
     if (strcmp(type, "static"))
     {
         body = cpSpaceAddBody(physics->space, cpBodyNewStatic());
-    } else if (strcmp(type, "dynamic"))
+    }
+    else if (strcmp(type, "dynamic"))
     {
         body = cpSpaceAddBody(physics->space, cpBodyNew(mass, moment == 0 ? _moment : moment));
     }
-
+    else
+        printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
 }
 
 cpFloat physics_getBodyTorque(cpBody* body)
@@ -110,27 +135,27 @@ void physics_setBodyAngularVelocity(cpBody* body, cpFloat angular)
     cpBodySetAngularVelocity(body, angular);
 }
 
-void physics_setCenterOfGravity(cpBody* body, cpVect center)
+void physics_setBodyCenterOfGravity(cpBody* body, cpVect center)
 {
     cpBodySetCenterOfGravity(body, center);
 }
 
-void physics_setForce(cpBody* body, cpFloat force)
+void physics_setBodyForce(cpBody* body, cpVect force)
 {
     cpBodySetForce(body, force);
 }
 
-void physics_setMass(cpBody* body, cpFloat mass)
+void physics_setBodyMass(cpBody* body, cpFloat mass)
 {
     cpBodySetMass(body, mass);
 }
 
-void physics_setTorque(cpBody* body, cpFloat torque)
+void physics_setBodyTorque(cpBody* body, cpFloat torque)
 {
     cpBodySetTorque(body, torque);
 }
 
-void physics_setVelocity(cpBody* body, cpVect velocity)
+void physics_setBodyVelocity(cpBody* body, cpVect velocity)
 {
     cpBodySetVelocity(body, velocity);
 }
@@ -146,10 +171,15 @@ void physics_setBodyPosition(cpBody* body, cpFloat x, cpFloat y)
 /*********** Shape stuff goes here ****************/
 void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpFloat radius, cpVect offset)
 {
-    cpShape* shape = cpSpaceAddShape(physics->space, cpCircleShapeNew(body, radius, offset));
+    cpSpaceAddShape(physics->space, cpCircleShapeNew(body, radius, offset));
 }
 
-void physics_setShapeFriction(cpShape* shape, float v)
+void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpFloat width, cpFloat height, cpFloat radius)
+{
+    cpSpaceAddShape(physics->space, cpBoxShapeNew(body, width, height, radius));
+}
+
+void physics_setShapeFriction(cpShape* shape, cpFloat v)
 {
     cpShapeSetFriction(shape, v);
 }
@@ -189,11 +219,6 @@ void physics_setShapeDensity(cpShape* shape, cpFloat density)
 void physics_setShapeElasticity(cpShape* shape, cpFloat elasticity)
 {
     cpShapeSetElasticity(shape, elasticity);
-}
-
-void physics_setShapeFriction(cpShape* shape, cpFloat friction)
-{
-    cpShapeSetFriction(shape, friction);
 }
 
 void physics_setShapeMass(cpShape* shape, cpFloat mass)

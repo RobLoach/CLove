@@ -28,6 +28,8 @@ void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping);
 
 // Body stuff goes here
 void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, char* type);
+void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, char* type);
+
 void physics_setBodyPosition(cpBody* body, cpFloat x, cpFloat y);
 cpFloat physics_getBodyAngle(cpBody* body);
 cpFloat physics_getBodyMass(cpBody* body);
@@ -39,14 +41,15 @@ cpVect physics_getBodyForce(cpBody* body);
 
 void physics_setBodyAngle(cpBody* body, cpFloat angle);
 void physics_setBodyAngularVelocity(cpBody* body, cpFloat angular);
-void physics_setCenterOfGravity(cpBody* body, cpVect center);
-void physics_setForce(cpBody* body, cpFloat force);
-void physics_setMass(cpBody* body, cpFloat mass);
-void physics_setTorque(cpBody* body, cpFloat torque);
-void physics_setVelocity(cpBody* body, cpVect velocity);
+void physics_setBodyCenterOfGravity(cpBody* body, cpVect center);
+void physics_setBodyForce(cpBody* body, cpVect force);
+void physics_setBodyMass(cpBody* body, cpFloat mass);
+void physics_setBodyTorque(cpBody* body, cpFloat torque);
+void physics_setBodyVelocity(cpBody* body, cpVect velocity);
 
 //Shape stuff goes here
 void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpFloat radius, cpVect offset);
+void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpFloat width, cpFloat height, cpFloat radius);
 
 cpFloat physics_getShapeDensity(cpShape* shape);
 cpFloat physics_getElasticity(cpShape* shape);

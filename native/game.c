@@ -64,7 +64,7 @@ void game_load() {
     ballBody = cpSpaceAddBody(space, cpBodyNew(mass, moment));
     cpBodySetPosition(ballBody, cpv(150, 25));
 
-    ballShape = cpSpaceAddShape(space, cpCircleShapeNew(ballBody, 25, cpv(0,-15)));
+    ballShape = cpSpaceAddShape(space, cpBoxShapeNew(ballBody, 13, 13, 0.0f));
     cpShapeSetFriction(ballShape, 0.7);
 }
 
@@ -100,7 +100,8 @@ void game_draw() {
     graphics_setColor(.4f,.43f,.7f,1.0f);
     graphics_geometry_rectangle(true, gpos.x, gpos.y, 132, 32, 0, 1, 1, 0, 0);
 
-    graphics_geometry_lineCircle(pos.x, pos.y, 25, 12, angle, 1, 1, 0, 0);
+    graphics_geometry_rectangle(true, pos.x, pos.y, 16, 16, angle, 1, 1, 0, 0);
+    //graphics_geometry_lineCircle(pos.x, pos.y, 25, 12, angle, 1, 1, 0, 0);
 
 }
 
