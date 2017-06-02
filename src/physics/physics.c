@@ -15,16 +15,31 @@
 
 static struct {} moduleData;
 
-void physics_newWord(physics_PhysicsData* physics, cpFloat grav_x, cpFloat grav_y)
+void physics_newSpace(physics_PhysicsData* physics, cpFloat grav_x, cpFloat grav_y)
 {
     physics->space = cpSpaceNew();
     physics->gravity = cpv(grav_x, grav_y);
     cpSpaceSetGravity(physics->space, physics->gravity);
 }
 
-void physics_update(physics_PhysicsData* physics, float dt)
+void physics_setSpaceIterations(physics_PhysicsData* physics, int iterations)
+{
+    cpSpaceSetIterations(physics->space, iterations);
+}
+
+void physics_setSpaceSleepTime(physics_PhysicsData* physics, cpFloat sleep)
+{
+    cpSpaceSetSleepTimeThreshold(physics->space, sleep);
+}
+
+void physics_updateSpace(physics_PhysicsData* physics, cpFloat dt)
 {
     cpSpaceStep(physics->space, dt);
+}
+
+void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping)
+{
+    cpSpaceSetDamping(physics->space, damping);
 }
 
 /*********** Body stuff goes here ****************/
@@ -48,10 +63,76 @@ void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat r
 
 }
 
+cpFloat physics_getBodyTorque(cpBody* body)
+{
+    return cpBodyGetTorque(body);
+}
+
+cpVect physics_getBodyCenterOfGravity(cpBody* body)
+{
+    return cpBodyGetCenterOfGravity(body);
+}
+
+cpFloat physics_getBodyAngularVelocity(cpBody* body)
+{
+    return cpBodyGetAngularVelocity(body);
+}
+
+cpVect physics_getBodyForce(cpBody* body)
+{
+    return cpBodyGetForce(body);
+}
+
+cpFloat physics_getBodyMass(cpBody* body)
+{
+    return cpBodyGetMass(body);
+}
+
+cpFloat physics_getBodyAngle(cpBody* body)
+{
+    return cpBodyGetAngle(body);
+}
+
 cpVect physics_getBodyPosition(cpBody* body)
 {
     cpVect pos = cpBodyGetPosition(body);
     return pos;
+}
+
+
+void physics_setBodyAngle(cpBody* body, cpFloat angle)
+{
+    cpBodySetAngle(body, angle);
+}
+
+void physics_setBodyAngularVelocity(cpBody* body, cpFloat angular)
+{
+    cpBodySetAngularVelocity(body, angular);
+}
+
+void physics_setCenterOfGravity(cpBody* body, cpVect center)
+{
+    cpBodySetCenterOfGravity(body, center);
+}
+
+void physics_setForce(cpBody* body, cpFloat force)
+{
+    cpBodySetForce(body, force);
+}
+
+void physics_setMass(cpBody* body, cpFloat mass)
+{
+    cpBodySetMass(body, mass);
+}
+
+void physics_setTorque(cpBody* body, cpFloat torque)
+{
+    cpBodySetTorque(body, torque);
+}
+
+void physics_setVelocity(cpBody* body, cpVect velocity)
+{
+    cpBodySetVelocity(body, velocity);
 }
 
 void physics_setBodyPosition(cpBody* body, cpFloat x, cpFloat y)
@@ -73,4 +154,72 @@ void physics_setShapeFriction(cpShape* shape, float v)
     cpShapeSetFriction(shape, v);
 }
 
+
+cpFloat physics_getShapeDensity(cpShape* shape)
+{
+    return cpShapeGetDensity(shape);
+}
+
+cpFloat physics_getElasticity(cpShape* shape)
+{
+    return cpShapeGetElasticity(shape);
+}
+
+cpFloat physics_getFriction(cpShape* shape)
+{
+    return cpShapeGetFriction(shape);
+}
+
+cpFloat physics_getMass(cpShape* shape)
+{
+    return cpShapeGetMass(shape);
+}
+
+cpFloat physics_getMoment(cpShape* shape)
+{
+    return cpShapeGetMass(shape);
+}
+
+
+void physics_setShapeDensity(cpShape* shape, cpFloat density)
+{
+    cpShapeSetDensity(shape, density);
+}
+
+void physics_setShapeElasticity(cpShape* shape, cpFloat elasticity)
+{
+    cpShapeSetElasticity(shape, elasticity);
+}
+
+void physics_setShapeFriction(cpShape* shape, cpFloat friction)
+{
+    cpShapeSetFriction(shape, friction);
+}
+
+void physics_setShapeMass(cpShape* shape, cpFloat mass)
+{
+    cpShapeSetMass(shape, mass);
+}
+
+void physics_setShapeBody(cpShape* shape, cpBody* body)
+{
+    cpShapeSetBody(shape, body);
+}
+
 /*********** End of Shape stuff ****************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -33,6 +33,8 @@ cpFloat mass = 6;
 
 cpBody* staticBody;
 
+//Big Sean
+
 void game_load() {
     graphics_setTitle("Clove in native");
 
@@ -74,6 +76,8 @@ void game_update(float delta) {
     gpos = cpBodyGetPosition(staticBody);
 
     angle = cpBodyGetAngle(ballBody);
+
+    //printf("%d \n", cpBodyget)
 
     if (keyboard_ispressed(SDLK_d))
     {

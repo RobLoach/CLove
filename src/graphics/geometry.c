@@ -145,7 +145,6 @@ void graphics_geometry_lineCircle(float x, float y, float radius, int segments, 
     drawBufferSpecial(segments+2,x, y, r, 1, 1, sx, sy, ox, oy, GL_LINE_STRIP);
 }
 
-
 void graphics_geometry_fillCircle(float x, float y, float radius, int segments, float r, float sx, float sy, float ox, float oy) {
     growBuffers(segments+1, segments+2);
 
