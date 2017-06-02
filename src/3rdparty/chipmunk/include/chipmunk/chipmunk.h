@@ -83,8 +83,8 @@ typedef struct cpArray cpArray;
 typedef struct cpHashSet cpHashSet;
 
 typedef struct cpBody cpBody;
-
 typedef struct cpShape cpShape;
+
 typedef struct cpCircleShape cpCircleShape;
 typedef struct cpSegmentShape cpSegmentShape;
 typedef struct cpPolyShape cpPolyShape;

@@ -42,7 +42,7 @@ static void feedIndices(int size) {
 
 static void readVertex(lua_State* state, graphics_Vertex* vertices) {
     if (lua_objlen(state, -1) < 4)
-       l_tools_trowError(state, "Table entry is not a valid vertex");
+        l_tools_trowError(state, "Table entry is not a valid vertex");
 
     float* t = (float*)vertices;
 

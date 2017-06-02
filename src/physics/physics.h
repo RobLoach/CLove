@@ -9,6 +9,7 @@
 
 #pragma once
 
+#include "../3rdparty/chipmunk/include/chipmunk/chipmunk_structs.h"
 #include "../3rdparty/chipmunk/include/chipmunk/chipmunk.h"
 
 typedef struct
@@ -50,6 +51,7 @@ void physics_setBodyVelocity(cpBody* body, cpVect velocity);
 //Shape stuff goes here
 void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpFloat radius, cpVect offset);
 void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpFloat width, cpFloat height, cpFloat radius);
+void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius);
 
 cpFloat physics_getShapeDensity(cpShape* shape);
 cpFloat physics_getElasticity(cpShape* shape);
@@ -63,6 +65,8 @@ void physics_setShapeFriction(cpShape* shape, cpFloat friction);
 void physics_setShapeMass(cpShape* shape, cpFloat mass);
 void physics_setShapeBody(cpShape* shape, cpBody* body);
 
+// Other funcs
+void physics_free(physics_PhysicsData* physics);
 
 
 

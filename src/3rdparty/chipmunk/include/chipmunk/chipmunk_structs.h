@@ -25,7 +25,16 @@
 #ifndef CHIPMUNK_STRUCTS_H
 #define CHIPMUNK_STRUCTS_H
 
-#include "chipmunk/chipmunk.h"
+/*
+ * NOTE:
+ * If I do not change this then chipmunk won't let me use
+ * 'sizeof' on cpBody and cpShape because the compiler can't
+ * accesse the declaration of these two structures
+ */
+//#include "chipmunk/chipmunk.h"
+
+#include "chipmunk.h"
+
 
 struct cpArray {
 	int num, max;
