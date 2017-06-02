@@ -66,10 +66,14 @@ void game_load() {
     cpShapeSetFriction(ballShape, 0.7);
 }
 
+cpFloat angle;
+
 void game_update(float delta) {
     // timer += delta * 2.0f;
     pos = cpBodyGetPosition(ballBody);
     gpos = cpBodyGetPosition(staticBody);
+
+    angle = cpBodyGetAngle(ballBody);
 
     if (keyboard_ispressed(SDLK_d))
     {
@@ -92,7 +96,7 @@ void game_draw() {
     graphics_setColor(.4f,.43f,.7f,1.0f);
     graphics_geometry_rectangle(true, gpos.x, gpos.y, 132, 32, 0, 1, 1, 0, 0);
 
-    graphics_geometry_drawCircle(pos.x, pos.y, 25, 12);
+    graphics_geometry_lineCircle(pos.x, pos.y, 25, 12, angle, 1, 1, 0, 0);
 
 }
 

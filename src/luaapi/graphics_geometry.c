@@ -24,12 +24,18 @@ static int l_geometry_circle(lua_State* state) {
   float x = l_tools_toNumberOrError(state, 2);
   float y = l_tools_toNumberOrError(state, 3);
   float radius = l_tools_toNumberOrError(state, 4);
-  float segments = l_tools_toNumberOrError(state, 5);
+  float segments = luaL_optinteger(state, 5, 12);
+  float rotation = luaL_optinteger(state, 6, 0);
+  float sx = luaL_optinteger(state, 7, 1);
+  float sy = luaL_optinteger(state, 8, sx);
+  float ox = luaL_optinteger(state, 9, 0);
+  float oy = luaL_optinteger(state, 10, ox);
 
   if (strncmp(type,"line",4) == 0)
-    graphics_geometry_drawCircle(x, y, radius, segments);
+    graphics_geometry_lineCircle(x, y, radius, segments, rotation, sx, sy, ox, oy);
   else if(strncmp(type,"fill", 4) == 0)
-    graphics_geometry_fillCircle(x, y, radius, segments);
+    graphics_geometry_fillCircle(x, y, radius, segments, rotation, sx, sy, ox, oy);
+
   return 1;
 }
 
