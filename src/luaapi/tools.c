@@ -63,8 +63,15 @@ void l_tools_pushEnum(lua_State* state, int value, l_tools_Enum const* values) {
 }
 
 extern inline bool l_tools_optBoolean(lua_State* state, int index, int def);
+
 extern inline int l_tools_toBooleanOrError(lua_State* state, int index);
+extern inline int l_tools_toBooleanOrErrorPlusMsg(lua_State* state, int index, const char* msg);
+
+extern inline float l_tools_toNumberOrErrorPlusMsg(lua_State* state, int index, const char* msg);
+extern inline int l_tools_toIntegerOrErrorPlusMsg(lua_State* state, int index, const char* msg);
+
 extern inline int l_tools_toIntegerOrError(lua_State *state, int index);
 extern inline float l_tools_toNumberOrError(lua_State* state, int index);
+
 extern inline char const* l_tools_toStringOrError(lua_State* state, int index);
 extern inline int l_tools_toEnumOrError(lua_State* state, int index, l_tools_Enum const* values);

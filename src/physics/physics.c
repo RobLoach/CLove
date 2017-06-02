@@ -78,7 +78,7 @@ void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping)
 
 /*********** Body stuff goes here ****************/
 
-void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, char* type)
+void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, const char* type)
 {
     cpBody* body;
     cpFloat _moment = 0;
@@ -102,7 +102,7 @@ void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat widt
 
 }
 
-void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, char *type)
+void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, const char *type)
 {
 
     cpFloat _moment = 0;
@@ -159,8 +159,7 @@ cpFloat physics_getBodyAngle(cpBody* body)
 
 cpVect physics_getBodyPosition(cpBody* body)
 {
-    cpVect pos = cpBodyGetPosition(body);
-    return pos;
+    return cpBodyGetPosition(body);
 }
 
 
@@ -199,9 +198,9 @@ void physics_setBodyVelocity(cpBody* body, cpVect velocity)
     cpBodySetVelocity(body, velocity);
 }
 
-void physics_setBodyPosition(cpBody* body, cpFloat x, cpFloat y)
+void physics_setBodyPosition(cpBody* body, cpVect position)
 {
-    cpBodySetPosition(body, cpv(x, y));
+    cpBodySetPosition(body, position);
 }
 
 /*********** End of Body stuff ****************/
@@ -259,7 +258,6 @@ cpFloat physics_getMoment(cpShape* shape)
     return cpShapeGetMass(shape);
 }
 
-
 void physics_setShapeDensity(cpShape* shape, cpFloat density)
 {
     cpShapeSetDensity(shape, density);
@@ -291,7 +289,7 @@ void physics_free(physics_PhysicsData* physics)
         cpSpaceRemoveBody(physics->space, moduleData.bodies[i]);
 
     for (int i = 0; i < moduleData.shapes_size; i++)
-        cpSpaceRemoveBody(physics->space, moduleData.shapes[i]);
+        cpSpaceRemoveShape(physics->space, moduleData.shapes[i]);
 
     moduleData.bodies_size = 0;
     moduleData.shapes_size = 0;

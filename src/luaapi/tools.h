@@ -28,6 +28,39 @@ inline void l_tools_trowError(lua_State* state, const char* msg) {
     lua_error(state);
 }
 
+inline int l_tools_toBooleanOrErrorPlusMsg(lua_State* state, int index, const char *msg)
+{
+    if(lua_type(state, index) != LUA_TBOOLEAN) {
+        luaL_argerror(state,index-1,"expected boolean");
+        lua_pushstring(state, msg);
+        lua_error(state);
+      }
+
+    return lua_toboolean(state, index);
+}
+
+inline float l_tools_toNumberOrErrorPlusMsg(lua_State* state, int index, const char* msg)
+{
+    if(lua_type(state, index) != LUA_TNUMBER) {
+        luaL_argerror(state,index-1,"expected number");
+        lua_pushstring(state, msg);
+        lua_error(state);
+      }
+
+    return lua_tonumber(state, index);
+}
+
+inline int l_tools_toIntegerOrErrorPlusMsg(lua_State* state, int index, const char* msg)
+{
+    if(lua_type(state, index) != LUA_TNUMBER) {
+        luaL_argerror(state,index-1,"expected number");
+        lua_pushstring(state, msg);
+        lua_error(state);
+      }
+
+    return lua_tointeger(state, index);
+}
+
 inline float l_tools_toNumberOrError(lua_State* state, int index) {
   if(lua_type(state, index) != LUA_TNUMBER) {
       luaL_argerror(state,index-1,"expected number");
