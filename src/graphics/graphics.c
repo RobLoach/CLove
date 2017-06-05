@@ -10,6 +10,15 @@
 #include <stdio.h>
 
 #include "../3rdparty/SDL2/include/SDL.h"
+
+/*
+ * For some reason I have to esplicitly tell
+ * where glew is located, can't use ../tools
+ */
+#ifdef __EMSCRIPTEN__
+#include "../3rdparty/glew/include/GL/glew.h"
+#endif
+
 #include "graphics.h"
 
 #include "../tools/gl.h"
@@ -31,12 +40,11 @@ typedef struct {
 } graphics_Color;
 
 static struct {
-#ifdef CLOVE_DESKTOP
     SDL_Window* window;
     SDL_GLContext context;
     SDL_WindowFlags w_flags;
-#endif
-    SDL_Surface* surface;
+
+	SDL_Surface* surface;
     graphics_Color backgroundColor;
     graphics_Color foregroundColor;
 
@@ -107,9 +115,6 @@ void graphics_init(int width, int height, bool resizable, bool stats, bool show)
         printf("Error: Could not init SDL video \n");
 
     moduleData.isCreated = false;
-#ifdef CLOVE_WEB
-    moduleData.surface = SDL_SetVideoMode(width, height, 0, SDL_OPENGL);
-#else
     //SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, 0);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
@@ -153,7 +158,6 @@ void graphics_init(int width, int height, bool resizable, bool stats, bool show)
 			printf("Debug: Vendor: %s\n", glGetString(GL_VENDOR));
 			printf("Debug: Renderer: %s\n", glGetString(GL_RENDERER));
 		}
-#endif
 
 		graphics_init_window(width, height);
 	}
@@ -190,12 +194,8 @@ void graphics_clear(void) {
 }
 
 void graphics_swap(void) {
-#ifdef CLOVE_WEB
-    SDL_GL_SwapBuffers();
-#else
-    if (moduleData.hasWindow)
-        SDL_GL_SwapWindow(moduleData.window);
-#endif
+	if (moduleData.hasWindow)
+		SDL_GL_SwapWindow(moduleData.window);
 }
 
 void graphics_drawArray3d(graphics_Quad const* quad, mat4x4 const* tr3d, GLuint ibo, GLuint count, GLenum type, GLenum indexType, float const * useColor, float ws, float hs, float ds)
@@ -370,7 +370,10 @@ int graphics_setMode(int width, int height,
     /*
      * If the main window was disabled in conf.lua
      * then we shall create one using this function.
+	 *
+	 * Note: This works only on desktop
      */
+#ifndef CLOVE_WEB
     if (!moduleData.hasWindow)
     {
         moduleData.window = SDL_CreateWindow(moduleData.title, moduleData.x, moduleData.y, width, height, moduleData.w_flags);
@@ -389,7 +392,7 @@ int graphics_setMode(int width, int height,
 
         moduleData.hasWindow = true;
     }
-#ifndef CLOVE_WEB
+
     moduleData.width = width;
     moduleData.height = height;
     SDL_SetWindowSize(moduleData.window, width, height);

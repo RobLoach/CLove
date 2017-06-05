@@ -14,46 +14,18 @@
 #include <stdlib.h>
 
 static struct {
-    cpBody** bodies;
-    int bodies_size;
-    cpShape** shapes;
-    int shapes_size;
 } moduleData;
-
-static void grow_bodies(cpBody* body)
-{
-    if (moduleData.bodies_size == 0)
-    {
-        moduleData.bodies = malloc(sizeof(cpBody));
-        moduleData.bodies_size = 1;
-    }
-    else
-        moduleData.bodies = realloc(moduleData.bodies, sizeof(cpBody) * moduleData.bodies_size);
-
-    moduleData.bodies[moduleData.bodies_size] = body;
-    moduleData.bodies_size ++;
-
-}
-
-static void grow_shapes(cpShape* shape)
-{
-    if (moduleData.shapes_size == 0)
-    {
-        moduleData.shapes = malloc(sizeof(cpShape));
-        moduleData.shapes_size = 1;
-    }
-    else
-        moduleData.shapes = realloc(moduleData.shapes, sizeof(cpShape) * moduleData.shapes_size);
-
-    moduleData.shapes[moduleData.shapes_size] = shape;
-    moduleData.shapes_size ++;
-}
 
 void physics_newSpace(physics_PhysicsData* physics, cpFloat grav_x, cpFloat grav_y)
 {
     physics->space = cpSpaceNew();
     physics->gravity = cpv(grav_x, grav_y);
-    cpSpaceSetGravity(physics->space, physics->gravity);
+    cpSpaceSetGravity(physics->space, cpv(grav_x, grav_y));
+}
+
+cpVect physics_getSpaceGravity(physics_PhysicsData* physics)
+{
+	return cpSpaceGetGravity(physics->space);
 }
 
 void physics_setSpaceIterations(physics_PhysicsData* physics, int iterations)
@@ -71,38 +43,40 @@ void physics_updateSpace(physics_PhysicsData* physics, cpFloat dt)
     cpSpaceStep(physics->space, dt);
 }
 
-void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping)
+void physics_setSpaceDamping(physics_PhysicsData* physics, cpFloat damping)
 {
     cpSpaceSetDamping(physics->space, damping);
 }
 
 /*********** Body stuff goes here ****************/
 
-void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, const char* type)
+void physics_newBoxBody(physics_PhysicsData* physics, cpBody* body, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, const char* type)
 {
-    cpBody* body;
     cpFloat _moment = 0;
 
     // If we don't provide a default moment then we let chipmunk calculate one
-    if (moment)
+    if (moment == 0)
         _moment = cpMomentForBox(mass, width, height);
+	else
+		_moment = moment;
 
+	/*
     if (strcmp(type, "static"))
     {
         body = cpSpaceAddBody(physics->space, cpBodyNewStatic());
     }
     else if (strcmp(type, "dynamic"))
     {
-        body = cpSpaceAddBody(physics->space, cpBodyNew(mass, moment == 0 ? _moment : moment));
-    }
-    else
-        printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
-
-    grow_bodies(body);
+	*/
+		printf("Called \n");
+        body = cpSpaceAddBody(physics->space, cpBodyNew(mass, _moment));
+    //}
+    //else
+      //  printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
 
 }
 
-void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, const char *type)
+void physics_newCircleBody(physics_PhysicsData* physics, cpBody* body, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, const char *type)
 {
 
     cpFloat _moment = 0;
@@ -111,7 +85,6 @@ void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat r
     if (moment == 0)
         cpMomentForCircle(mass, 0, radius, offset);
 
-    cpBody* body;
     if (strcmp(type, "static"))
     {
         body = cpSpaceAddBody(physics->space, cpBodyNewStatic());
@@ -122,8 +95,6 @@ void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat r
     }
     else
         printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
-
-    grow_bodies(body);
 
 }
 
@@ -188,6 +159,11 @@ void physics_setBodyMass(cpBody* body, cpFloat mass)
     cpBodySetMass(body, mass);
 }
 
+void physics_setBodyMoment(cpBody* body, cpFloat moment)
+{
+	cpBodySetMoment(body, moment);
+}
+
 void physics_setBodyTorque(cpBody* body, cpFloat torque)
 {
     cpBodySetTorque(body, torque);
@@ -207,25 +183,21 @@ void physics_setBodyPosition(cpBody* body, cpVect position)
 
 
 /*********** Shape stuff goes here ****************/
-void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpFloat radius, cpVect offset)
+void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat radius, cpVect offset)
 {
-    cpShape* shape = cpSpaceAddShape(physics->space, cpCircleShapeNew(body, radius, offset));
-
-    grow_shapes(shape);
+    shape = cpSpaceAddShape(physics->space, cpCircleShapeNew(body, radius, offset));
 }
 
-void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpFloat width, cpFloat height, cpFloat radius)
+void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat width, cpFloat height, cpFloat radius)
 {
-    cpShape* shape = cpSpaceAddShape(physics->space, cpBoxShapeNew(body, width, height, radius));
+    shape = cpSpaceAddShape(physics->space, cpBoxShapeNew(body, width, height, radius));
 
-    grow_shapes(shape);
 }
 
-void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius)
+void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius)
 {
-    cpShape* shape = cpSpaceAddShape(physics->space, cpSegmentShapeNew(body, cpv(x1, y1), cpv(x2, y2), radius));
+    shape = cpSpaceAddShape(physics->space, cpSegmentShapeNew(body, cpv(x1, y1), cpv(x2, y2), radius));
 
-    grow_shapes(shape);
 }
 
 cpFloat physics_getShapeDensity(cpShape* shape)
@@ -283,17 +255,19 @@ void physics_setShapeBody(cpShape* shape, cpBody* body)
 
 /*********** OTHER ***********************/
 
+
+void physics_bodyFree(physics_PhysicsData* data, cpBody* body)
+{
+	cpSpaceRemoveBody(data->space, body);
+}
+
+void physics_shapeFree(physics_PhysicsData* data, cpShape* shape)
+{
+	cpSpaceRemoveShape(data->space, shape);
+}
+
 void physics_free(physics_PhysicsData* physics)
 {
-    for (int i = 0; i < moduleData.bodies_size; i++)
-        cpSpaceRemoveBody(physics->space, moduleData.bodies[i]);
-
-    for (int i = 0; i < moduleData.shapes_size; i++)
-        cpSpaceRemoveShape(physics->space, moduleData.shapes[i]);
-
-    moduleData.bodies_size = 0;
-    moduleData.shapes_size = 0;
-
     cpSpaceFree(physics->space);
 }
 

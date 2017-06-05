@@ -242,14 +242,14 @@ static int handle_script (lua_State *L, char **argv, int n) {
   int narg = getargs(L, argv, n);  /* collect arguments */
   lua_setglobal(L, "arg");
   fname = argv[n];
-  if (strcmp(fname, "-") == 0 && strcmp(argv[n-1], "--") != 0) 
+  if (strcmp(fname, "-") == 0 && strcmp(argv[n-1], "--") != 0)
     fname = NULL;  /* stdin */
   status = luaL_loadfile(L, fname);
   lua_insert(L, -(narg+1));
   if (status == 0)
     status = docall(L, narg, 0);
   else
-    lua_pop(L, narg);      
+    lua_pop(L, narg);
   return report(L, status);
 }
 
@@ -373,11 +373,11 @@ static int pmain (lua_State *L) {
   return 0;
 }
 
-
+/*
 int main (int argc, char **argv) {
   int status;
   struct Smain s;
-  lua_State *L = lua_open();  /* create state */
+  lua_State *L = lua_open();
   if (L == NULL) {
     l_message(argv[0], "cannot create state: not enough memory");
     return EXIT_FAILURE;
@@ -389,4 +389,4 @@ int main (int argc, char **argv) {
   lua_close(L);
   return (status || s.status) ? EXIT_FAILURE : EXIT_SUCCESS;
 }
-
+*/

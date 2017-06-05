@@ -35,7 +35,7 @@
 #   define CLOVE_DESKTOP
 # 	define CLOVE_GL
 #endif
-#if defined(EMSCRIPTEN)
+#if defined(EMSCRIPTEN) || defined(__EMSCRIPTEN__)
 #  define CLOVE_WEB
 #  define CLOVE_ES
 #endif

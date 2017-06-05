@@ -19,7 +19,6 @@
 #include "graphics_image.h"
 #include "tools.h"
 
-
 static struct {
   int batchMT;
 } moduleData;

@@ -18,23 +18,29 @@
 
 typedef struct
 {
-    cpBody body;
-    int bodyRef;
+    physics_PhysicsData* physics;
+    cpBody* body;
 }   l_physics_Body;
 
 typedef struct
 {
-    cpShape shape;
-    int shapeRef;
+    physics_PhysicsData* physics;
+    cpShape* shape;
 }   l_physics_Shape;
 
 typedef struct
 {
-    physics_PhysicsData physics;
-    int physicsRef;
+    physics_PhysicsData* physics;
 } l_physics_PhysicsData;
 
-int l_physics_register(lua_State* state);
+int l_physics_newSpace(lua_State* state);
+int l_physics_newBoxBody(lua_State* state);
+int l_physics_newCircleBody(lua_State* state);
+int l_physics_newCircleShape(lua_State* state);
+int l_physics_newBoxShape(lua_State* state);
+int l_physics_newShape(lua_State* state);
+
+void l_physics_register(lua_State* state);
 
 bool l_physics_isPhysicsShape(lua_State* state, int index);
 l_physics_Shape* l_physics_toPhysicsShape(lua_State* state, int index);

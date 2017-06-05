@@ -8,6 +8,9 @@
 */
 #pragma once
 
+#ifdef CLOVE_WEB
+#include <emscripten.h>
+#endif
 
 #include "3rdparty/lua/lua.h"
 #include "3rdparty/lua/lauxlib.h"
@@ -32,6 +35,7 @@
 #include "luaapi/system.h"
 #include "luaapi/thread.h"
 #include "luaapi/net.h"
+#include "luaapi/physics.h"
 #include "luaapi/errorhandler.h"
 
 #include "tools/utils.h"
