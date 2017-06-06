@@ -37,7 +37,9 @@ void filesystem_init(char* argv0, int stats) {
 #elif CLOVE_WINDOWS
 	moduleData.os = "windows";
 #elif CLOVE_ANDROID
-	moduleData.is = "android";
+    moduleData.os = "android";
+#elif CLOVE_WEB
+    moduleData.os = "web";
 #else
 	moduleData.os = "This OS is not supported";
 #endif

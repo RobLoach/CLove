@@ -246,7 +246,7 @@ void main_activity_load(int argc, char* argv[]) {
     audio_init(config.window.stats);
 
     if (config.window.stats)
-        printf("%s %s \n", "Debug: Platform: ", filesystem_getOS());
+        printf("%s %s \n", "Debug: Platform:", filesystem_getOS());
 
     graphics_init(config.window.width, config.window.height, config.window.resizable, config.window.stats, config.window.window);
     /*

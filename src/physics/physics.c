@@ -21,6 +21,9 @@ void physics_newSpace(physics_PhysicsData* physics, cpFloat grav_x, cpFloat grav
     physics->space = cpSpaceNew();
     physics->gravity = cpv(grav_x, grav_y);
     cpSpaceSetGravity(physics->space, cpv(grav_x, grav_y));
+
+    printf("%s \n", "Called newSpace");
+
 }
 
 cpVect physics_getSpaceGravity(physics_PhysicsData* physics)
@@ -40,7 +43,9 @@ void physics_setSpaceSleepTime(physics_PhysicsData* physics, cpFloat sleep)
 
 void physics_updateSpace(physics_PhysicsData* physics, cpFloat dt)
 {
+    printf("%s \n", "Called updateSpace - 1");
     cpSpaceStep(physics->space, dt);
+    printf("%s \n", "Called updateSpace - 2");
 }
 
 void physics_setSpaceDamping(physics_PhysicsData* physics, cpFloat damping)
@@ -60,19 +65,24 @@ void physics_newBoxBody(physics_PhysicsData* physics, cpBody* body, cpFloat mass
 	else
 		_moment = moment;
 
-	/*
+    printf("%s \n", "Called newBoxBody - 1");
+
+    /*
     if (strcmp(type, "static"))
     {
         body = cpSpaceAddBody(physics->space, cpBodyNewStatic());
     }
     else if (strcmp(type, "dynamic"))
     {
-	*/
-		printf("Called \n");
+    */
+        printf("Called \n");
         body = cpSpaceAddBody(physics->space, cpBodyNew(mass, _moment));
-    //}
-    //else
-      //  printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
+    /*}
+    else
+        printf("%s %s %s \n", "Error, type: ", type, " is not acceptable");
+        */
+
+    printf("%s \n", "Called newBoxBody - 2");
 
 }
 
@@ -190,14 +200,14 @@ void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpShape*
 
 void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat width, cpFloat height, cpFloat radius)
 {
+    printf("%s \n", "Called newBoxShape - 1");
     shape = cpSpaceAddShape(physics->space, cpBoxShapeNew(body, width, height, radius));
-
+    printf("%s \n", "Called newBoxShape - 2");
 }
 
 void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius)
 {
     shape = cpSpaceAddShape(physics->space, cpSegmentShapeNew(body, cpv(x1, y1), cpv(x2, y2), radius));
-
 }
 
 cpFloat physics_getShapeDensity(cpShape* shape)
@@ -269,6 +279,7 @@ void physics_shapeFree(physics_PhysicsData* data, cpShape* shape)
 void physics_free(physics_PhysicsData* physics)
 {
     cpSpaceFree(physics->space);
+    free(physics);
 }
 
 

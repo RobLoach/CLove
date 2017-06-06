@@ -112,7 +112,7 @@ typedef struct cpSpace cpSpace;
 #include "cpTransform.h"
 #include "cpSpatialIndex.h"
 
-#include "cpArbiter.h"	
+#include "cpArbiter.h"
 
 #include "cpBody.h"
 #include "cpShape.h"
@@ -192,7 +192,7 @@ cpClosetPointOnSegment(const cpVect p, const cpVect a, const cpVect b)
 #if __has_extension(blocks)
 // Define alternate block based alternatives for a few of the callback heavy functions.
 // Collision handlers are post-step callbacks are not included to avoid memory management issues.
-// If you want to use blocks for those and are aware of how to correctly manage the memory, the implementation is trivial. 
+// If you want to use blocks for those and are aware of how to correctly manage the memory, the implementation is trivial.
 
 void cpSpaceEachBody_b(cpSpace *space, void (^block)(cpBody *body));
 void cpSpaceEachShape_b(cpSpace *space, void (^block)(cpShape *shape));
@@ -227,7 +227,7 @@ static inline cpVect operator *(const cpVect v, const cpFloat s){return cpvmult(
 static inline cpVect operator +(const cpVect v1, const cpVect v2){return cpvadd(v1, v2);}
 static inline cpVect operator -(const cpVect v1, const cpVect v2){return cpvsub(v1, v2);}
 static inline cpBool operator ==(const cpVect v1, const cpVect v2){return cpveql(v1, v2);}
-static inline cpVect operator -(const cpVect v){return cpvneg(v);}
+//static inline cpVect operator -(const cpVect v){return cpvneg(v);}
 
 #endif
 #endif

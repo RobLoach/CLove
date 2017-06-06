@@ -19,30 +19,38 @@
     #define USE_NATIVE 0x01
 #endif
 
-#if defined(WIN32) || defined(_WIN32)
-#	define CLOVE_WINDOWS 1
-#endif
 #if defined(linux) || defined(__linux) || defined(__linux__)
 #	define CLOVE_LINUX 1
 #endif
+
 #if defined(__APPLE__)
 #	define CLOVE_MACOSX 1
 #endif
-#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX)
-#   define CLOVE_UNIX
+
+#if defined(WIN32) || defined(_WIN32)
+#	define CLOVE_WINDOWS 1
 #endif
-#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX) || defined(CLOVE_WINDOWS)
-#   define CLOVE_DESKTOP
-# 	define CLOVE_GL
-#endif
+
 #if defined(EMSCRIPTEN) || defined(__EMSCRIPTEN__)
 #  define CLOVE_WEB
 #  define CLOVE_ES
 #endif
-#if defined(__ANDROID__) || ANDROID
+
+#if defined(__ANDROID__) || defined(ANDROID)
 # 	define CLOVE_ANDROID
 #   define CLOVE_ES
 #endif
+
+#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX)
+#   define CLOVE_UNIX
+# 	define CLOVE_GL
+#endif
+
+#if defined(CLOVE_MACOSX) || defined(CLOVE_LINUX) || defined(CLOVE_WINDOWS)
+#   define CLOVE_DESKTOP
+# 	define CLOVE_GL
 #endif
 
 char* util_concatenate(const char* first, const char* second);
+
+#endif
