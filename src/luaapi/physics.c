@@ -30,7 +30,10 @@ int l_physics_newSpace(lua_State* state)
     moduleData.physics = (l_physics_PhysicsData*)lua_newuserdata(state, sizeof(l_physics_PhysicsData));
     moduleData.physics->physics = malloc(sizeof(physics_PhysicsData));
 
-    physics_newSpace(moduleData.physics->physics, x, y);
+    moduleData.physics->physics->space = cpSpaceNew();
+    moduleData.physics->physics->gravity = cpv(x, y);
+    cpSpaceSetGravity(moduleData.physics->physics->space, moduleData.physics->physics->gravity);
+
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.physicsMT);
     lua_setmetatable(state, -2);
@@ -42,7 +45,7 @@ static int l_physics_getSpaceGravity(lua_State* state)
 {
     l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
-    cpVect grav = physics_getSpaceGravity(data->physics);
+    cpVect grav = cpSpaceGetGravity(data->physics->space);
 
 	lua_pushnumber(state, grav.x);
 	lua_pushnumber(state, grav.y);
@@ -58,7 +61,7 @@ static int l_physics_updateSpace(lua_State* state)
 	//TODO add default value for dt.
 	float dt = l_tools_toNumberOrError(state, 2);
 
-    physics_updateSpace(physics->physics, dt);
+    cpSpaceStep(physics->physics->space, dt);
 
 	return 0;
 }
@@ -69,7 +72,7 @@ static int l_physics_setSpaceDamping(lua_State* state)
 
 	float damping = l_tools_toNumberOrError(state, 2);
 
-    physics_setSpaceDamping(&physics->physics, damping);
+    cpSpaceSetDamping(physics->physics->space, damping);
 
 	return 0;
 }
@@ -81,7 +84,7 @@ static int l_physics_setSpaceIterations(lua_State* state)
 
     int iterations = l_tools_toIntegerOrError(state, 2);
 
-    physics_setSpaceIterations(physics->physics, iterations);
+    cpSpaceSetIterations(physics->physics->space, iterations);
 
     return 0;
 }
@@ -93,7 +96,7 @@ static int l_physics_setSpaceSleepTime(lua_State* state)
 
     float sleep = l_tools_toNumberOrError(state, 2);
 
-    physics_setSpaceSleepTime(physics->physics, sleep);
+    cpSpaceSetSleepTimeThreshold(physics->physics->space, sleep);
 
     return 0;
 }
@@ -112,8 +115,25 @@ int l_physics_newBoxBody(lua_State* state)
     moduleData.body = (l_physics_Body*)lua_newuserdata(state, sizeof(l_physics_Body));
     moduleData.body->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.body->physics = physics->physics;
-    physics_newBoxBody(physics->physics, moduleData.body->body, mass, width, height, moment, type);
 
+    cpFloat _moment = 0;
+
+    // If we don't provide a default moment then we let chipmunk calculate one
+    if (moment == 0)
+        _moment = cpMomentForBox(mass, width, height);
+    else
+        _moment = moment;
+
+    if (strcmp(type, "dynamic") == 0)
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+    else if (strcmp(type, "static") == 0)
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
+    else
+    {
+        const char* err = util_concatenate("Undefined type: ", type);
+        l_tools_trowError(state, err);
+        return -1;
+    }
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.bodyMT);
     lua_setmetatable(state, -2);
@@ -123,20 +143,37 @@ int l_physics_newBoxBody(lua_State* state)
 
 int l_physics_newCircleBody(lua_State* state)
 {
+
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     float mass = l_tools_toNumberOrError(state, 2);
     float radius = l_tools_toNumberOrError(state, 3);
-    float moment = l_tools_toNumberOrError(state, 4);
+    float moment = luaL_optnumber(state, 4, 0);
     cpVect offset = cpvzero;
-    offset.x = l_tools_toNumberOrError(state, 5);
-    offset.y = l_tools_toNumberOrError(state, 6);
+    offset.x = luaL_optnumber(state, 5, 0);
+    offset.y = luaL_optnumber(state, 6, 0);
     const char* type = luaL_optstring(state, 7, "dynamic");
 
     moduleData.body = (l_physics_Body*)lua_newuserdata(state, sizeof(l_physics_Body));
     moduleData.body->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.body->physics = physics->physics;
 
-    physics_newCircleBody(physics->physics, moduleData.body->body, mass, radius, moment, offset, type);
+    cpFloat _moment = moment;
+
+    if (_moment == 0)
+        cpMomentForCircle(mass, 0, radius, offset);
+    else
+        _moment = moment;
+
+    if (strcmp(type, "dynamic") == 0)
+        cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+    else if (strcmp(type, "static") == 0)
+        cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
+    else
+    {
+        const char* err = util_concatenate("Undefined type: ", type);
+        l_tools_trowError(state, err);
+        return -1;
+    }
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.bodyMT);
     lua_setmetatable(state, -2);
@@ -148,7 +185,7 @@ static int l_physics_getBodyTorque(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getBodyTorque(body->body));
+    lua_pushnumber(state, cpBodyGetTorque(body->body));
 
     return 1;
 }
@@ -157,7 +194,7 @@ static int l_physics_getBodyCenterOfGravity(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    cpVect vec = physics_getBodyCenterOfGravity(body->body);
+    cpVect vec = cpBodyGetCenterOfGravity(body->body);
     lua_pushnumber(state, vec.x);
     lua_pushnumber(state, vec.y);
 
@@ -168,7 +205,7 @@ static int l_physics_getBodyAngularVelocity(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getBodyAngularVelocity(body->body));
+    lua_pushnumber(state, cpBodyGetAngularVelocity(body->body));
 
     return 1;
 }
@@ -177,7 +214,7 @@ static int l_physics_getBodyForce(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    cpVect vec = physics_getBodyForce(body->body);
+    cpVect vec = cpBodyGetForce(body->body);
 
     lua_pushnumber(state, vec.x);
     lua_pushnumber(state, vec.y);
@@ -189,7 +226,7 @@ static int l_physics_getBodyMass(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getBodyMass(body->body));
+    lua_pushnumber(state, cpBodyGetMass(body->body));
 
     return 1;
 }
@@ -198,7 +235,7 @@ static int l_physics_getBodyAngle(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getBodyAngle(body->body));
+    lua_pushnumber(state, cpBodyGetAngle(body->body));
 
     return 1;
 }
@@ -207,7 +244,7 @@ static int l_physics_getBodyPosition(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    cpVect vec = physics_getBodyPosition(body->body);
+    cpVect vec = cpBodyGetPosition(body->body);
 
     lua_pushnumber(state, vec.x);
     lua_pushnumber(state, vec.y);
@@ -221,7 +258,7 @@ static int l_physics_setBodyAngle(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setBodyAngle(body->body, value);
+    cpBodySetAngle(body->body, value);
 
     return 0;
 }
@@ -232,7 +269,7 @@ static int l_physics_setBodyAngularVelocity(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setBodyAngularVelocity(body->body, value);
+    cpBodySetAngularVelocity(body->body, value);
 
     return 0;
 }
@@ -241,9 +278,11 @@ static int l_physics_setBodyCenterOfGravity(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    float value = l_tools_toNumberOrError(state, 2);
+    cpVect value = cpvzero;
+    value.x = l_tools_toNumberOrError(state, 2);
+    value.y = l_tools_toNumberOrError(state, 3);
 
-    physics_setBodyAngularVelocity(body->body, value);
+    cpBodySetCenterOfGravity(body->body, value);
 
     return 0;
 }
@@ -256,7 +295,7 @@ static int l_physics_setBodyForce(lua_State* state)
     vec.x = l_tools_toNumberOrError(state, 2);
     vec.y = l_tools_toNumberOrError(state, 3);
 
-    physics_setBodyForce(body->body, vec);
+    cpBodySetForce(body->body, vec);
 
     return 0;
 }
@@ -267,7 +306,7 @@ static int l_physics_setBodyMass(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setBodyMass(body->body, value);
+    cpBodySetMass(body->body, value);
 
     return 0;
 }
@@ -278,7 +317,7 @@ static int l_physics_setBodyTorque(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setBodyTorque(body->body, value);
+    cpBodySetTorque(body->body, value);
 
     return 0;
 }
@@ -291,7 +330,7 @@ static int l_physics_setBodyVelocity(lua_State* state)
     vec.x = l_tools_toNumberOrError(state, 2);
     vec.y = l_tools_toNumberOrError(state, 3);
 
-    physics_setBodyVelocity(body->body, vec);
+    cpBodySetVelocity(body->body, vec);
 
     return 0;
 }
@@ -304,7 +343,7 @@ static int l_physics_setBodyPosition(lua_State* state)
     vec.x = l_tools_toNumberOrError(state, 2);
     vec.y = l_tools_toNumberOrError(state, 3);
 
-    physics_setBodyPosition(body->body, vec);
+    cpBodySetPosition(body->body, vec);
 
     return 0;
 }
@@ -313,13 +352,14 @@ static int l_physics_setBodyMoment(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    physics_setBodyMoment(body->body, l_tools_toNumberOrError(state, 2));
+    cpBodySetMoment(body->body, l_tools_toNumberOrError(state, 2));
 
 	return 0;
 }
 
 int l_physics_newCircleShape(lua_State* state)
 {
+
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
     float radius = l_tools_toNumberOrError(state, 3);
@@ -332,10 +372,11 @@ int l_physics_newCircleShape(lua_State* state)
     moduleData.shape->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.shape->physics = physics->physics;
 
-    physics_newCircleShape(physics->physics, body->body, moduleData.shape->shape, radius, offset);
+    moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpCircleShapeNew(body->body, radius, offset));
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
     lua_setmetatable(state, -2);
+
 
     return 1;
 }
@@ -352,7 +393,7 @@ int l_physics_newBoxShape(lua_State* state)
     moduleData.shape->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.shape->physics = physics->physics;
 
-    physics_newBoxShape(physics->physics, body->body, moduleData.shape->shape, width, height, radius);
+    moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpBoxShapeNew(body->body, width, height, radius));
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
     lua_setmetatable(state, -2);
@@ -362,6 +403,7 @@ int l_physics_newBoxShape(lua_State* state)
 
 int l_physics_newShape(lua_State* state)
 {
+
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
     float x1 = l_tools_toNumberOrError(state, 3);
@@ -374,7 +416,8 @@ int l_physics_newShape(lua_State* state)
 
     moduleData.shape->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.shape->physics = physics->physics;
-    physics_newShape(physics->physics, body->body, moduleData.shape->shape, x1, y1, x2, y2, radius);
+
+    moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpSegmentShapeNew(body->body, cpv(x1, y1), cpv(x2, y2), radius));
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
     lua_setmetatable(state, -2);
@@ -386,7 +429,7 @@ static int l_physics_getShapeDensity(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getShapeDensity(shape->shape));
+    lua_pushnumber(state, cpShapeGetDensity(shape->shape));
 
     return 1;
 }
@@ -396,7 +439,7 @@ static int l_physics_getShapeElasticity(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getElasticity(shape->shape));
+    lua_pushnumber(state, cpShapeGetElasticity(shape->shape));
 
     return 1;
 }
@@ -405,7 +448,7 @@ static int l_physics_getShapeFriction(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getFriction(shape->shape));
+    lua_pushnumber(state, cpShapeGetFriction(shape->shape));
 
     return 1;
 }
@@ -414,7 +457,7 @@ static int l_physics_getShapeMass(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getMass(shape->shape));
+    lua_pushnumber(state, cpShapeGetMass(shape->shape));
 
     return 1;
 }
@@ -423,7 +466,7 @@ static int l_physics_getShapeMoment(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    lua_pushnumber(state, physics_getMoment(shape->shape));
+    lua_pushnumber(state, cpShapeGetMass(shape->shape));
 
     return 1;
 }
@@ -434,7 +477,7 @@ static int l_physics_setShapeFriction(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setShapeFriction(shape->shape, value);
+    cpShapeSetFriction(shape->shape, value);
 
     return 0;
 }
@@ -445,7 +488,7 @@ static int l_physics_setShapeDensity(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setShapeDensity(shape->shape, value);
+    cpShapeSetDensity(shape->shape, value);
 
     return 0;
 }
@@ -456,7 +499,7 @@ static int l_physics_setShapeElasticity(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setShapeElasticity(shape->shape, value);
+    cpShapeSetElasticity(shape->shape, value);
 
     return 0;
 }
@@ -467,7 +510,7 @@ static int l_physics_setShapeMass(lua_State* state)
 
     float value = l_tools_toNumberOrError(state, 2);
 
-    physics_setShapeMass(shape->shape, value);
+    cpShapeSetMass(shape->shape, value);
 
     return 0;
 }
@@ -477,7 +520,8 @@ static int l_physics_setShapeBody(lua_State* state)
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
 
-    physics_setShapeBody(shape->shape, body->body);
+    if (shape->physics && shape->shape && body->body)
+        cpShapeSetBody(shape->shape, body->body);
 
     return 0;
 }
@@ -487,7 +531,9 @@ static int l_physics_setShapeBody(lua_State* state)
 static int l_physics_shapeGC(lua_State* state)
 {
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
-    physics_shapeFree(shape->physics, shape->shape);
+
+    if (shape->physics && shape->shape)
+        cpSpaceRemoveShape(shape->physics->space, shape->shape);
 
 	return 0;
 }
@@ -495,7 +541,7 @@ static int l_physics_shapeGC(lua_State* state)
 static int l_physics_bodyGC(lua_State* state)
 {
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
-    physics_bodyFree(body->physics, body->body);
+    cpSpaceRemoveBody(body->physics->space, body->body);
 
 	return 0;
 }
@@ -503,7 +549,7 @@ static int l_physics_bodyGC(lua_State* state)
 static int l_physics_gc(lua_State* state)
 {
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
-    physics_free(physics->physics);
+    cpSpaceFree(physics->physics->space);
 
     return 0;
 }

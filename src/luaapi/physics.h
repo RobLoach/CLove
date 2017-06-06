@@ -10,11 +10,22 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "../3rdparty/lua/lua.h"
-#include "../physics/physics.h"
+
+#include "../3rdparty/chipmunk/include/chipmunk/chipmunk_structs.h"
+#include "../3rdparty/chipmunk/include/chipmunk/chipmunk.h"
 
 #include "tools.h"
+
+typedef struct
+{
+    cpSpace* space;
+    cpVect gravity;
+} physics_PhysicsData;
 
 typedef struct
 {
