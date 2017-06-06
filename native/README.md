@@ -8,5 +8,5 @@ game in C/C++ and/or in Lua.
 
 #Note
 
-You must call all your draw,update and load functions inside game.c from where
+You must call all your draw, update and load functions inside game.c from where
 CLove will handle the code inside src/main.c
