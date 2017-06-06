@@ -15,9 +15,12 @@
 #include <string.h>
 
 #include "../3rdparty/lua/lua.h"
+#include "../3rdparty/lua/lauxlib.h"
 
 #include "../3rdparty/chipmunk/include/chipmunk/chipmunk_structs.h"
 #include "../3rdparty/chipmunk/include/chipmunk/chipmunk.h"
+
+#include "../timer/timer.h"
 
 #include "tools.h"
 

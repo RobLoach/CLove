@@ -10,13 +10,15 @@
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "../3rdparty/slre/slre.h"
+#include "../graphics/shader.h"
+#include "../filesystem/filesystem.h"
+#include "../math/minmax.h"
+
 #include "tools.h"
 #include "graphics_shader.h"
 #include "graphics_image.h"
-#include "../graphics/shader.h"
-#include "../3rdparty/slre/slre.h"
-#include "../filesystem/filesystem.h"
-#include "../math/minmax.h"
 
 static void pushShaderInfoLog(lua_State *state, graphics_Shader const* shader);
 

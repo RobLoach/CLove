@@ -58,8 +58,7 @@ static int l_physics_updateSpace(lua_State* state)
 
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
-	//TODO add default value for dt.
-	float dt = l_tools_toNumberOrError(state, 2);
+    float dt = luaL_optnumber(state, 2, timer_getDelta());
 
     cpSpaceStep(physics->physics->space, dt);
 
@@ -146,8 +145,8 @@ int l_physics_newCircleBody(lua_State* state)
 
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     float mass = l_tools_toNumberOrError(state, 2);
-    float radius = l_tools_toNumberOrError(state, 3);
-    float moment = luaL_optnumber(state, 4, 0);
+    float radius = luaL_optnumber(state, 3, 1);
+    float moment = luaL_optnumber(state, 4, 1);
     cpVect offset = cpvzero;
     offset.x = luaL_optnumber(state, 5, 0);
     offset.y = luaL_optnumber(state, 6, 0);
@@ -165,9 +164,9 @@ int l_physics_newCircleBody(lua_State* state)
         _moment = moment;
 
     if (strcmp(type, "dynamic") == 0)
-        cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
     else if (strcmp(type, "static") == 0)
-        cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
     else
     {
         const char* err = util_concatenate("Undefined type: ", type);
@@ -386,14 +385,28 @@ int l_physics_newBoxShape(lua_State* state)
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
     float width = l_tools_toNumberOrError(state, 3);
-    float height = l_tools_toNumberOrError(state, 4);
-    float radius = l_tools_toNumberOrError(state, 5);
+    float height = luaL_optnumber(state, 4, width);
+    float radius = luaL_optnumber(state, 5, 0);
+    float offset_x = luaL_optnumber(state, 6, 0);
+    float offset_y = luaL_optnumber(state, 7, 0);
 
     moduleData.shape = (l_physics_Shape*)lua_newuserdata(state, sizeof(l_physics_Shape));
     moduleData.shape->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.shape->physics = physics->physics;
 
-    moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpBoxShapeNew(body->body, width, height, radius));
+    if (offset_x == 0 && offset_y == 0)
+        // No offset is needed
+        moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpBoxShapeNew(body->body, width, height, radius));
+    else
+    {
+        //Apply offset to shape!
+
+        cpVect off = cpv(offset_x, offset_y);
+        cpBB bb = cpBBNewForExtents(off, width * 0.5f, height * 0.5f);
+
+        moduleData.shape->shape = cpSpaceAddShape(physics->physics->space, cpBoxShapeNew2(body->body, bb, radius));
+
+    }
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.shapeMT);
     lua_setmetatable(state, -2);
