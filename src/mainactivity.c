@@ -9,11 +9,14 @@
 
 #include "mainactivity.h"
 
+#ifdef CLOVE_WEB
+#include <emscripten.h>
+#endif
+
 typedef struct {
     lua_State *luaState;
     int errhand;
 } MainLoopData;
-
 
 static void quit_function(lua_State* state) {
     lua_getglobal(state, "love");
@@ -235,13 +238,14 @@ void main_activity_load(int argc, char* argv[]) {
     l_math_register(lua);
     l_system_register(lua);
     l_net_register(lua);
-    l_thread_register(lua);
+	l_physics_register(lua);
+	l_thread_register(lua);
 
     l_boot(lua, &config);
 
     audio_init(config.window.stats);
 
-    if (config.window.stats > 1)
+    if (config.window.stats)
         printf("%s %s \n", "Debug: Platform: ", filesystem_getOS());
 
     graphics_init(config.window.width, config.window.height, config.window.resizable, config.window.stats, config.window.window);
@@ -288,7 +292,7 @@ void main_activity_load(int argc, char* argv[]) {
 
 #ifdef CLOVE_WEB
     //TODO find a way to quit(love.event.quit) love on web?
-    emscripten_set_main_loop_arg(main_loop, &mainLoopData, 0, 1);
+    emscripten_set_main_loop(main_loop, 60, 1);
 #else
     while (l_event_running())
         main_loop(&mainLoopData);

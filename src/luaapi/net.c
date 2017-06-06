@@ -12,6 +12,12 @@
 
 #include "tools.h"
 
+//TODO
+//Check if networking works with EMCC
+//Add compatibility with Windows -_-*
+
+#ifdef CLOVE_DESKTOP
+
 static struct
 {
     struct sockaddr_in server_ipv4;
@@ -174,3 +180,13 @@ int l_net_register(lua_State* state) {
     l_tools_registerModule(state, "net", regFuncs);
     return 0;
 }
+
+#endif
+
+#ifdef CLOVE_WEB
+int l_net_register(lua_State* state) {
+    return 0;
+}
+#endif
+
+

@@ -182,7 +182,7 @@ static int pmain(lua_State* L)
  }
  return 0;
 }
-
+/*
 int main(int argc, char* argv[])
 {
  lua_State* L;
@@ -198,3 +198,4 @@ int main(int argc, char* argv[])
  lua_close(L);
  return EXIT_SUCCESS;
 }
+*/

@@ -13,12 +13,16 @@
 #define _POSIX_SOURCE
 #include <string.h>
 #include <tgmath.h>
-#include "font.h"
+#include <math.h>
 #include <stdlib.h>
-#include "quad.h"
-#include "graphics.h"
+
 #include "../tools/utf8.h"
 #include "../math/minmax.h"
+
+#include "font.h"
+#include "quad.h"
+#include "graphics.h"
+
 #include "shader.h"
 #include "batch.h"
 #include "vera_ttf.c"
@@ -62,7 +66,7 @@ void graphics_GlyphMap_newTexture(graphics_GlyphMap *map) {
 }
 
 graphics_Glyph const* graphics_Font_findGlyph(graphics_Font *font, unsigned unicode) {
-    // only 256 
+    // only 256
     unsigned idx = unicode & 0xFF;
     graphics_GlyphSet *set = &font->glyphs.glyphs[idx];
 
@@ -169,24 +173,24 @@ int graphics_Font_new(graphics_Font *dst, char const* filename, int ptsize) {
         error = FT_New_Memory_Face(moduleData.ft, defaultFontData, defaultFontSize, 0, &dst->face);
     }
     if (error != 0) {
-        if ( error == FT_Err_Unknown_File_Format ) 
+        if ( error == FT_Err_Unknown_File_Format )
             printf("%s \n","Error, the font file could be opened and read");
-        else 
+        else
             printf("%s \n", "Error, the font file could not be opened or read");
     }
 
     FT_Set_Pixel_Sizes(dst->face, 0, ptsize);
 
     memset(&dst->glyphs, 0, sizeof(graphics_GlyphMap));
-    
+
     dst->glyphs.textureWidth = TextureWidth;
     dst->glyphs.textureHeight = TextureHeight;
-    
+
     // create a new texture with no data in it.
     graphics_GlyphMap_newTexture(&dst->glyphs);
 
     dst->height = dst->face->size->metrics.height >> 6;
-    //The ascender is the vertical distance from the horizontal baseline to the highest ‘character’ coordinate in a font face. 
+    //The ascender is the vertical distance from the horizontal baseline to the highest ‘character’ coordinate in a font face.
     dst->ascent = dst->face->size->metrics.ascender >> 6;
     //The descender is the vertical distance from the horizontal baseline to the lowest ‘character’ coordinate in a font face.
     dst->descent = dst->face->size->metrics.descender >> 6;
@@ -267,7 +271,7 @@ void graphics_Font_render(graphics_Font* font, char const* text, int px, int py,
             y += floor(font->height * font->lineHeight + 0.5f);
             continue;
         }
-        
+
         graphics_Batch_add(&moduleData.batches[glyph->textureIdx], &glyph->textureCoords, x+glyph->bearingX, y-glyph->bearingY, 0, 1, 1, 0, 0, 0, 0);
 
         x += glyph->advance;

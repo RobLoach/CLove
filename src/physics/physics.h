@@ -15,23 +15,21 @@
 typedef struct
 {
     cpSpace* space;
-
     cpVect gravity;
-
 } physics_PhysicsData;
 
 // Space related functions go here
 void physics_newSpace(physics_PhysicsData* physics, cpFloat grav_x, cpFloat grav_y);
+cpVect physics_getSpaceGravity(physics_PhysicsData* physics);
 void physics_setSpaceIterations(physics_PhysicsData* physics, int iterations);
 void physics_setSpaceSleepTime(physics_PhysicsData* physics, cpFloat sleep);
-void physics_Spaceupdate(physics_PhysicsData* physics, float dt);
-void physics_setSpaceDaping(physics_PhysicsData* physics, cpFloat damping);
+void physics_updateSpace(physics_PhysicsData* physics, cpFloat dt);
+void physics_setSpaceDamping(physics_PhysicsData* physics, cpFloat damping);
 
 // Body stuff goes here
-void physics_newCircleBody(physics_PhysicsData* physics, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, const char* type);
-void physics_newBoxBody(physics_PhysicsData* physics, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, const char* type);
+void physics_newCircleBody(physics_PhysicsData* physics, cpBody* body, cpFloat mass, cpFloat radius, cpFloat moment, cpVect offset, const char* type);
+void physics_newBoxBody(physics_PhysicsData* physics, cpBody* body, cpFloat mass, cpFloat width, cpFloat height, cpFloat moment, const char* type);
 
-void physics_setBodyPosition(cpBody* body, cpVect position);
 cpFloat physics_getBodyAngle(cpBody* body);
 cpFloat physics_getBodyMass(cpBody* body);
 cpVect physics_getBodyForce(cpBody* body);
@@ -41,6 +39,8 @@ cpFloat physics_getBodyAngularVelocity(cpBody* body);
 cpVect physics_getBodyForce(cpBody* body);
 cpVect physics_getBodyPosition(cpBody* body);
 
+void physics_setBodyMoment(cpBody* body, cpFloat moment);
+void physics_setBodyPosition(cpBody* body, cpVect position);
 void physics_setBodyAngle(cpBody* body, cpFloat angle);
 void physics_setBodyAngularVelocity(cpBody* body, cpFloat angular);
 void physics_setBodyCenterOfGravity(cpBody* body, cpVect center);
@@ -50,9 +50,9 @@ void physics_setBodyTorque(cpBody* body, cpFloat torque);
 void physics_setBodyVelocity(cpBody* body, cpVect velocity);
 
 //Shape stuff goes here
-void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpFloat radius, cpVect offset);
-void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpFloat width, cpFloat height, cpFloat radius);
-void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius);
+void physics_newCircleShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat radius, cpVect offset);
+void physics_newBoxShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat width, cpFloat height, cpFloat radius);
+void physics_newShape(physics_PhysicsData* physics, cpBody* body, cpShape* shape, cpFloat x1, cpFloat y1, cpFloat x2, cpFloat y2, cpFloat radius);
 
 cpFloat physics_getShapeDensity(cpShape* shape);
 cpFloat physics_getElasticity(cpShape* shape);
@@ -68,8 +68,10 @@ void physics_setShapeBody(cpShape* shape, cpBody* body);
 
 // Other funcs
 void physics_free(physics_PhysicsData* physics);
-
-
+// Free body
+void physics_bodyFree(physics_PhysicsData* data, cpBody* body);
+// Free shape
+void physics_shapeFree(physics_PhysicsData* data, cpShape* shape);
 
 
 

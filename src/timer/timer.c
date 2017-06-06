@@ -8,9 +8,9 @@
 */
 #ifdef EMSCRIPTEN
  #include <emscripten.h>
-#else
- #include "../3rdparty/SDL2/include/SDL.h"
 #endif
+
+#include "../3rdparty/SDL2/include/SDL.h"
 
 #include "timer.h"
 

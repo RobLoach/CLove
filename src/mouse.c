@@ -15,9 +15,7 @@
 #include "tools/utils.h"
 #include "luaapi/mouse.h"
 
-#ifndef CLOVE_WEB
 extern SDL_Window* graphics_getWindow(void);
-#endif
 
 static struct {
     int x, y;
@@ -107,12 +105,7 @@ int mouse_getY(void) {
 }
 
 void mouse_setPosition(int x, int y) {
-#ifdef CLOVE_WEB
-    SDL_WarpMouse(x, y);
-#else
-    if (graphics_getWindow() != NULL)
         SDL_WarpMouseInWindow(graphics_getWindow(), x, y);
-#endif
 }
 
 void mouse_setVisible(int b) {
@@ -121,19 +114,9 @@ void mouse_setVisible(int b) {
 }
 
 void mouse_setX(int x) {
-#ifdef CLOVE_WEB
-    SDL_WarpMouse(x, moduleData.y);
-#else
-    if (graphics_getWindow() != NULL)
         SDL_WarpMouseInWindow(graphics_getWindow(), x, moduleData.y);
-#endif
 }
 
 void mouse_setY(int y) {
-#ifdef CLOVE_WEB
-    SDL_WarpMouse(moduleData.x, y);
-#else
-    if (graphics_getWindow() != NULL)
         SDL_WarpMouseInWindow(graphics_getWindow(), moduleData.x, y);
-#endif
 }
