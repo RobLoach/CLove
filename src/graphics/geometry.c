@@ -262,8 +262,6 @@ void graphics_geometry_rectangle(bool filled,
     buf[30] = 1.0f;
     buf[31] = 1.0f;
 
-
-
     if (filled) {
         moduleData.index[0] = 0;
         moduleData.index[1] = 1;

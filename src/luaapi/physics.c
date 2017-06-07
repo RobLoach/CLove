@@ -9,6 +9,11 @@
 
 #include "physics.h"
 
+/*
+ * For more info and docs see:
+ * https://chipmunk-physics.net/release/ChipmunkLatest-Docs/
+ */
+
 static struct
 {
     int physicsMT;
@@ -43,6 +48,7 @@ int l_physics_newSpace(lua_State* state)
 
 static int l_physics_getSpaceGravity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
     cpVect grav = cpSpaceGetGravity(data->physics->space);
@@ -56,6 +62,7 @@ static int l_physics_getSpaceGravity(lua_State* state)
 static int l_physics_updateSpace(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
     float dt = luaL_optnumber(state, 2, timer_getDelta());
@@ -67,6 +74,7 @@ static int l_physics_updateSpace(lua_State* state)
 
 static int l_physics_setSpaceDamping(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
 	float damping = l_tools_toNumberOrError(state, 2);
@@ -79,6 +87,7 @@ static int l_physics_setSpaceDamping(lua_State* state)
 static int l_physics_setSpaceIterations(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
     int iterations = l_tools_toIntegerOrError(state, 2);
@@ -91,6 +100,7 @@ static int l_physics_setSpaceIterations(lua_State* state)
 static int l_physics_setSpaceSleepTime(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
 
     float sleep = l_tools_toNumberOrError(state, 2);
@@ -104,34 +114,38 @@ static int l_physics_setSpaceSleepTime(lua_State* state)
 int l_physics_newBoxBody(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
-    float mass = l_tools_toNumberOrError(state, 2);
-    float width = l_tools_toNumberOrError(state, 3);
+    const char* type = l_tools_toStringOrErrorPlusMsg(state, 2, "You must provide a type, eg: dynamic,static,kinematic");
+    float width = l_tools_toNumberOrErrorPlusMsg(state, 3, "You must provide a width");
     float height = luaL_optnumber(state, 4, width);
-    float moment = luaL_optnumber(state, 5, 0);
-    const char* type = luaL_optstring(state, 6, "dynamic");
+    float mass = luaL_optnumber(state, 5, 1.0f);
+    float moment = luaL_optnumber(state, 6, 0.0f);
 
     moduleData.body = (l_physics_Body*)lua_newuserdata(state, sizeof(l_physics_Body));
     moduleData.body->physics = malloc(sizeof(physics_PhysicsData));
     moduleData.body->physics = physics->physics;
 
-    cpFloat _moment = 0;
+    cpFloat _moment = moment;
 
     // If we don't provide a default moment then we let chipmunk calculate one
-    if (moment == 0)
+    if (_moment == 0)
         _moment = cpMomentForBox(mass, width, height);
-    else
-        _moment = moment;
 
     if (strcmp(type, "dynamic") == 0)
-        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewDynamic());
     else if (strcmp(type, "static") == 0)
         moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
+    else if (strcmp(type, "kinematic") == 0)
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewKinematic());
     else
     {
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+        /*
         const char* err = util_concatenate("Undefined type: ", type);
         l_tools_trowError(state, err);
         return -1;
+        */
     }
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.bodyMT);
@@ -143,14 +157,16 @@ int l_physics_newBoxBody(lua_State* state)
 int l_physics_newCircleBody(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
-    float mass = l_tools_toNumberOrError(state, 2);
-    float radius = luaL_optnumber(state, 3, 1);
-    float moment = luaL_optnumber(state, 4, 1);
+    const char* type = luaL_optstring(state, 2, "dynamic");
+    float outer_radius = luaL_optnumber(state, 3, 1.0f);
     cpVect offset = cpvzero;
-    offset.x = luaL_optnumber(state, 5, 0);
-    offset.y = luaL_optnumber(state, 6, 0);
-    const char* type = luaL_optstring(state, 7, "dynamic");
+    offset.x = luaL_optnumber(state, 4, 0.0f);
+    offset.y = luaL_optnumber(state, 5, 0.0f);
+    float mass = luaL_optnumber(state, 6, 1.0f);
+    float moment = luaL_optnumber(state, 7, 0.0f);
+    float inner_radius = luaL_optnumber(state, 8, 0.0f);
 
     moduleData.body = (l_physics_Body*)lua_newuserdata(state, sizeof(l_physics_Body));
     moduleData.body->physics = malloc(sizeof(physics_PhysicsData));
@@ -159,19 +175,22 @@ int l_physics_newCircleBody(lua_State* state)
     cpFloat _moment = moment;
 
     if (_moment == 0)
-        cpMomentForCircle(mass, 0, radius, offset);
-    else
-        _moment = moment;
+        _moment = cpMomentForCircle(mass, inner_radius, outer_radius, offset);
 
     if (strcmp(type, "dynamic") == 0)
-        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewDynamic());
+    else if (strcmp(type, "kinematic") == 0)
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewKinematic());
     else if (strcmp(type, "static") == 0)
         moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNewStatic());
     else
     {
+        moduleData.body->body = cpSpaceAddBody(physics->physics->space, cpBodyNew(mass, _moment));
+        /*
         const char* err = util_concatenate("Undefined type: ", type);
         l_tools_trowError(state, err);
         return -1;
+        */
     }
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.bodyMT);
@@ -180,8 +199,20 @@ int l_physics_newCircleBody(lua_State* state)
     return 1;
 }
 
+static int l_physics_getBodyMoment(lua_State* state)
+{
+
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+
+    lua_pushnumber(state, cpBodyGetMoment(body->body));
+
+    return 1;
+}
+
 static int l_physics_getBodyTorque(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     lua_pushnumber(state, cpBodyGetTorque(body->body));
@@ -191,6 +222,7 @@ static int l_physics_getBodyTorque(lua_State* state)
 
 static int l_physics_getBodyCenterOfGravity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect vec = cpBodyGetCenterOfGravity(body->body);
@@ -202,6 +234,7 @@ static int l_physics_getBodyCenterOfGravity(lua_State* state)
 
 static int l_physics_getBodyAngularVelocity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     lua_pushnumber(state, cpBodyGetAngularVelocity(body->body));
@@ -211,6 +244,7 @@ static int l_physics_getBodyAngularVelocity(lua_State* state)
 
 static int l_physics_getBodyForce(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect vec = cpBodyGetForce(body->body);
@@ -223,6 +257,7 @@ static int l_physics_getBodyForce(lua_State* state)
 
 static int l_physics_getBodyMass(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     lua_pushnumber(state, cpBodyGetMass(body->body));
@@ -232,6 +267,7 @@ static int l_physics_getBodyMass(lua_State* state)
 
 static int l_physics_getBodyAngle(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     lua_pushnumber(state, cpBodyGetAngle(body->body));
@@ -241,6 +277,7 @@ static int l_physics_getBodyAngle(lua_State* state)
 
 static int l_physics_getBodyPosition(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect vec = cpBodyGetPosition(body->body);
@@ -251,8 +288,53 @@ static int l_physics_getBodyPosition(lua_State* state)
     return 2;
 }
 
+static int l_physics_isBodySleeping(lua_State* state)
+{
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+
+    lua_pushboolean(state, cpBodyIsSleeping(body->body));
+
+    return 1;
+}
+
+static int l_physics_getBodyType(lua_State* state)
+{
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+
+    cpBodyType type = cpBodyGetType(body->body);
+
+    const char* s_type;
+
+    if (type == CP_BODY_TYPE_STATIC)
+        s_type = "static";
+    else if (type == CP_BODY_TYPE_DYNAMIC)
+        s_type = "dynamic";
+    else if (type == CP_BODY_TYPE_KINEMATIC)
+        s_type = "kinematic";
+    else
+        s_type = "unknown";
+
+    lua_pushstring(state, s_type);
+
+    return 1;
+}
+
+/* Forces a body to sleep. Cannot be called from a callback! */
+static int l_physics_setBodySleep(lua_State* state)
+{
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+
+    cpBodySleep(body->body);
+
+    return 0;
+}
+
 static int l_physics_setBodyAngle(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     float value = l_tools_toNumberOrError(state, 2);
@@ -264,6 +346,7 @@ static int l_physics_setBodyAngle(lua_State* state)
 
 static int l_physics_setBodyAngularVelocity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     float value = l_tools_toNumberOrError(state, 2);
@@ -275,6 +358,7 @@ static int l_physics_setBodyAngularVelocity(lua_State* state)
 
 static int l_physics_setBodyCenterOfGravity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect value = cpvzero;
@@ -288,6 +372,7 @@ static int l_physics_setBodyCenterOfGravity(lua_State* state)
 
 static int l_physics_setBodyForce(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect vec = cpvzero;
@@ -299,8 +384,22 @@ static int l_physics_setBodyForce(lua_State* state)
     return 0;
 }
 
+/*
+ * The moment is like the rotational mass of a body
+ */
+static int l_physics_setBodyMoment(lua_State* state)
+{
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+
+    cpBodySetMoment(body->body, l_tools_toNumberOrError(state, 2));
+
+    return 0;
+}
+
 static int l_physics_setBodyMass(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     float value = l_tools_toNumberOrError(state, 2);
@@ -312,6 +411,7 @@ static int l_physics_setBodyMass(lua_State* state)
 
 static int l_physics_setBodyTorque(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     float value = l_tools_toNumberOrError(state, 2);
@@ -323,6 +423,7 @@ static int l_physics_setBodyTorque(lua_State* state)
 
 static int l_physics_setBodyVelocity(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
     cpVect vec = cpvzero;
@@ -336,33 +437,37 @@ static int l_physics_setBodyVelocity(lua_State* state)
 
 static int l_physics_setBodyPosition(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
+    l_tools_checkUserDataPlusErrMsg(state, 2, "You must provide a space");
+
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
+    l_physics_PhysicsData* space = (l_physics_PhysicsData*)lua_touserdata(state, 2);
 
     cpVect vec = cpvzero;
-    vec.x = l_tools_toNumberOrError(state, 2);
-    vec.y = l_tools_toNumberOrError(state, 3);
+    vec.x = l_tools_toNumberOrError(state, 3);
+    vec.y = l_tools_toNumberOrError(state, 4);
 
     cpBodySetPosition(body->body, vec);
+    /*
+     * Docs:
+     * When changing the position you may also want to call cpSpaceReindexShapesForBody()
+     * to update the collision detection information for the attached shapes if plan to
+     * make any queries against the space.
+     */
+    cpSpaceReindexShapesForBody(space->physics->space, body->body);
 
     return 0;
-}
-
-static int l_physics_setBodyMoment(lua_State* state)
-{
-    l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
-
-    cpBodySetMoment(body->body, l_tools_toNumberOrError(state, 2));
-
-	return 0;
 }
 
 int l_physics_newCircleShape(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space!");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+    l_tools_checkUserDataPlusErrMsg(state, 2, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
-    float radius = l_tools_toNumberOrError(state, 3);
 
+    float radius = l_tools_toNumberOrError(state, 3);
     cpVect offset = cpvzero;
     offset.x = l_tools_toNumberOrError(state, 4);
     offset.y = l_tools_toNumberOrError(state, 5);
@@ -382,8 +487,11 @@ int l_physics_newCircleShape(lua_State* state)
 
 int l_physics_newBoxShape(lua_State* state)
 {
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space!");
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+    l_tools_checkUserDataPlusErrMsg(state, 2, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
+
     float width = l_tools_toNumberOrError(state, 3);
     float height = luaL_optnumber(state, 4, width);
     float radius = luaL_optnumber(state, 5, 0);
@@ -417,8 +525,12 @@ int l_physics_newBoxShape(lua_State* state)
 int l_physics_newShape(lua_State* state)
 {
 
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a space");
+    l_tools_checkUserDataPlusErrMsg(state, 2, "You must provide a body");
+
     l_physics_PhysicsData* physics = (l_physics_PhysicsData*)lua_touserdata(state, 1);
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 2);
+
     float x1 = l_tools_toNumberOrError(state, 3);
     float y1 = l_tools_toNumberOrError(state, 4);
     float x2 = l_tools_toNumberOrError(state, 5);
@@ -482,6 +594,25 @@ static int l_physics_getShapeMoment(lua_State* state)
     lua_pushnumber(state, cpShapeGetMass(shape->shape));
 
     return 1;
+}
+
+//TODO look into these
+//cpShapeSetCollisionType
+//cpShapeFilter
+
+static int l_physics_setShapeFilter(lua_State* state)
+{
+    l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a shape");
+    l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
+
+    cpShapeFilter filter;
+    filter.group = ((cpGroup)id);
+    filter.categories =  (~(cpBitmask)bitmask);
+    //filter.mask = (())
+
+    //cpShapeSetFilter(shape->shape, NOT_GRABBABLE_FILTER);
+
+    return 0;
 }
 
 static int l_physics_setShapeFriction(lua_State* state)
@@ -578,9 +709,14 @@ static luaL_Reg const bodyMetatableFuncs[] =
     {"getCenterOfGravity",           l_physics_getBodyCenterOfGravity},
     {"getForce",                     l_physics_getBodyForce},
     {"getMass",                      l_physics_getBodyMass},
+    {"getMoment",                    l_physics_getBodyMoment},
 	{"getPosition",                  l_physics_getBodyPosition},
+    {"getType",                      l_physics_getBodyType},
+    {"isSleeping",                   l_physics_isBodySleeping},
     //{"getBody",                      l_physics_gevBody},
 
+    {"setSleep",                     l_physics_setBodySleep},
+    {"setMoment",                    l_physics_setBodyMoment},
     {"setAngle",                     l_physics_setBodyAngle},
     {"setAngularVelocity",           l_physics_setBodyAngularVelocity},
     {"setCenterOfGravity",           l_physics_setBodyCenterOfGravity},
@@ -602,7 +738,7 @@ static luaL_Reg const shapeMetatableFuncs[] =
 	{"getElasticity",         		 l_physics_getShapeElasticity},
 	{"getMass",               		 l_physics_getShapeMass},
 
-	{"setFriction",           		 l_physics_setShapeFriction},
+    {"setFriction",           		 l_physics_setShapeFriction},
 	{"setDensity",            		 l_physics_setShapeDensity},
 	{"setElasticity",         		 l_physics_setShapeElasticity},
 	{"setMass",               		 l_physics_setShapeMass},

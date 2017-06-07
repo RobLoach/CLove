@@ -88,7 +88,8 @@ static const graphics_Quad quad = {0.0f, 0.0f, 1.0f, 1.0f};
 void graphics_Mesh_draw(graphics_Mesh3d* mesh, float x, float y, float r, float sx, float sy, float ox, float oy, float kx, float ky) {
 
     graphics_Shader* shader = graphics_getShader();
-    if (mesh->hasTexture) {
+    if (mesh->hasTexture)
+    {
         /*
          * Set the default shader in case you previously
          * did not have a texture put
@@ -97,8 +98,9 @@ void graphics_Mesh_draw(graphics_Mesh3d* mesh, float x, float y, float r, float 
         //glEnable(GL_TEXTURE_2D); Deprecated in GLES 2
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, mesh->image->texID);
-        } else
-            graphics_setShader(&mesh->plainColorShader);
+    }
+    else
+        graphics_setShader(&mesh->plainColorShader);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(graphics_Vertex) * mesh->vertexCount, mesh->vertices, GL_DYNAMIC_DRAW);
 

@@ -23,6 +23,25 @@ int l_tools_makeTypeMetatable(lua_State* state, luaL_Reg const* funcs);
 
 #ifndef LOVE_SKIP_SAFETY_CHECKS
 
+inline void l_tools_checkUserData(lua_State* state, int index)
+{
+    if (lua_type(state, index) != LUA_TUSERDATA)
+    {
+        luaL_argerror(state, index-1,"expected userdata");
+        lua_error(state);
+    }
+}
+
+inline void l_tools_checkUserDataPlusErrMsg(lua_State* state, int index, const char* msg)
+{
+    if (lua_type(state, index) != LUA_TUSERDATA)
+    {
+        luaL_argerror(state, index-1,"expected userdata");
+        lua_pushstring(state, msg);
+        lua_error(state);
+    }
+}
+
 inline void l_tools_trowError(lua_State* state, const char* msg) {
     lua_pushstring(state, msg);
     lua_error(state);
@@ -62,7 +81,7 @@ inline int l_tools_toIntegerOrErrorPlusMsg(lua_State* state, int index, const ch
 }
 
 inline float l_tools_toNumberOrError(lua_State* state, int index) {
-  if(lua_type(state, index) != LUA_TNUMBER) {
+    if(lua_type(state, index) != LUA_TNUMBER) {
       luaL_argerror(state,index-1,"expected number");
       lua_error(state);
     }
@@ -77,6 +96,17 @@ inline int l_tools_toIntegerOrError(lua_State* state, int index) {
     }
 
   return lua_tointeger(state, index);
+}
+
+inline char const* l_tools_toStringOrErrorPlusMsg(lua_State* state, int index, const char* msg)
+{
+    if(lua_type(state, index) != LUA_TSTRING) {
+        luaL_argerror(state,index-1,"expected string");
+        lua_pushstring(state, msg);
+        lua_error(state);
+      }
+
+    return lua_tostring(state, index);
 }
 
 inline char const* l_tools_toStringOrError(lua_State* state, int index) {

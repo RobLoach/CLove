@@ -73,5 +73,9 @@ extern inline int l_tools_toIntegerOrErrorPlusMsg(lua_State* state, int index, c
 extern inline int l_tools_toIntegerOrError(lua_State *state, int index);
 extern inline float l_tools_toNumberOrError(lua_State* state, int index);
 
+extern inline void l_tools_checkUserDataPlusErrMsg(lua_State* state, int index, const char* msg);
+extern inline void l_tools_checkUserData(lua_State* state, int index);
+
 extern inline char const* l_tools_toStringOrError(lua_State* state, int index);
+extern inline char const* l_tools_toStringOrErrorPlusMsg(lua_State* state, int index, const char* msg);
 extern inline int l_tools_toEnumOrError(lua_State* state, int index, l_tools_Enum const* values);

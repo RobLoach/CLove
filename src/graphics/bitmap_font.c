@@ -39,7 +39,7 @@ static struct
     uint32_t batchsize;
 } moduleData;
 
-void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename,char const* glyphs, float glyph_width, float glyph_height)
+void graphics_BitmapFont_new(graphics_BitmapFont* dst, char const* filename, char const* glyphs, float glyph_width, float glyph_height)
 {
     moduleData.indexer_map = malloc(sizeof(glyphs_indexer) * strlen(glyphs)+1);
 
