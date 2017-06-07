@@ -14,6 +14,11 @@
  * https://chipmunk-physics.net/release/ChipmunkLatest-Docs/
  */
 
+/*
+ * TODO:
+ * Add POLYGON
+ */
+
 static struct
 {
     int physicsMT;
@@ -386,13 +391,72 @@ static int l_physics_setBodyForce(lua_State* state)
 
 /*
  * The moment is like the rotational mass of a body
+ * Note: !This function may also set the mass of the object!
  */
 static int l_physics_setBodyMoment(lua_State* state)
 {
     l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a body");
     l_physics_Body* body = (l_physics_Body*)lua_touserdata(state, 1);
 
-    cpBodySetMoment(body->body, l_tools_toNumberOrError(state, 2));
+    /*
+     * You can provide a custom moment
+     * for this body *or* you can choose what
+     * type of body this is and let chipmunk
+     * calculate the value based on some attributes
+     */
+
+    int index = 2;
+
+    cpFloat _mass = 0;
+    cpFloat moment = 0;
+    if (lua_type(state, 2) == LUA_TNUMBER)
+    {
+        moment = l_tools_toNumberOrError(state, 2);
+    }
+    else if (lua_type(state, 2) == LUA_TSTRING)
+    {
+        const char* whatFor = lua_tostring(state, 2);
+        if (strcmp(whatFor, "box") == 0)
+        {
+            cpFloat mass = l_tools_toNumberOrError(state, 3);
+            cpFloat width = l_tools_toNumberOrError(state, 4);
+            cpFloat height = l_tools_toNumberOrError(state, 5);
+            _mass = mass;
+            moment = cpMomentForBox(mass, width, height);
+        }
+        else if (strcmp(whatFor, "circle") == 0)
+        {
+            cpFloat mass = l_tools_toNumberOrError(state, index++);
+            cpFloat inner_radius = l_tools_toNumberOrError(state, index++);
+            cpFloat outer_radius = l_tools_toNumberOrError(state, index++);
+            cpVect offset = cpvzero;
+            offset.x = l_tools_toNumberOrError(state, index++);
+            offset.y = l_tools_toNumberOrError(state, index++);
+            _mass = mass;
+            moment = cpMomentForCircle(mass, inner_radius, outer_radius, offset);
+        }
+        else if (strcmp(whatFor, "segment") == 0)
+        {
+
+            cpFloat mass = l_tools_toNumberOrError(state, index++);
+
+            cpVect a = cpvzero;
+            a.x = l_tools_toNumberOrError(state, index++);
+            a.y = l_tools_toNumberOrError(state, index++);
+            cpVect b = cpvzero;
+            b.x = l_tools_toNumberOrError(state, index++);
+            b.y = l_tools_toNumberOrError(state, index++);
+
+            cpFloat radius = l_tools_toNumberOrError(state, index++);
+            _mass = mass;
+            moment == cpMomentForSegment(mass, a, b, radius);
+        }
+    }
+
+    if (_mass > 0)
+        cpBodySetMass(body->body, _mass);
+
+    cpBodySetMoment(body->body, moment);
 
     return 0;
 }
@@ -598,19 +662,35 @@ static int l_physics_getShapeMoment(lua_State* state)
 
 //TODO look into these
 //cpShapeSetCollisionType
-//cpShapeFilter
-
 static int l_physics_setShapeFilter(lua_State* state)
 {
+
+    cpShapeFilter shapeFilter;
+
     l_tools_checkUserDataPlusErrMsg(state, 1, "You must provide a shape");
     l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
 
-    cpShapeFilter filter;
-    filter.group = ((cpGroup)id);
-    filter.categories =  (~(cpBitmask)bitmask);
-    //filter.mask = (())
+    /*
+     * Two objects with the same non-zero group value do not collide.
+     */
+    uint32_t group = l_tools_toIntegerOrError(state, 2);
+    /*
+     * A bitmask of user definable categories that this object belongs to.
+     * The category/mask combinations of both objects in a collision must agree
+     * for a collision to occur.
+     */
+    uint32_t categories = l_tools_toIntegerOrError(state, 3);
+    /*
+     * A bitmask of user definable category types that this object object collides with.
+     * The category/mask combinations of both objects in a collision must agree for a collision
+     * to occur.
+     */
+    uint32_t mask = l_tools_toIntegerOrError(state, 4);
 
-    //cpShapeSetFilter(shape->shape, NOT_GRABBABLE_FILTER);
+    shapeFilter.group = group;
+    shapeFilter.categories = categories;
+    shapeFilter.mask = mask;
+    cpShapeSetFilter(shape->shape, shapeFilter);
 
     return 0;
 }
@@ -738,6 +818,7 @@ static luaL_Reg const shapeMetatableFuncs[] =
 	{"getElasticity",         		 l_physics_getShapeElasticity},
 	{"getMass",               		 l_physics_getShapeMass},
 
+    {"setFilter",                    l_physics_setShapeFilter},
     {"setFriction",           		 l_physics_setShapeFriction},
 	{"setDensity",            		 l_physics_setShapeDensity},
 	{"setElasticity",         		 l_physics_setShapeElasticity},
