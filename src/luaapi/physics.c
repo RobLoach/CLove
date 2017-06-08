@@ -29,10 +29,123 @@ static struct
     l_physics_Shape* shape;
     l_physics_PhysicsData* physics;
 
+    cpCollisionHandler *handler;
+
+    bool onBegin;
+    /*
+     * TODO? : Make this idea to work?
+     * Wether or not you want to have
+     * have collision when onBegin() is called
+     * between the shapes.
+     * Default: true
+
+    bool letBeginCollide;
+    bool letPreSolveCollide;
+*/
+
+    bool onPreSolve;
+    bool onPostSolve;
+    bool onSeparate;
+
 } moduleData;
+
+static cpBool begin(cpArbiter *arb, cpSpace *space, void *data)
+{
+    moduleData.onBegin = true;
+    return cpTrue;
+}
+
+static cpBool preSolve(cpArbiter* arb, cpSpace* space, void* data)
+{
+    moduleData.onPreSolve = true;
+    return cpTrue;
+}
+
+static void postSolve(cpArbiter* arb, cpSpace* space, void* data)
+{
+    moduleData.onPostSolve = true;
+}
+
+static void onSeparate(cpArbiter* arb, cpSpace* space, void* data)
+{
+    moduleData.onSeparate = true;
+}
+
+static int l_physics_onBeginContact(lua_State* state)
+{
+    l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+
+    uint32_t a_type = l_tools_toNumberOrError(state, 2);
+    uint32_t b_type = l_tools_toNumberOrError(state, 3);
+
+    moduleData.handler = cpSpaceAddCollisionHandler(data->physics->space, a_type, b_type);
+    moduleData.handler->beginFunc = begin;
+
+    lua_pushboolean(state, moduleData.onBegin);
+    moduleData.onBegin = false;
+
+    return 1;
+}
+
+static int l_physics_onPreSolve(lua_State* state)
+{
+    l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+
+    uint32_t a_type = l_tools_toNumberOrError(state, 2);
+    uint32_t b_type = l_tools_toNumberOrError(state, 3);
+
+    moduleData.handler = cpSpaceAddCollisionHandler(data->physics->space, a_type, b_type);
+    moduleData.handler->preSolveFunc = preSolve;
+
+    lua_pushboolean(state, moduleData.onPreSolve);
+    moduleData.onPreSolve = false;
+
+    return 1;
+}
+
+static int l_physics_onPostSolve(lua_State* state)
+{
+    l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+
+    uint32_t a_type = l_tools_toNumberOrError(state, 2);
+    uint32_t b_type = l_tools_toNumberOrError(state, 3);
+
+
+    moduleData.handler = cpSpaceAddCollisionHandler(data->physics->space, a_type, b_type);
+    moduleData.handler->postSolveFunc = postSolve;
+
+    lua_pushboolean(state, moduleData.onPostSolve);
+    moduleData.onPostSolve = false;
+
+    return 1;
+}
+
+static int l_physics_onSeparate(lua_State* state)
+{
+    l_physics_PhysicsData* data = (l_physics_PhysicsData*)lua_touserdata(state, 1);
+
+    uint32_t a_type = l_tools_toNumberOrError(state, 2);
+    uint32_t b_type = l_tools_toNumberOrError(state, 3);
+
+    moduleData.handler = cpSpaceAddCollisionHandler(data->physics->space, a_type, b_type);
+    moduleData.handler->separateFunc = onSeparate;
+
+    lua_pushboolean(state, moduleData.onSeparate);
+    moduleData.onSeparate = false;
+
+    return 1;
+}
 
 int l_physics_newSpace(lua_State* state)
 {
+
+    moduleData.onBegin = false;
+    moduleData.onPostSolve = false;
+    moduleData.onPreSolve = false;
+    moduleData.onSeparate = false;
+
+    //moduleData.letBeginCollide = true;
+    //moduleData.letPreSolveCollide = true;
 
     float x = l_tools_toNumberOrError(state, 1);
     float y = l_tools_toNumberOrError(state, 2);
@@ -43,7 +156,6 @@ int l_physics_newSpace(lua_State* state)
     moduleData.physics->physics->space = cpSpaceNew();
     moduleData.physics->physics->gravity = cpv(x, y);
     cpSpaceSetGravity(moduleData.physics->physics->space, moduleData.physics->physics->gravity);
-
 
     lua_rawgeti(state, LUA_REGISTRYINDEX, moduleData.physicsMT);
     lua_setmetatable(state, -2);
@@ -449,7 +561,7 @@ static int l_physics_setBodyMoment(lua_State* state)
 
             cpFloat radius = l_tools_toNumberOrError(state, index++);
             _mass = mass;
-            moment == cpMomentForSegment(mass, a, b, radius);
+            moment = cpMomentForSegment(mass, a, b, radius);
         }
     }
 
@@ -558,9 +670,9 @@ int l_physics_newBoxShape(lua_State* state)
 
     float width = l_tools_toNumberOrError(state, 3);
     float height = luaL_optnumber(state, 4, width);
-    float radius = luaL_optnumber(state, 5, 0);
-    float offset_x = luaL_optnumber(state, 6, 0);
-    float offset_y = luaL_optnumber(state, 7, 0);
+    float radius = luaL_optnumber(state, 5, 0.0f);
+    float offset_x = luaL_optnumber(state, 6, 0.0f);
+    float offset_y = luaL_optnumber(state, 7, 0.0f);
 
     moduleData.shape = (l_physics_Shape*)lua_newuserdata(state, sizeof(l_physics_Shape));
     moduleData.shape->physics = malloc(sizeof(physics_PhysicsData));
@@ -660,8 +772,20 @@ static int l_physics_getShapeMoment(lua_State* state)
     return 1;
 }
 
-//TODO look into these
-//cpShapeSetCollisionType
+/*
+ * Set shape's collision type, used for
+ * knowing when shape A(of type eg: 1) interacts with shape B(of type eg: 2)
+ */
+static int l_physics_setShapeCollisionType(lua_State* state)
+{
+    l_physics_Shape* shape = (l_physics_Shape*)lua_touserdata(state, 1);
+
+    uint32_t type = l_tools_toIntegerOrError(state, 2);
+
+    cpShapeSetCollisionType(shape->shape,(cpCollisionType)type);
+    return 0;
+}
+
 static int l_physics_setShapeFilter(lua_State* state)
 {
 
@@ -817,6 +941,7 @@ static luaL_Reg const shapeMetatableFuncs[] =
 	{"getDensity",            		 l_physics_getShapeDensity},
 	{"getElasticity",         		 l_physics_getShapeElasticity},
 	{"getMass",               		 l_physics_getShapeMass},
+    {"setCollisionType",             l_physics_setShapeCollisionType},
 
     {"setFilter",                    l_physics_setShapeFilter},
     {"setFriction",           		 l_physics_setShapeFriction},
@@ -842,7 +967,11 @@ static luaL_Reg const physicsFreeFuncs[] =
     {"newSpace",              l_physics_newSpace},
 	{"update",                l_physics_updateSpace},
     {"getGravity",            l_physics_getSpaceGravity},
-	{NULL, NULL}
+    {"onBeginContact",        l_physics_onBeginContact},
+    {"onPostContact",         l_physics_onPostSolve},
+    {"onPreContact",          l_physics_onPreSolve},
+    {"onSeparate",            l_physics_onSeparate},
+    {NULL, NULL}
 };
 
 static luaL_Reg const shapeRegFuncs[] =

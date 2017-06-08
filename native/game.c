@@ -28,14 +28,46 @@ cpVect gpos;
 cpBody *ballBody;
 cpSpace *space;
 cpShape *ballShape;
+cpShape *shape;
 
 cpFloat radius = 25;
 cpFloat mass = 6;
 
 cpBody* staticBody;
 
+static cpBool OnImpact(cpArbiter *arb, cpSpace *space, void *data)
+{
+    printf("%s \n", "message");
+    return cpTrue;
+}
+
+
+#define a_type 1
+#define b_type 2
+cpArbiter *arb;
+
+static void
+postStepRemove(cpSpace *space, cpShape *shape, void *unused)
+{
+  cpSpaceRemoveShape(space, shape);
+  cpSpaceRemoveBody(space, ballBody);
+
+  cpShapeFree(shape);
+  cpBodyFree(ballBody);
+}
+
+static cpBool
+begin(cpArbiter* arb, cpSpace* space, void *data)
+{
+    //CP_ARBITER_GET_SHAPES(arb, shape, ballShape);
+
+    printf("%s \n", "working");
+
+    return cpTrue;
+}
+
 void game_load() {
-    /*
+/*
     graphics_setTitle("Clove in native");
 
     cpVect gravity = cpv(0, 100);
@@ -54,9 +86,6 @@ void game_load() {
 
     staticBody = cpSpaceAddBody(space, cpBodyNewStatic());//cpBodyNew(mass, cpMomentForBox(mass,size,size)));
     cpBodySetPosition(staticBody, cpv(100,200));
-
-    cpShape *shape;
-
     shape = cpSpaceAddShape(space, cpSegmentShapeNew(staticBody, cpv(132, -12), cpv(0, -12), 0.0f));//cpSpaceAddShape(space, cpBoxShapeNew(staticBody, 120, 32, 0.0));
     cpShapeSetElasticity(shape, 0.0f);
     cpShapeSetFriction(shape, 0.7f);
@@ -66,9 +95,17 @@ void game_load() {
     ballBody = cpSpaceAddBody(space, cpBodyNew(mass, moment));
     cpBodySetPosition(ballBody, cpv(150, 25));
 
+
     ballShape = cpSpaceAddShape(space, cpBoxShapeNew(ballBody, 16, 12, 0.0f));
     cpShapeSetFriction(ballShape, 0.7);
-    */
+
+    cpShapeSetCollisionType(ballShape, a_type);
+    cpShapeSetCollisionType(shape, b_type);
+
+    cpCollisionHandler *handler = cpSpaceAddCollisionHandler(space, a_type, b_type);
+    handler->beginFunc = begin;
+
+*/
 }
 
 cpFloat angle;
@@ -80,8 +117,6 @@ void game_update(float delta) {
     gpos = cpBodyGetPosition(staticBody);
 
     angle = cpBodyGetAngle(ballBody);
-
-    //printf("%d \n", cpBodyget)
 
     if (keyboard_ispressed(SDLK_ESCAPE))
         l_running = false;
@@ -99,11 +134,11 @@ void game_update(float delta) {
 
 
     cpSpaceStep(space, delta);
-    */
+*/
 }
 
 void game_draw() {
-    /*
+/*
     graphics_setBackgroundColor(.8f, .6f, .5f, 1);
 
     graphics_setColor(.4f,.43f,.7f,1.0f);
@@ -111,12 +146,12 @@ void game_draw() {
 
     graphics_geometry_rectangle(true, pos.x, pos.y, 16, 16, angle, 1, 1, 0, 0);
     //graphics_geometry_lineCircle(pos.x, pos.y, 25, 12, angle, 1, 1, 0, 0);
-    */
+*/
 }
 
 void game_quit() {
-    //cpShapeFree(ballShape);
-    //cpBodyFree(ballBody);
-    //cpSpaceFree(space);
+ //   cpShapeFree(ballShape);
+ //   cpBodyFree(ballBody);
+ //   cpSpaceFree(space);
 }
 
