@@ -25,11 +25,6 @@ static struct {
     graphics_Shader *activeShader;
     graphics_Shader defaultShader;
     int maxTextureUnits;
-    /*
-     * used to check when to use
-     * the default 3d shader or the 2d one
-     */
-    bool is3d;
 } moduleData;
 
 bool graphics_Shader_compileAndAttachShaderRaw(graphics_Shader *program, GLenum shaderType, char const* code) {
@@ -102,39 +97,17 @@ bool graphics_Shader_compileAndAttachShader(graphics_Shader *shader, GLenum shad
     int footerlen;
     switch(shaderType) {
     case GL_VERTEX_SHADER:
-        if(!moduleData.is3d)
-        {
             header = vertexHeader2d;
             headerlen = sizeof(vertexHeader2d) - 1;
             footer = vertexFooter2d;
             footerlen = sizeof(vertexFooter2d) - 1;
             break;
-        }
-        else
-        {
-            header = vertexHeader3d;
-            headerlen = sizeof(vertexHeader3d) - 1;
-            footer = vertexFooter3d;
-            footerlen = sizeof(vertexFooter3d) - 1;
-            break;
-        }
     case GL_FRAGMENT_SHADER:
-        if (!moduleData.is3d)
-        {
             header = fragmentHeader2d;
             headerlen = sizeof(fragmentHeader2d) - 1;
             footer = fragmentFooter2d;
             footerlen = sizeof(fragmentFooter2d) - 1;
             break;
-        }
-        else
-        {
-            header = fragmentHeader3d;
-            headerlen = sizeof(fragmentHeader3d) - 1;
-            footer = fragmentFooter3d;
-            footerlen = sizeof(fragmentFooter3d) - 1;
-            break;
-        }
     }
     int codelen = strlen(code);
     GLchar *combinedCode = malloc(headerlen + footerlen + codelen + 1);
@@ -286,14 +259,10 @@ graphics_ShaderCompileStatus graphics_Shader_new(graphics_Shader *shader, char c
     shader->warnings.program = malloc(1);
     *shader->warnings.vertex = *shader->warnings.fragment = *shader->warnings.program = 0;
 
-    moduleData.is3d = false;
-
-    // This code is overited by graphics_Shader_new3d
     if(!vertexCode) {
         vertexCode = defaultVertexSource2d;
     }
 
-    // This code is overited by graphics_Shader_new3d
     if(!fragmentCode) {
         fragmentCode = defaultFragmentSource2d;
     }
@@ -330,58 +299,6 @@ graphics_ShaderCompileStatus graphics_Shader_new(graphics_Shader *shader, char c
     return graphics_ShaderCompileStatus_okay;
 }
 
-graphics_ShaderCompileStatus graphics_Shader_new3d(graphics_Shader *shader, char const* vertexCode, char const* fragmentCode)
-{
-    memset(shader, 0, sizeof(*shader));
-    shader->warnings.vertex = malloc(1);
-    shader->warnings.fragment = malloc(1);
-    shader->warnings.program = malloc(1);
-    *shader->warnings.vertex = *shader->warnings.fragment = *shader->warnings.program = 0;
-
-    moduleData.is3d = true;
-
-    if(!vertexCode) {
-        vertexCode = defaultVertexSource3d;
-    }
-
-    // This code is overited by graphics_Shader_new3d
-    if(!fragmentCode) {
-        fragmentCode = defaultFragmentSource3d;
-    }
-
-    shader->program = glCreateProgram();
-
-    if(!graphics_Shader_compileAndAttachShader(shader, GL_VERTEX_SHADER, vertexCode)) {
-        return graphics_ShaderCompileStatus_vertexError;
-    }
-
-    if(!graphics_Shader_compileAndAttachShader(shader, GL_FRAGMENT_SHADER, fragmentCode)) {
-        return graphics_ShaderCompileStatus_fragmentError;
-    }
-
-    glBindAttribLocation(shader->program, 0, "vPos");
-    glBindAttribLocation(shader->program, 1, "vUV");
-    glBindAttribLocation(shader->program, 2, "vColor");
-    glLinkProgram(shader->program);
-
-    int linkState;
-    glGetProgramiv(shader->program, GL_LINK_STATUS, &linkState);
-    if (linkState != GL_TRUE) {
-        printf("ERROR OpenGL : unable to compile shader\n");
-        char shader_link_error[4096];
-        glGetShaderInfoLog(shader->program, sizeof(shader_link_error), NULL, shader_link_error);
-        printf("%s", shader_link_error);
-        return graphics_ShaderCompileStatus_linkError;
-    }
-
-    readShaderUniforms(shader);
-
-    allocateTextureUnits(shader);
-
-    return graphics_ShaderCompileStatus_okay;
-}
-
-
 void graphics_Shader_free(graphics_Shader* shader) {
     for(int i = 0; i < shader->uniformCount; ++i) {
         free(shader->uniforms[i].name);
@@ -390,27 +307,6 @@ void graphics_Shader_free(graphics_Shader* shader) {
     free(shader->uniforms);
     glDeleteProgram(shader->program);
 }
-
-void graphics_Shader_activate3d(mat4x4 const* projection, mat4x4 const* view, mat4x4 const* model, graphics_Quad const* textureRect, float const* useColor, float ws, float hs, float ds) {
-
-    glUseProgram(moduleData.activeShader->program);
-
-    float s[3] = { ws, hs, ds };
-
-    glUniform1i(moduleData.activeShader->uniformLocations.tex,               0);
-    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.projection,  1, 0, (GLfloat const*)projection);
-    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.view,  1, 0, (GLfloat const*)view);
-    glUniformMatrix4fv(moduleData.activeShader->uniformLocations.model,  1, 0, (GLfloat const*)model);
-    glUniformMatrix2fv(moduleData.activeShader->uniformLocations.textureRect, 1, 0, (GLfloat const*)textureRect);
-    glUniform4fv(moduleData.activeShader->uniformLocations.color,1,useColor);
-    glUniform3fv(moduleData.activeShader->uniformLocations.size,1,s);
-
-    for(int i = 0; i < moduleData.activeShader->textureUnitCount; ++i) {
-        glActiveTexture(GL_TEXTURE0 + moduleData.activeShader->textureUnits[i].unit);
-        glBindTexture(GL_TEXTURE_2D, moduleData.activeShader->textureUnits[i].boundTexture);
-    }
-}
-
 void graphics_Shader_activate(mat4x4 const* projection, mat4x4 const* view, mat4x4 const* model, graphics_Quad const* textureRect, float const* useColor, float ws, float hs) {
 
     glUseProgram(moduleData.activeShader->program);
@@ -444,7 +340,7 @@ graphics_Shader* graphics_getShader(void) {
 }
 
 void graphics_shader_init(void) {
-    graphics_Shader_new3d(&moduleData.defaultShader, NULL, NULL);
+    graphics_Shader_new(&moduleData.defaultShader, NULL, NULL);
     moduleData.activeShader = &moduleData.defaultShader;
     glGetIntegerv(GL_MAX_COMBINED_TEXTURE_IMAGE_UNITS, &moduleData.maxTextureUnits);
 }

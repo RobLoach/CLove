@@ -17,9 +17,6 @@
 #include "../src/keyboard.h"
 #include "../src/luaapi/event.h"
 
-// 3d
-#include "../src/graphics/3d/obj_loader.h"
-
 #include "../src/3rdparty/chipmunk/include/chipmunk/chipmunk.h"
 
 cpVect pos;
