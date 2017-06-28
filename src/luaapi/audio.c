@@ -18,13 +18,13 @@ static struct {
 static int l_audio_newSource(lua_State *state) {
   char const* filename = l_tools_toStringOrError(state, 1);
   const char* type = luaL_optstring(state, 2, "static");
-  int err;
+  int err = 1;
 
-  if (strncmp(type,"stream", 6) == 0) {
+  if (strcmp(type, "stream") == 0) {
       audio_StreamSource *src = lua_newuserdata(state, sizeof(audio_StreamSource));
       err = audio_loadStream(src, filename);
       moduleData.audio_type = audio_type_stream;
-    } else if (strncmp(type, "static", 6) == 0) {
+    } else if (strcmp(type, "static") == 0) {
       audio_StaticSource *src = lua_newuserdata(state, sizeof(audio_StaticSource));
       err = audio_loadStatic(src, filename);
       moduleData.audio_type = audio_type_static;

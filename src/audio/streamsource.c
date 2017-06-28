@@ -44,9 +44,8 @@ int audio_loadStream(audio_StreamSource *source, char const * filename) {
     //err = -1;
     //else
     err = audio_vorbis_loadStream(source->decoderData, filename);
-
-    if (err < 1)
-        err = 0;
+    if (err == 0)
+        err = 1;
 
     alGenSources(1, &source->source);
     alSourcef( source->source, AL_PITCH,    1.0f);
