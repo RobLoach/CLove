@@ -130,7 +130,7 @@ FILE(
 
 set(clove_package "clove")
 set(clove_creator "Muresan Vlad")
-set(clove_copyright "Copyright (c) 2015-2016, ${clove_creator}.")
+set(clove_copyright "Copyright (c) 2015-2017, ${clove_creator}.")
 message(clove_copyright)
 
 if (NOT ANDROID)

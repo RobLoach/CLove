@@ -8,16 +8,50 @@
 */
 #include "source.h"
 
+#include <stdio.h>
+
 void audio_SourceCommon_init(audio_SourceCommon *source) {
-  alGenSources(1, &source->source);
 
-  source->state = audio_SourceState_stopped;
+	ALenum err; // openAL error checker
 
-  alSourcef(source->source, AL_PITCH, 1);
-  alSourcef(source->source, AL_GAIN, 1);
-  alSource3f(source->source, AL_POSITION, 0.0f, 0.0f, 0.0f);
-  alSource3f(source->source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
-  alSourcei(source->source, AL_LOOPING, AL_FALSE);
+	alGenSources(1, &source->source);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not generate openAL source \n");
+
+	source->state = audio_SourceState_stopped;
+
+	alSourcef(source->source, AL_PITCH, 1);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not set openAL pitch \n");
+
+	alSourcef(source->source, AL_GAIN, 1);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not set openAL gain \n");
+
+	alSource3f(source->source, AL_POSITION, 0.0f, 0.0f, 0.0f);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not set openAL position \n");
+
+	alSource3f(source->source, AL_VELOCITY, 0.0f, 0.0f, 0.0f);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not set openAL velocity \n");
+
+	alSourcei(source->source, AL_LOOPING, AL_FALSE);
+	err = alGetError();
+
+	if (err != AL_NO_ERROR)
+		printf("Error: Could not set openAL looping \n");
+
 }
 
 void audio_SourceCommon_setLooping(audio_SourceCommon const* source, int value){
