@@ -13,26 +13,27 @@
 #include <stdio.h>
 
 static struct {
-  ALCdevice* device;
-  ALCcontext* context;
+	ALCdevice* device;
+	ALCcontext* context;
 } moduleData;
 
 void audio_init(int stats) {
-  moduleData.device = alcOpenDevice(NULL);
-  moduleData.context = alcCreateContext(moduleData.device, NULL);
-  if(!alcMakeContextCurrent(moduleData.context)) {
-    printf("%s \n", "Failed to initialite audio context");
-  }
-  audio_StreamInit();
-  if (stats > 0)
-    printf("%s %s \n ", "Debug: OpenAL version: ", alGetString(AL_VERSION));
+	moduleData.device = alcOpenDevice(NULL);
+	moduleData.context = alcCreateContext(moduleData.device, NULL);
+	if(!alcMakeContextCurrent(moduleData.context)) {
+		printf("%s \n", "Failed to initialite audio context");
+	}
+	audio_StreamInit();
+	if (stats > 0)
+		printf("%s %s \n ", "Debug: OpenAL version: ", alGetString(AL_VERSION));
 }
 
 void audio_setVolume(double value){
-  alListenerf(AL_GAIN, value);
+	alListenerf(AL_GAIN, value);
 }
 
 void audio_close () {
-  alcDestroyContext(moduleData.context);
-  alcCloseDevice(moduleData.device);
+	alcMakeContextCurrent(NULL);
+	alcDestroyContext(moduleData.context);
+	alcCloseDevice(moduleData.device);
 }
