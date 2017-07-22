@@ -238,8 +238,15 @@ if(WIN32)
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
 		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
+
+	else()
+	 target_link_libraries(clove ws2_32.lib
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
+        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
 	endif(USE_PHYSFS)
-endif()
+
+endif(WIN32)
 
 if(APPLE)
 	if (USE_PHYSFS)
@@ -257,11 +264,19 @@ if(APPLE)
 endif()
 
 if(UNIX AND NOT APPLE)
-    target_link_libraries(clove
+	if (USE_PHYSFS)
+   	target_link_libraries(clove
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
 		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
+
+	else()
+	   target_link_libraries(clove
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
+        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
+	endif(USE_PHYSFS)
 endif()
 
 if(ANDROID)
