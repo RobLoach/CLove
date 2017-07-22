@@ -11,6 +11,12 @@ cmake_minimum_required(VERSION 2.8)
 
 project(clove)
 
+option(USE_PHYSFS "Build Clove using Physfs for filesystem?" ON)
+
+if (USE_PHYSFS)
+	ADD_DEFINITIONS(-DUSE_PHYSFS=1)
+endif(USE_PHYSFS)
+
 IF(WIN32)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${MOE_BUILD_FLAGS}")
   	set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /Z7 /W4 /Od /MDd /D_DEBUG /D__Debug__")
@@ -156,9 +162,11 @@ endif()
 INCLUDE_DIRECTORIES(src/3rdparty/stb)
 
 #zlib
-add_subdirectory(src/3rdparty/zlib)
-set(ZLIB_INCLUDE_DIR src/3rdparty/zlib)
-set(ZLIB_LIBRARIES zlibstatic)
+if (USE_PHYSFS)
+	add_subdirectory(src/3rdparty/zlib)
+	set(ZLIB_INCLUDE_DIR src/3rdparty/zlib)
+	set(ZLIB_LIBRARIES zlibstatic)
+endif(USE_PHYSFS)
 
 #freetype
 add_subdirectory(src/3rdparty/freetype)
@@ -190,9 +198,11 @@ set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
 
 #physfs
-add_subdirectory(src/3rdparty/physfs)
-set(PHYSFS_INCLUDE_DIR src/3rdparty/physfs)
-set(PHYSFS_LIBRARIES physfs-static)
+if (USE_PHYSFS)
+	add_subdirectory(src/3rdparty/physfs)
+	set(PHYSFS_INCLUDE_DIR src/3rdparty/physfs)
+	set(PHYSFS_LIBRARIES physfs-static)
+endif(USE_PHYSFS)
 
 if(WIN32)
     set(OPENAL_LIBRARIES "OpenAL32")
@@ -222,19 +232,28 @@ if(NOT ANDROID)
 endif()
 
 if(WIN32)
+	if (USE_PHYSFS)
     target_link_libraries(clove ws2_32.lib
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
 		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
+	endif(USE_PHYSFS)
 endif()
 
 if(APPLE)
+	if (USE_PHYSFS)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
 		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
+	else()
+	 target_link_libraries(clove
+        ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
+        ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
+        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
+	endif(USE_PHYSFS)
 endif()
 
 if(UNIX AND NOT APPLE)

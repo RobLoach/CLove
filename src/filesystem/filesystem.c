@@ -20,7 +20,6 @@
 #include <unistd.h>
 #endif
 
-#define USE_PHYSFS true
 
 static struct {
 	const char* os;
@@ -46,19 +45,19 @@ void filesystem_init(char* argv0, int stats) {
 	moduleData.os = "This OS is not supported";
 #endif
 
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		if (!PHYSFS_init(argv0))
 			CLOVE_ERROR(PHYSFS_getLastError());
-
-	}
+	#endif
 
 }
 
 void filesystem_free()
 {
+	#ifdef USE_PHYSFS
 	if (PHYSFS_isInit())
 		PHYSFS_deinit();
+	#endif
 }
 
 const char* filesystem_getOS() {
@@ -97,8 +96,7 @@ int filesystem_equals(const char* a, const char* b, int l) {
 
 int filesystem_exists(const char* name)
 {
-	if (!USE_PHYSFS)
-	{
+	#ifndef USE_PHYSFS
 		FILE* file = fopen(name,"r");
 		if(!file){
 			return 0;
@@ -106,19 +104,18 @@ int filesystem_exists(const char* name)
 
 		fclose(file);
 		return 1;
-	}
-	else
-	{
+
+	#else
 		return PHYSFS_exists(name);
-	}
+	#endif
 
 }
 
 int filesystem_write(const char* name, const char* data)
 {
 
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
+
 		PHYSFS_File* file;
 		file = PHYSFS_openWrite(name);
 		if(! file)
@@ -132,9 +129,8 @@ int filesystem_write(const char* name, const char* data)
 		PHYSFS_close(file);
 
 		return write_size;
-	}
-	else
-	{
+
+	#else
 		FILE* file = fopen(name, "w");
 		if(!file){
 			printf("%s No file named %s",name,"%s creating one");
@@ -149,13 +145,13 @@ int filesystem_write(const char* name, const char* data)
 		fclose(file);
 
 		return size;
-	}
+	#endif
 }
 
 int filesystem_append(const char* name, const char* data) {
 
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
+
 		PHYSFS_File* file;
 		file = PHYSFS_openAppend(name);
 		if(! file)
@@ -168,9 +164,8 @@ int filesystem_append(const char* name, const char* data) {
 		PHYSFS_close(file);
 
 		return append_size;
-	}
-	else
-	{
+
+	#else
 
 		FILE* file = fopen(name, "a");
 
@@ -182,7 +177,7 @@ int filesystem_append(const char* name, const char* data) {
 		fclose(file);
 
 		return size;
-	}
+	#endif
 
 }
 
@@ -217,8 +212,7 @@ int filesystem_isFile(const char* file, int mode) {
 
 int filesystem_read(char const* filename, char** output) {
 
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 
 		PHYSFS_File* file;
 		file = PHYSFS_openRead(filename);
@@ -232,9 +226,8 @@ int filesystem_read(char const* filename, char** output) {
 		PHYSFS_close(file);
 
 		return size;
-	}
-	else
-	{
+
+	#else
 		FILE* infile = fopen(filename, "r");
 		if(!infile) {
 			return -1;
@@ -249,39 +242,37 @@ int filesystem_read(char const* filename, char** output) {
 		fclose(infile);
 		(*output)[size] = 0;
 		return size;
-	}
+
+	#endif
 }
 
 bool filesystem_mkDir(const char* path)
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
+
 		return PHYSFS_mkdir(path) != 0;
-	}
-	else
-	{
+
+	#else
+
 		CLOVE_ERROR("mkDir feature is supported by enabling physfs.");
 		return false;
-	}
+	#endif
 }
 
 bool filesystem_isDir(const char* dir)
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		return PHYSFS_isDirectory(dir) != 0;
-	}
-	else
-	{
+	#else
+
 		CLOVE_ERROR("isDir feature is supported by enabling physfs.");
 		return false;
-	}
+	#endif
 }
 
 void filesystem_setSource(const char* source, const char* dir)
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		if (! PHYSFS_mount(source, dir, 1))
 		{
 			CLOVE_ERROR("couldn't mount file:");
@@ -289,20 +280,22 @@ void filesystem_setSource(const char* source, const char* dir)
 
 		}
 		moduleData.source = source;
-	}
-	else
+	#else
 		CLOVE_ERROR("setSource works only with physfs!");
+	#endif
 }
 
 const char* filesystem_getSource() {
-	if (USE_PHYSFS)
+	#ifdef USE_PHYSFS
 		return moduleData.source != NULL ? moduleData.source : SDL_GetBasePath();
-	else
+	#else
 		return SDL_GetBasePath();
+	#endif
 }
 
 bool filesystem_setIdentity(const char* name)
 {
+	#ifdef USE_PHYSFS
 	const char* save_dir = filesystem_getUsrDir();
 
 	if (! PHYSFS_setWriteDir(save_dir))
@@ -332,24 +325,25 @@ bool filesystem_setIdentity(const char* name)
 	}
 
 	return true;
+	#else
+	return false;
+	#endif
 }
 
 bool filesystem_mount(const char* path, const char* mountPoint, int appendToPath)
 {
 
-	if (USE_PHYSFS)
+	#ifdef USE_PHYSFS
 		return PHYSFS_mount(path, mountPoint, appendToPath) != 0;
-	else
-	{
+	#else
 		CLOVE_ERROR("mouting feature is supported by enabling physfs.");
 		return false;
-	}
+	#endif
 }
 
 bool filesystem_unmount(const char* path)
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		const char* getMountPoint = PHYSFS_getMountPoint(path);
 		if (!getMountPoint)
 		{
@@ -359,38 +353,31 @@ bool filesystem_unmount(const char* path)
 			return false;
 		}
 		return PHYSFS_removeFromSearchPath(path) != 0;
-	}
-	else
-	{
+	#else
+
 		CLOVE_ERROR("unmouting feature is supported by enabling physfs.");
 		return false;
-	}
+	#endif
 }
 
 char** filesystem_enumerate(const char* path)
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		return PHYSFS_enumerateFiles(path);
-	}
-	else
-	{
+	#else
 		CLOVE_ERROR("enumerate feature is supported by enabling physfs.");
 		return NULL;
-	}
+	#endif
 }
 
 const char* filesystem_getUsrDir()
 {
-	if (USE_PHYSFS)
-	{
+	#ifdef USE_PHYSFS
 		return PHYSFS_getUserDir();
-	}
-	else
-	{
+	#else
 		CLOVE_ERROR("getUsrDir feature is supported by enabling physfs.");
 		return NULL;
-	}
+	#endif
 }
 
 int filesystem_remove(const char* name) {

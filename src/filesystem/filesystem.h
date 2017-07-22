@@ -13,8 +13,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef USE_PHYSFS
+	#include "../3rdparty/physfs/physfs.h"
+#endif
 
-#include "../3rdparty/physfs/physfs.h"
 #include "../3rdparty/SDL2/include/SDL.h"
 
 void filesystem_init(char* argv0, int stats);
