@@ -19,7 +19,7 @@ static int l_system_getOS(lua_State* state) {
 
 static int l_system_getPowerInfo(lua_State* state) {
   system_PowerState power = system_getPowerInfo();
-  lua_pushinteger(state, power.state);
+  lua_pushstring(state, power.state);
   lua_pushinteger(state, power.seconds);
   lua_pushinteger(state, power.percent);
   return 3;

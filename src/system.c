@@ -17,8 +17,21 @@ const char* system_getOS() {
 
 system_PowerState system_getPowerInfo() {
     int seconds, percent;
-    int state = SDL_GetPowerInfo(&seconds, &percent);
-    system_PowerState powerState = {
+    int power = SDL_GetPowerInfo(&seconds, &percent);
+
+	const char* state;
+	if (power == SDL_POWERSTATE_UNKNOWN)
+		state = "power_state_unknown";
+	else if (power == SDL_POWERSTATE_CHARGED)
+		state == "battery_charged";
+	else if (power == SDL_POWERSTATE_CHARGING)
+		state = "battery_charging";
+	else if (power == SDL_POWERSTATE_ON_BATTERY)
+		state = "not_plugged_running_on_battery";
+	else if (power == SDL_POWERSTATE_NO_BATTERY)
+		state = "plugged_in_no_battery";
+
+   	system_PowerState powerState = {
         state,
         seconds,
         percent

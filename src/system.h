@@ -9,7 +9,7 @@
 #pragma once
 
 typedef struct {
-    int state;
+ 	const char* state;
     int seconds;
     int percent;
 } system_PowerState;
