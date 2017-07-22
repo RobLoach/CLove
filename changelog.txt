@@ -1,16 +1,32 @@
-version 0.7.1 not released:
+version 0.7.1 22.07.2017:
 
-wip emscripten (web support)
-wip module: love.physics
+internally: added Zlib
+modify: love.filesystem.read to support Physfs
+modify: love.filesystem.write to support Physfs
+modify: love.filesystem.append to support Physfs
+modify: love.filesystem.exists to support Physfs
+added: love.filesystem.setIdentity(name)
+added: conf.lua accepts t.window.identity
+added: love.filesystem.enumarate(path)
+added: love.filesystem.isDir(path)
+added: love.filesystem.mkDir(path)
+added: love.filesystem.getUsrDir()
+added: love.filesystem.unmount(path)
+added: love.filesystem.mount(path)
+added: love.system.getPowerInfo()
+added Physfs as default filesystem manager. You can still use the
+old one if you want
+some work on emscripten (web support)
+some work on module: love.physics. I won't finish it!
 added: love.filesystem.equals(String1, String2, length(optional))
 which lets you see if two strings are equal till a certain length. By default
-it takes the full length or the strings.
+it takes the full length of the strings.
 
 added: possibility to hide and create window when you want using conf.lua
 fixed: imageData: getChannel, getPixel, now accepting: grey, grey_alpha, rgb, rgba
 added: newImageFont. BitmapFonts. You can draw fonts using images (see examples for more info)
-added: networking. TCP using IPv4 or UPv6 (see examples)
-wip: Android port
+added: networking. TCP using IPv4 or UPv6 for UNIX (see examples)
+some work on: Android port
 added: Clove compiles with C++ for more future features
 added: *.clove.tar, see examples folder -> package.
 added: love.filesystem.require("file.lua"). Acts like require even in packaging mode

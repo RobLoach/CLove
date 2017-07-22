@@ -11,24 +11,25 @@
 #pragma once
 
 typedef struct {
-  int width;
-  int height;
-  const char* title;
-  const char* version;
-  bool vsync;
-  bool resizable;
-  /* true = window is visible
-   * flase = window is hidded
-   * Note: use setMode to make it visible
-   */
-  bool window;
-  bool bordless;
-  /* stats is used for displaying debug info */
-  bool stats;
-  int minwidth, minheight;
-  int x, y;
+	const char* identity;
+	int width;
+	int height;
+	const char* title;
+	const char* version;
+	bool vsync;
+	bool resizable;
+	/* true = window is visible
+	 * flase = window is hidded
+	 * Note: use setMode to make it visible
+	 */
+	bool window;
+	bool bordless;
+	/* stats is used for displaying debug info */
+	bool stats;
+	int minwidth, minheight;
+	int x, y;
 } love_WindowConfig;
 
 typedef struct {
-  love_WindowConfig window;
+	love_WindowConfig window;
 } love_Config;

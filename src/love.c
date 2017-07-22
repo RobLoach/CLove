@@ -12,8 +12,8 @@ love_Version const * love_getVersion(void) {
   static const love_Version version = {
     .major = 0,
     .minor = 7,
-    .revision = 0,
-    .strVersion = "0.7.0",
+    .revision = 1,
+    .strVersion = "0.7.1",
     .codename = "Cake"
   };
 

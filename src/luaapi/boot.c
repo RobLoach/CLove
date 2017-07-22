@@ -17,7 +17,7 @@
 #include "../graphics/graphics.h"
 #include "../love.h"
 
-static void setConfDefault(lua_State* state, love_Config *config) {
+static void setConfDefault(lua_State* state, love_Config* config) {
 
     lua_pushstring(state, "window");
     lua_rawget(state, -2);
@@ -31,6 +31,11 @@ static void setConfDefault(lua_State* state, love_Config *config) {
 
     if (strncmp(version->strVersion, config->window.version, 5) != 0)
         printf("Warning: This application is not built for version: %s %s %s \n", version->strVersion, "but:", config->window.version);
+
+	lua_pushstring(state, "identity");
+    lua_rawget(state, -2);
+	config->window.identity = luaL_optstring(state, -1, ".");
+    lua_pop(state, 1);
 
     lua_pushstring(state, "width");
     lua_rawget(state, -2);

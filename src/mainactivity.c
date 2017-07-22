@@ -36,7 +36,8 @@ static void love_focus(lua_State* state) {
 static void main_clean(lua_State* state) {
     joystick_close();
     graphics_destroyWindow();
-    /* There is a nasty bug on Windows that
+	filesystem_free();
+	/* There is a nasty bug on Windows that
        causes lua_close to give a segment fault. */
     lua_close(state);
     audio_close();
@@ -225,7 +226,7 @@ void main_activity_load(int argc, char* argv[]) {
 
     filesystem_init(argv[0], config.window.stats);
 
-    l_love_register(lua);
+	l_love_register(lua);
     l_audio_register(lua);
     l_event_register(lua);
     l_graphics_register(lua);
@@ -244,8 +245,9 @@ void main_activity_load(int argc, char* argv[]) {
     l_boot(lua, &config);
 
     audio_init(config.window.stats);
+	filesystem_setIdentity(config.window.identity);
 
-    if (config.window.stats)
+	if (config.window.stats)
         printf("%s %s \n", "Debug: Platform:", filesystem_getOS());
 
     graphics_init(config.window.width, config.window.height, config.window.resizable, config.window.stats, config.window.window);

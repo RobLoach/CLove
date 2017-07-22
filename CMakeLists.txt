@@ -155,6 +155,11 @@ endif()
 
 INCLUDE_DIRECTORIES(src/3rdparty/stb)
 
+#zlib
+add_subdirectory(src/3rdparty/zlib)
+set(ZLIB_INCLUDE_DIR src/3rdparty/zlib)
+set(ZLIB_LIBRARIES zlibstatic)
+
 #freetype
 add_subdirectory(src/3rdparty/freetype)
 set(FREETYPE_INCLUDE_DIR src/3rdparty/freetype/include)
@@ -183,6 +188,11 @@ endif()
 add_subdirectory(src/3rdparty/SDL2/)
 set(SDL_INCLUDE_DIR src/3rdparty/SDL2/include/)
 set(SDL_LIBRARIES SDL2-static SDL2main)
+
+#physfs
+add_subdirectory(src/3rdparty/physfs)
+set(PHYSFS_INCLUDE_DIR src/3rdparty/physfs)
+set(PHYSFS_LIBRARIES physfs-static)
 
 if(WIN32)
     set(OPENAL_LIBRARIES "OpenAL32")
@@ -215,14 +225,16 @@ if(WIN32)
     target_link_libraries(clove ws2_32.lib
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
-        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
+        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
+		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
 endif()
 
 if(APPLE)
     target_link_libraries(clove
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
-        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES})
+        ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
+		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
 endif()
 
 if(UNIX AND NOT APPLE)
@@ -230,12 +242,11 @@ if(UNIX AND NOT APPLE)
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${GLEW_LIBRARIES}
         ${OPENGL_LIBRARIES} ${OPENAL_LIBRARIES}
         ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES}
-        ${LUASOCKET_LIBRARIES})
+		${PHYSFS_LIBRARIES} ${ZLIB_LIBRARIES})
 endif()
 
 if(ANDROID)
 	target_link_libraries(clove
         ${SDL_LIBRARIES} ${CHIPMUNK_LIBRARIES} ${OPENGL_LIBRARIES}
-		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES}
-		${LUA_LIBRARIES} )
+		${OPENAL_LIBRARIES} ${FREETYPE_LIBRARIES} ${LUA_LIBRARIES} )
 endif()

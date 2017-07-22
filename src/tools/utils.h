@@ -15,6 +15,9 @@
 
 #define SAFE_FREE(o) {  if (o) { free(o); o = NULL; } }
 
+#define CLOVE_ERROR(x) {  printf("CLove Error: %s \n ", x);  }
+#define CLOVE_DEBUG(x) { printf("CLove Debug: %s %s %s %s %s \n", x , " at line " __LINE__, " in file  ", __FILE__ ); }
+
 #ifndef USE_NATIVE
     #define USE_NATIVE 0x01
 #endif

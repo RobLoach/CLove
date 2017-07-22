@@ -193,7 +193,93 @@ static int l_filesystem_lines(lua_State* state)
 	return 1;
 }
 
+static int l_filesystem_mount(lua_State* state)
+{
+
+	const char* path = l_tools_toStringOrError(state, 1);
+	const char* mountPoint = l_tools_toStringOrError(state, 2);
+	int append = luaL_optinteger(state, 3, 1);
+
+	return filesystem_mount(path, mountPoint, append);
+}
+
+static int l_filesystem_unmount(lua_State* state)
+{
+	const char* path = l_tools_toStringOrError(state, 1);
+	lua_pushboolean(state, filesystem_unmount(path));
+	return 1;
+}
+
+static int l_filesystem_setSource(lua_State* state)
+{
+
+	const char* source = l_tools_toStringOrError(state, 1);
+	const char* dir = luaL_optstring(state, 2, ".");
+
+	filesystem_setSource(source, dir);
+	return 0;
+}
+
+
+static int l_filesystem_getUsrDir(lua_State* state)
+{
+	lua_pushstring(state, filesystem_getUsrDir());
+	return 1;
+}
+
+static int l_filesystem_enumerate(lua_State* state)
+{
+	const char* path = l_tools_toStringOrError(state, 1);
+
+	size_t len = strlen(filesystem_enumerate(path)[0]);
+
+	lua_newtable(state);
+	int index = 1;
+	for (int i = 0; i < len; i++)
+	{
+		lua_pushinteger(state, index);
+		lua_pushstring(state, filesystem_enumerate(path)[i]);
+		lua_settable(state, -3);
+
+		index++;
+	}
+
+	return 1;
+}
+
+static int l_filesystem_mkDir(lua_State* state)
+{
+	const char* path = l_tools_toStringOrError(state, 1);
+
+	lua_pushboolean(state, filesystem_mkDir(path));
+	return 1;
+}
+
+static int l_filesystem_isDir(lua_State* state)
+{
+	const char* path = l_tools_toStringOrError(state, 1);
+
+	lua_pushboolean(state, filesystem_isDir(path));
+	return 1;
+}
+
+static int l_filesystem_setIdentity(lua_State* state)
+{
+	const char* path = l_tools_toStringOrError(state, 1);
+
+	lua_pushboolean(state, filesystem_setIdentity(path));
+	return 1;
+}
+
 static luaL_Reg const regFuncs[] = {
+  {"setIdentity", l_filesystem_setIdentity},
+  {"unmount", l_filesystem_unmount},
+  {"mount", l_filesystem_mount},
+  {"setSource", l_filesystem_setSource},
+  {"getUsrDir", l_filesystem_getUsrDir},
+  {"enumerate", l_filesystem_enumerate},
+  {"mkDir", l_filesystem_mkDir},
+  {"isDir", l_filesystem_isDir},
   {"load", l_filesystem_load},
   {"lines", l_filesystem_lines},
   {"require", l_filesystem_require},
