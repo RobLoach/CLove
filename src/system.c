@@ -23,7 +23,7 @@ system_PowerState system_getPowerInfo() {
 	if (power == SDL_POWERSTATE_UNKNOWN)
 		state = "power_state_unknown";
 	else if (power == SDL_POWERSTATE_CHARGED)
-		state == "battery_charged";
+		state = "battery_charged";
 	else if (power == SDL_POWERSTATE_CHARGING)
 		state = "battery_charging";
 	else if (power == SDL_POWERSTATE_ON_BATTERY)
