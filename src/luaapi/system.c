@@ -7,19 +7,27 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include "system.h"
+#include "../system.h"
 #include "tools.h"
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "../3rdparty/SDL2/include/SDL.h"
-
-static int l_system_get_os(lua_State* state) {
-  lua_pushstring (state, SDL_GetPlatform ());
+static int l_system_getOS(lua_State* state) {
+  lua_pushstring (state, system_getOS());
  return 1;
 }
 
+static int l_system_getPowerInfo(lua_State* state) {
+  system_PowerState power = system_getPowerInfo();
+  lua_pushinteger(state, power.state);
+  lua_pushinteger(state, power.seconds);
+  lua_pushinteger(state, power.percent);
+  return 3;
+}
+
 static luaL_Reg const regFuncs[] = {
-  {"getOS", l_system_get_os},
+  {"getOS", l_system_getOS},
+  {"getPowerInfo", l_system_getPowerInfo},
   {NULL,NULL}
 };
 
