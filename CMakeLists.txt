@@ -163,6 +163,7 @@ INCLUDE_DIRECTORIES(src/3rdparty/stb)
 
 #zlib
 if (USE_PHYSFS)
+	set(ZLIB_FOUND TRUE)
 	add_subdirectory(src/3rdparty/zlib)
 	set(ZLIB_INCLUDE_DIR src/3rdparty/zlib)
 	set(ZLIB_LIBRARIES zlibstatic)

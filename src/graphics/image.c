@@ -29,7 +29,7 @@ static graphics_Vertex const imageData[] = {
 
 static unsigned char const imageIndices[] = { 0, 1, 2, 3 };
 
-void graphics_image_init(void) {  
+void graphics_image_init(void) {
 }
 
 static const graphics_Wrap defaultWrap = {
@@ -67,7 +67,6 @@ void graphics_Image_new_with_ImageData(graphics_Image *dst, image_ImageData *dat
 
 void graphics_Image_refresh(graphics_Image *img, image_ImageData const *data) {
 
-
     // Create the OpenGL texture
     glGenTextures(1, &img->texID);
     glBindTexture(GL_TEXTURE_2D, img->texID);
@@ -78,7 +77,44 @@ void graphics_Image_refresh(graphics_Image *img, image_ImageData const *data) {
     img->width = data->w;
     img->height = data->h;
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, data->w, data->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data->surface);
+	GLenum format;
+	GLint internalFormat;
+
+	switch (image_ImageData_getChannels((image_ImageData*)data)) //we do not change "data" so it's safe to cast it.
+	{
+
+		/*
+		 * Note:
+		 * When it comes to grey and grey + alpha
+		 * you might have to do something in the shaders
+		 * too in order to have them look good.
+		 * Idk because I haven't tested :P.
+		 */
+
+		case 1: //grey
+			format = GL_RED;
+			internalFormat = GL_RED;
+			break;
+		case 2: //grey + alpha
+			format = GL_RG;
+			internalFormat = GL_RG;
+			break;
+		case 3: //rgb
+			format = GL_RGB;
+			internalFormat = GL_RGB;
+			break;
+		case 4: // rgba
+			format = GL_RGBA;
+			internalFormat=GL_RGBA;
+			break;
+
+		default:
+			format = GL_RGBA;
+			internalFormat = GL_RGBA;
+			break;
+	}
+
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, data->w, data->h, 0, format, GL_UNSIGNED_BYTE, data->surface);
 }
 
 void graphics_Image_free(graphics_Image *obj) {
