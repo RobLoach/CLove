@@ -13,7 +13,7 @@
 #include "graphics_quad.h"
 #include "tools.h"
 
-#include <tgmath.h>
+//#include <tgmath.h>
 #include "graphics_batch.h"
 #include "graphics_quad.h"
 #include "graphics_image.h"

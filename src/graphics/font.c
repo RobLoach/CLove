@@ -12,7 +12,7 @@
 
 #define _POSIX_SOURCE
 #include <string.h>
-#include <tgmath.h>
+//#include <tgmath.h>
 #include <math.h>
 #include <stdlib.h>
 
