@@ -7,6 +7,7 @@
 #   under the terms of the MIT license. See LICENSE.md for details.
 */
 #include "vector.h"
+#include <math.h>
 
 void m4x4_scalexyz(mat4x4 *inout, float x, float y, float z) {
   for(int i = 0; i < 3; ++i) {
