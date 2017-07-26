@@ -30,6 +30,8 @@ system_PowerState system_getPowerInfo() {
 		state = "not_plugged_running_on_battery";
 	else if (power == SDL_POWERSTATE_NO_BATTERY)
 		state = "plugged_in_no_battery";
+	else
+		state = "unknown";
 
    	system_PowerState powerState = {
         state,
