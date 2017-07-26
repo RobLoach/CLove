@@ -8,7 +8,7 @@
 */
 
 #include "cmath.h"
-#include <tgmath.h>
+#include <math.h>
 
 /*
 * 2d vectors

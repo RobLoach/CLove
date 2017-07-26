@@ -8,7 +8,7 @@
 */
 #include <stdlib.h>
 #include "../math/util.h"
-#include <tgmath.h>
+#include <math.h>
 #include <stdlib.h>
 #include "geometry.h"
 #include "graphics.h"
