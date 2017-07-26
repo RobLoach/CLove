@@ -25,8 +25,30 @@ static int l_system_getPowerInfo(lua_State* state) {
   return 3;
 }
 
+static int l_system_getProcessorCount(lua_State* state)
+{
+	lua_pushinteger(state, system_getProcessorCount());
+	return 1;
+}
+
+static int l_system_getClipboardText(lua_State* state)
+{
+	lua_pushstring(state, system_getClipboardText());
+	return 1;
+}
+
+static int l_system_setClipboardText(lua_State* state)
+{
+	const char* text = l_tools_toStringOrError(state, 1);
+	system_setClipboardText(text);
+	return 0;
+}
+
 static luaL_Reg const regFuncs[] = {
   {"getOS", l_system_getOS},
+  {"setClipboardText", l_system_setClipboardText},
+  {"getClipboardText", l_system_getClipboardText},
+  {"getProcessorCount", l_system_getProcessorCount},
   {"getPowerInfo", l_system_getPowerInfo},
   {NULL,NULL}
 };

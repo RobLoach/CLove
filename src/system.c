@@ -11,8 +11,43 @@
 
 #include "3rdparty/SDL2/include/SDL.h"
 
+#include <stdlib.h>
+#include <string.h>
+
+static struct
+{
+	char* clipboardText;
+} moduleData;
+
 const char* system_getOS() {
     return SDL_GetPlatform();
+}
+
+int system_getProcessorCount()
+{
+	return SDL_GetCPUCount();
+}
+
+const char* system_getClipboardText()
+{
+	char* text = SDL_GetClipboardText(); //it's not null terminated
+
+	if (text)
+	{
+		moduleData.clipboardText = malloc(strlen(text) + 1);
+		strcpy(moduleData.clipboardText, text);
+		SDL_free(text);
+
+		return moduleData.clipboardText;
+	}
+
+	return "";
+}
+
+void system_setClipboardText(const char* text)
+{
+	moduleData.clipboardText = text;
+	SDL_SetClipboardText(text);
 }
 
 system_PowerState system_getPowerInfo() {
