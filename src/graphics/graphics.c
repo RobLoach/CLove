@@ -1,4 +1,4 @@
-﻿/*
+/*
 #   clove
 #
 #   Copyright (C) 2016-2017 Muresan Vlad
@@ -293,7 +293,7 @@ int graphics_setVsync(bool value) {
 
 int graphics_setBordless(bool value) {
     if (moduleData.hasWindow)
-        SDL_SetWindowBordered(moduleData.window, value);
+        SDL_SetWindowBordered(moduleData.window, (SDL_bool)value);
     return 1;
 }
 
@@ -376,7 +376,7 @@ int graphics_setMode(int width, int height,
 
     SDL_SetWindowMinimumSize(moduleData.window, min_size_x, min_size_y);
     SDL_SetWindowMaximumSize(moduleData.window, max_size_x, max_size_y);
-    SDL_SetWindowBordered(moduleData.window, border);
+    SDL_SetWindowBordered(moduleData.window, (SDL_bool)border);
     if(x != -1 || y != -1)
         SDL_SetWindowPosition(moduleData.window, x, y);
     else if( x == -1 && y == -1)
