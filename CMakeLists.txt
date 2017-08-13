@@ -174,8 +174,14 @@ add_subdirectory(src/3rdparty/freetype)
 set(FREETYPE_INCLUDE_DIR src/3rdparty/freetype/include)
 
 #openal
-add_subdirectory(src/3rdparty/openal)
-set(OPENAL_INCLUDE_DIR src/3rdparty/openal/include/)
+if (NOT APPLE)
+	add_subdirectory(src/3rdparty/openal)
+	set(OPENAL_INCLUDE_DIR src/3rdparty/openal/include/)
+endif()
+if(APPLE)
+	add_subdirectory(src/3rdparty/openal-soft)
+	set(OPENAL_INCLUDE_DIR src/3rdparty/openal-soft/include/)
+endif()
 
 #lua
 add_subdirectory(src/3rdparty/lua)

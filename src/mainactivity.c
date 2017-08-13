@@ -265,6 +265,11 @@ void main_activity_load(int argc, char* argv[]) {
     }
     l_running = 1;
 
+	image_ImageData* img = malloc(sizeof(image_ImageData));
+	image_ImageData_new_with_filename(img, "icon.png");
+	graphics_setIcon(img);
+	free(img);
+
     main_load(lua, argv, &config);
 
     love_Version const * version = love_getVersion();
