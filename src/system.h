@@ -14,5 +14,8 @@ typedef struct {
     int percent;
 } system_PowerState;
 
+const char* system_getClipboardText();
+void system_setClipboardText(const char* text);
+int system_getProcessorCount();
 const char* system_getOS();
 system_PowerState system_getPowerInfo();
