@@ -274,8 +274,6 @@ void main_activity_load(int argc, char* argv[]) {
 		graphics_setIcon(img);
 		free(img);
 	}
-	else
-		fclose(icon);
 
     main_load(lua, argv, &config);
 
