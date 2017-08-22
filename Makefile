@@ -121,7 +121,7 @@ OBJECTS := $(SOURCES_C:.c=.o) $(SOURCES_CXX:.cpp=.o)
 CFLAGS   += -Wall -D__LIBRETRO__ $(fpic)
 CXXFLAGS += -Wall -D__LIBRETRO__ $(fpic)
 
-all: $(TARGET)
+all: | src/3rdparty/freetype/config.mk $(TARGET)
 
 $(TARGET): $(OBJECTS)
 ifeq ($(STATIC_LINKING), 1)
@@ -131,12 +131,15 @@ else
 endif
 
 %.o: %.c
-	$(CXX) $(CXXFLAGS) $(fpic) $(DEFINES) $(INCLUDES) -c -o $@ $<
+	$(CC) $(CXXFLAGS) $(fpic) $(DEFINES) $(INCLUDES) -c -o $@ $<
 
 clean:
 	rm -f $(OBJECTS) $(TARGET)
 
 .PHONY: clean
+
+src/3rdparty/freetype/config.mk:
+	cd src/3rdparty/freetype && ./configure
 
 updatesources:
 	find . -name "*.c" \
