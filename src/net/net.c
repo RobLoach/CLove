@@ -275,7 +275,7 @@ const char* net_getConnectedIP_ipv4(struct sockaddr_in* dest) {
 }
 
 const char* net_getConnectedIP_ipv6(struct sockaddr_in6* dest) {
-    char* str = malloc(sizeof(char)*INET6_ADDRSTRLEN);
+    char* str = (char*)malloc(sizeof(char)*INET6_ADDRSTRLEN);
     inet_ntop(AF_INET6, &(dest->sin6_addr), str, INET6_ADDRSTRLEN);
     return str;
 }

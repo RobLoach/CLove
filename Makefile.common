@@ -1,0 +1,32 @@
+include Makefile.libretro.sources
+
+SOURCES_CXX :=
+
+INCLUDES += \
+	-I$(CORE_DIR)/src/3rdparty/CMath \
+	-I$(CORE_DIR)/src/3rdparty/SDL2/include \
+	-I$(CORE_DIR)/src/3rdparty/freetype/include \
+	-I$(CORE_DIR)/src/3rdparty/freetype/builds/unix \
+	-I$(CORE_DIR)/src/3rdparty/glew/include \
+	-I$(CORE_DIR)/src/3rdparty/lua \
+	-I$(CORE_DIR)/src/3rdparty/chipmunk/include \
+	-I$(CORE_DIR)/src/3rdparty/microtar \
+	-I$(CORE_DIR)/src/3rdparty/noise \
+	-I$(CORE_DIR)/src/3rdparty/openal/include \
+	-I$(CORE_DIR)/src/3rdparty/openal-soft/include \
+	-I$(CORE_DIR)/src/3rdparty/physfs \
+	-I$(CORE_DIR)/src/3rdparty/slre \
+	-I$(CORE_DIR)/src/3rdparty/stb \
+	-I$(CORE_DIR)/src/3rdparty/zlib \
+	-I$(CORE_DIR)/src/3rdparty/openal/OpenAL32/Include \
+	-I$(CORE_DIR)/src/3rdparty/openal/Alc \
+	-I$(CORE_DIR)/src/libretro
+
+DEFINES += -DUSE_PHYSFS \
+	-DAL_LIBTYPE_STATIC \
+	-DGLEW_STATIC \
+	-DFT2_BUILD_LIBRARY \
+	-DSDL2_STATIC \
+	-Dz_size_t=uint \
+	-DALSOFT_DLOPEN \
+	-fallow-parameterless-variadic-functions
